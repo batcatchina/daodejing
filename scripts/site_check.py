@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 """
 站点健康检查（供 GitHub Actions 使用）
-校验线上是否为炼化炉 v2：首页、静态资源、数据接口、三维、金丹字
+校验线上是否为炼化炉 v2：首页、藏丹阁二级页、静态资源、数据接口、三维、金丹字
 """
 import json
 import sys
 import urllib.request
 
 BASE = "https://daodejing.zheng-he.top"
-ASSETS = ["furnace.js", "app.js", "style.css", "data/index.json"]
+ASSETS = ["furnace.js", "app.js", "vault.js", "style.css", "data/index.json"]
 
 
 def get(path, raw=False, timeout=25):
@@ -33,22 +33,66 @@ def main():
             print(f"  ✗ {a}  失败：{e}")
             failed.append(a)
 
-    # 2. 首页
-    print("\n── 首页 ──")
+    # 2. 首页（炼化炉）
+    print("\n── 首页 · 炼化炉 ──")
     try:
         html = get("")
         title = html.split("<title>")[1].split("</title>")[0] if "<title>" in html else "无"
         print(f"  标题：{title}")
         print(f"  体积：{len(html)} bytes")
         for token, label in [("炼化炉", "炉名"), ("开 炉 炼 化", "炼化按钮"),
-                             ("投 料 入 炉", "炉口"), ("藏 丹 阁", "藏丹阁")]:
+                             ("投 料 入 炉", "炉口"), ("gateways", "入口区")]:
             ok = token in html
+            print(f"  {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(label)
+
+        # 首页应只留入口，不再内嵌藏丹阁网格
+        if 'id="grid"' in html:
+            print("  ✗ 首页仍内嵌藏丹阁网格（应拆为二级页）")
+            failed.append("首页未拆分")
+        else:
+            print("  ✓ 首页已收敛（藏丹阁已拆至二级页）")
+
+        for cls, label in [("done-gate", "已炼化入口"),
+                           ("raw-gate", "未炼化入口"),
+                           ("all-gate", "全部入口")]:
+            ok = cls in html
             print(f"  {'✓' if ok else '✗'} {label}")
             if not ok:
                 failed.append(label)
     except Exception as e:  # noqa: BLE001
         print(f"  ✗ 首页失败：{e}")
         failed.append("首页")
+
+    # 2b. 藏丹阁（二级页）
+    print("\n── 藏丹阁 · 二级页 ──")
+    try:
+        vh = get("vault.html")
+        vtitle = vh.split("<title>")[1].split("</title>")[0] if "<title>" in vh else "无"
+        print(f"  标题：{vtitle}")
+        print(f"  体积：{len(vh)} bytes")
+        for token, label in [("藏 丹 阁", "阁名"), ('id="tabs"', "分栏签"),
+                             ('data-status="refined"', "已炼化签"),
+                             ('data-status="pending"', "未炼化签"),
+                             ('id="search"', "检索框"),
+                             ('class="back"', "返回炉")]:
+            ok = token in vh
+            print(f"  {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"藏丹阁/{label}")
+
+        # 二级页直达参数
+        for st, label in [("refined", "?status=refined"), ("pending", "?status=pending")]:
+            try:
+                get(f"vault.html?status={st}", raw=True)
+                print(f"  ✓ {label} 可访问")
+            except Exception as e:  # noqa: BLE001
+                print(f"  ✗ {label} 失败：{e}")
+                failed.append(label)
+    except Exception as e:  # noqa: BLE001
+        print(f"  ✗ 藏丹阁失败：{e}")
+        failed.append("藏丹阁")
 
     # 3. 数据
     print("\n── 数据 ──")
@@ -83,7 +127,7 @@ def main():
     if failed:
         print(f"[x] 检查未通过，异常项：{failed}")
         sys.exit(1)
-    print("[✓] 全部通过 —— 炼化炉 v2 已上线")
+    print("[✓] 全部通过 —— 炼化炉 v2 + 藏丹阁二级页 已上线")
 
 
 if __name__ == "__main__":

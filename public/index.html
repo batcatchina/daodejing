@@ -59,23 +59,39 @@
   <!-- ============ 金丹 ============ -->
   <section class="dan-result" id="danResult" hidden></section>
 
-  <!-- ============ 藏丹阁 ============ -->
-  <section class="vault">
-    <div class="vault-head">
-      <h2>藏 丹 阁</h2>
-      <div class="progress-wrap">
-        <div class="progress-bar"><span id="pbar"></span></div>
-        <p class="progress-text"><span id="ptext">加载中</span></p>
+  <!-- ============ 藏丹阁入口 ============ -->
+  <section class="gateways">
+
+    <a class="gateway done-gate" href="./vault.html?status=refined">
+      <div class="gw-top">
+        <span class="gw-label">已 炼 化</span>
+        <span class="gw-count"><b id="cntDone">5</b> 章</span>
       </div>
-    </div>
+      <div class="gw-words" id="gwWords">玄 · 水 · 无 · 法 · 慎</div>
+      <div class="gw-desc">金丹已成，可览一字、一句、本意引申与三维</div>
+      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+    </a>
 
-    <div class="toolbar">
-      <input type="text" id="search" placeholder="检索章节、章句或金丹字，如：水 / 无为 / 知足" autocomplete="off">
-      <div class="filters" id="filters"></div>
-    </div>
+    <a class="gateway raw-gate" href="./vault.html?status=pending">
+      <div class="gw-top">
+        <span class="gw-label">未 炼 化</span>
+        <span class="gw-count"><b id="cntTodo">76</b> 章</span>
+      </div>
+      <div class="gw-words gw-words-plain">原文已就位，待引章句投入炉中</div>
+      <div class="gw-desc">可先诵读，或以火候试炼，知其深浅</div>
+      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+    </a>
 
-    <main id="grid" class="grid"></main>
-    <p id="empty" class="empty" hidden>没有匹配的章节，换个词试试。</p>
+    <a class="gateway all-gate" href="./vault.html">
+      <div class="gw-top">
+        <span class="gw-label">全 部 八 十 一 章</span>
+        <span class="gw-count"><b>81</b> 章</span>
+      </div>
+      <div class="gw-words gw-words-plain">检索 · 筛选 · 总览</div>
+      <div class="gw-desc">按主题分类查看，或以字句反查章节</div>
+      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+    </a>
+
   </section>
 
   <footer class="foot">

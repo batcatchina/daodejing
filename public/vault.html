@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>藏丹阁 · 道德经炼化炉</title>
+<meta name="description" content="道德经八十一章：已炼化金丹与待炼原文，可检索、筛选、总览">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div class="paper">
+
+  <!-- ============ 抬头 ============ -->
+  <header class="masthead masthead-sm">
+    <a class="back" href="./">← 回 炼 化 炉</a>
+    <div class="seal seal-sm">丹</div>
+    <h1>藏 丹 阁</h1>
+    <p class="sub sub-sm" id="vaultSub">八十 一 章</p>
+
+    <div class="progress-wrap">
+      <div class="progress-bar"><span id="pbar"></span></div>
+      <p class="progress-text"><span id="ptext">加载中</span></p>
+    </div>
+  </header>
+
+  <!-- ============ 分栏签 ============ -->
+  <nav class="tabs" id="tabs">
+    <button class="tab on" data-status="all">
+      全部 <span class="tab-n">81</span>
+    </button>
+    <button class="tab" data-status="refined">
+      已炼化 <span class="tab-n" id="tabDone">5</span>
+    </button>
+    <button class="tab" data-status="pending">
+      未炼化 <span class="tab-n" id="tabTodo">76</span>
+    </button>
+  </nav>
+
+  <!-- ============ 检索 ============ -->
+  <div class="toolbar">
+    <input type="text" id="search" placeholder="检索章节、章句或金丹字，如：水 / 无为 / 知足" autocomplete="off">
+    <div class="filters" id="filters"></div>
+  </div>
+
+  <main id="grid" class="grid"></main>
+  <p id="empty" class="empty" hidden>没有匹配的章节，换个词试试。</p>
+
+  <footer class="foot">
+    <p>投料 · 试火 · 结丹 · 藏阁</p>
+    <p class="foot-minor">本意 · 引申义 · 人生自主 · 健康养生 · 自然宇宙</p>
+  </footer>
+
+</div>
+
+<!-- ============ 章节详情 ============ -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-bg" data-close></div>
+  <article class="sheet">
+    <button class="close" data-close aria-label="关闭">×</button>
+    <div id="detail"></div>
+  </article>
+</div>
+
+<script src="./furnace.js"></script>
+<script src="./vault.js"></script>
+</body>
+</html>

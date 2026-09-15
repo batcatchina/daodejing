@@ -1,6 +1,6 @@
-/* 道德经 · 炼化炉 —— 前端主逻辑 */
+/* 道德经 · 炼化炉 —— 首页逻辑（炼化 + 入口） */
 
-const state = { data: null, keyword: '', theme: '全部', lastDan: null };
+const state = { data: null };
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g,
@@ -36,65 +36,36 @@ async function load() {
   const res = await fetch('./data/index.json');
   state.data = await res.json();
   FURNACE.buildIndex(state.data.chapters);
-  renderProgress();
-  renderFilters();
-  render();
+  renderGateways();
+
+  // 带 ?ch=N 时自动投料
+  const ch = new URLSearchParams(location.search).get('ch');
+  if (ch) {
+    const c = state.data.chapters.find((x) => x.id === Number(ch));
+    if (c) {
+      $('#charge').value = c.original;
+      setTimeout(forge, 300);
+    }
+  }
 }
 
-function renderProgress() {
-  const { refined, total } = state.data;
-  $('#pbar').style.width = (total ? (refined / total) * 100 : 0) + '%';
-  $('#ptext').textContent = `已结丹 ${refined} / ${total} 章`;
-}
+/* ---------- 入口卡片 ---------- */
+function renderGateways() {
+  const chs = state.data.chapters;
+  const done = chs.filter((c) => c.status === 'refined');
+  const todo = chs.filter((c) => c.status !== 'refined');
 
-function renderFilters() {
-  const themes = new Set();
-  state.data.chapters.forEach((c) => (c.themes || []).forEach((t) => themes.add(t)));
-  const list = ['全部', '已结丹', ...themes];
-  $('#filters').innerHTML = list
-    .map((t) => `<button class="chip${t === state.theme ? ' on' : ''}" data-theme="${esc(t)}">${esc(t)}</button>`)
-    .join('');
-  $('#filters').querySelectorAll('.chip').forEach((b) =>
-    b.addEventListener('click', () => { state.theme = b.dataset.theme; renderFilters(); render(); })
-  );
-}
+  $('#cntDone').textContent = done.length;
+  $('#cntTodo').textContent = todo.length;
 
-function match(c) {
-  const k = state.keyword.trim();
-  if (state.theme === '已结丹' && c.status !== 'refined') return false;
-  if (state.theme !== '全部' && state.theme !== '已结丹' && !(c.themes || []).includes(state.theme)) return false;
-  if (!k) return true;
-  const hay = [c.title, c.original, c.danzi, c.danjue,
-               (c.keywords || []).join(''), (c.themes || []).join('')].join(' ');
-  return hay.includes(k);
-}
-
-function render() {
-  const list = state.data.chapters.filter(match);
-  $('#empty').hidden = list.length > 0;
-  $('#grid').innerHTML = list.map(card).join('');
-  $('#grid').querySelectorAll('.card').forEach((el) =>
-    el.addEventListener('click', () => open(Number(el.dataset.id)))
-  );
-}
-
-function card(c) {
-  const done = c.status === 'refined';
-  return `<div class="card${done ? ' done' : ' raw'}" data-id="${c.id}">
-    <div class="num">
-      <span>第 ${c.id} 章</span>
-      ${done ? `<span class="dz">${esc(c.danzi)}</span>` : ''}
-      <span class="dot"></span>
-    </div>
-    <div class="title">${esc(c.title)}</div>
-    <div class="excerpt">${esc(c.original)}</div>
-    ${done && c.danjue ? `<div class="jue">${esc(c.danjue)}</div>` : ''}
-    <div class="tags">${(c.themes || []).slice(0, 2).map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
-  </div>`;
+  const words = done.map((c) => c.danzi).filter(Boolean);
+  $('#gwWords').textContent = words.length
+    ? words.join(' · ')
+    : '尚无金丹，可入炉试炼';
 }
 
 /* ============================================================
-   炼化炉
+   炼化
    ============================================================ */
 function forge() {
   const text = $('#charge').value.trim();
@@ -131,12 +102,11 @@ function forge() {
     $('#flame').classList.remove('on');
     btn.disabled = false;
     btn.innerHTML = '<span class="btn-flame"></span>开 炉 炼 化';
-    showDan(pickChapter(r.chapters), text, r);
+    showDan(pickChapter(r.chapters), r);
     $('#danResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 1100);
 }
 
-/** 从所扣章节中挑一颗丹——优先已结丹的 */
 function pickChapter(chaps) {
   if (!chaps || !chaps.length) return null;
   const refined = chaps.filter((id) => state.data.detail[String(id)]);
@@ -144,14 +114,21 @@ function pickChapter(chaps) {
   return state.data.chapters.find((c) => c.id === pool[0]) || null;
 }
 
-function showDan(chap, input, r) {
+function dimsOf() {
+  return state.data.dimensions || [
+    { key: 'rensheng', name: '人生·自主', en: 'SHENG' },
+    { key: 'jiankang', name: '健康·养生', en: 'YANG' },
+    { key: 'yuzhou',   name: '自然·宇宙', en: 'ZHOU' },
+  ];
+}
+
+function showDan(chap, r) {
   const box = $('#danResult');
   box.hidden = false;
 
   if (!chap) { showDeny(r); return; }
 
   const d = state.data.detail[String(chap.id)];
-  state.lastDan = chap.id;
 
   if (!d) {
     box.innerHTML = `
@@ -162,9 +139,10 @@ function showDan(chap, input, r) {
         <div style="margin-top:1.2rem;font-size:.92rem;line-height:2.05;color:var(--ink-2);text-align:justify">
           ${esc(chap.original)}
         </div>
-        <p style="margin-top:1.2rem"><span class="dan-link" data-open="${chap.id}">观其章目 →</span></p>
+        <p style="margin-top:1.3rem">
+          <a class="dan-link" href="./vault.html?status=pending">入 藏 丹 阁 观 其 章 目 →</a>
+        </p>
       </div>`;
-    bindDanLinks();
     return;
   }
 
@@ -202,18 +180,9 @@ function showDan(chap, input, r) {
 
       <div class="dan-foot">
         <span>火候：${esc((d.ferocity && d.ferocity.level) || '—')}</span>
-        <span class="dan-link" data-open="${chap.id}">展开全章 →</span>
+        <a class="dan-link" href="./vault.html?status=refined">入 藏 丹 阁 览 其 全 章 →</a>
       </div>
     </div>`;
-  bindDanLinks();
-}
-
-function dimsOf() {
-  return state.data.dimensions || [
-    { key: 'rensheng', name: '人生·自主', en: 'SHENG' },
-    { key: 'jiankang', name: '健康·养生', en: 'YANG' },
-    { key: 'yuzhou',   name: '自然·宇宙', en: 'ZHOU' },
-  ];
 }
 
 function showDeny(r) {
@@ -226,16 +195,13 @@ function showDeny(r) {
       <p>${esc(r.verdict)}</p>
       <p style="margin-top:.9rem">请引原文章句，或就此章之义理申说。<br>
       金丹须有根——无原文之根者，炉火再旺亦炼不出。</p>
-      <p style="margin-top:1.1rem"><span class="dan-link" data-sample="1">试一枚样例 →</span></p>
+      <p style="margin-top:1.3rem">
+        <a class="dan-link" href="./vault.html">往 藏 丹 阁 寻 章 句 →</a>
+        <span style="margin:0 .8rem;color:var(--line)">｜</span>
+        <span class="dan-link" data-sample="1">试 一 枚 样 例 →</span>
+      </p>
     </div>`;
-  bindDanLinks();
-}
-
-function bindDanLinks() {
-  $('#danResult').querySelectorAll('[data-open]').forEach((el) =>
-    el.addEventListener('click', () => open(Number(el.dataset.open)))
-  );
-  const s = $('#danResult').querySelector('[data-sample]');
+  const s = box.querySelector('[data-sample]');
   if (s) s.addEventListener('click', () => {
     $('#charge').value = '上善若水，水善利万物而不争，处众人之所恶，故几于道。';
     $('#charge').focus();
@@ -243,66 +209,7 @@ function bindDanLinks() {
   });
 }
 
-/* ============================================================
-   详情弹窗
-   ============================================================ */
-function open(id) {
-  const c = state.data.chapters.find((x) => x.id === id);
-  if (!c) return;
-  const d = state.data.detail[String(id)];
-  const dims = dimsOf();
-
-  let content;
-  if (!d) {
-    content = `<div class="pending">
-      本章尚未结丹。<br>
-      引其章句投入炉中试火，或导入课程文字稿与视频转写，即可炼出「一字 / 一句 / 本意引申 / 三维」。
-      <br><br>原文已就位，可先诵读。
-    </div>`;
-  } else {
-    content =
-      `<section class="sec"><h3>丹诀 <em>DANJUE</em></h3><div class="body"><p>「${esc(d.danjue)}」</p></div></section>` +
-      `<section class="sec"><h3>本意 <em>BENYI</em></h3><div class="body">${md(d.benyi)}</div></section>` +
-      `<section class="sec"><h3>引申义 <em>YINSHEN</em></h3><div class="body">${md(d.yinshen)}</div></section>` +
-      dims.map((dim) => `
-        <section class="sec">
-          <h3>${esc(dim.name)} <em>${esc(dim.en)}</em></h3>
-          <div class="body">${md((d.wei || {})[dim.key] || '')}</div>
-        </section>`).join('');
-  }
-
-  $('#detail').innerHTML = `
-    <div class="d-head">
-      <div class="d-num">第 ${c.id} 章</div>
-      ${d ? `<div class="d-danzi">${esc(d.danzi)}</div>` : ''}
-      <h2 class="d-title">${esc(c.title)}</h2>
-      <div class="d-original">${esc(c.original)}</div>
-      <div class="d-tags">${(c.themes || []).map((t) => `<span>${esc(t)}</span>`).join('')}</div>
-    </div>
-    ${content}
-    <div class="d-foot">道德经 · 炼化炉 —— 一字 / 一句 / 本意引申 / 三维</div>`;
-
-  $('#modal').hidden = false;
-  document.body.style.overflow = 'hidden';
-}
-
-function close() {
-  $('#modal').hidden = true;
-  document.body.style.overflow = '';
-}
-
-/* ============================================================
-   事件
-   ============================================================ */
-document.addEventListener('click', (e) => {
-  if (e.target.dataset.close !== undefined) close();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') close();
-  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' &&
-      document.activeElement === $('#charge')) forge();
-});
-
+/* ---------- 事件 ---------- */
 $('#forgeBtn').addEventListener('click', forge);
 $('#clearBtn').addEventListener('click', () => {
   $('#charge').value = '';
@@ -318,10 +225,9 @@ document.querySelectorAll('.sample').forEach((b) =>
   })
 );
 
-let timer;
-$('#search').addEventListener('input', (e) => {
-  clearTimeout(timer);
-  timer = setTimeout(() => { state.keyword = e.target.value; render(); }, 180);
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' &&
+      document.activeElement === $('#charge')) forge();
 });
 
 load();
