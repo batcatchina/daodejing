@@ -88,15 +88,25 @@ esac
 
 `topics` 必须是小写字母或数字开头，中文主题写进 **description**，同样能在仓库首页一眼看到。
 
-### 自定义域名
+### 自定义域名（已配置完成）
 
-`zheng-he.top` 的 DNS 在**阿里云万网**（NS: `dns15.hichina.com`），不由 Vercel 托管，故子域名需手动加解析：
+**https://daodejing.zheng-he.top**
 
-| 类型 | 主机记录 | 记录值 |
-|---|---|---|
-| CNAME | `daodejing` | `cname.vercel-dns.com` |
+`zheng-he.top` 的 DNS 在**阿里云万网**（NS: `dns15.hichina.com`），不由 Vercel 托管，需手动加解析：
 
-Vercel 侧已绑定并 `verified=true`，DNS 生效后即自动签发 HTTPS 证书。
+| 类型 | 主机记录 | 记录值 | 状态 |
+|---|---|---|---|
+| CNAME | `daodejing` | `cname.vercel-dns.com` | ✅ 已生效 |
+
+验证结果：
+
+```
+CNAME: daodejing.zheng-he.top -> cname.vercel-dns.com
+A记录: 76.76.21.61 / 66.33.60.130   （Vercel CDN）
+```
+
+> 注：沙箱到 Vercel CDN 的 IP 段整体不可达，只能从 Vercel 侧确认（`verified=true` + 绑定最新 deployment）。
+> 实际访问请在本地浏览器打开验证。
 
 ---
 
