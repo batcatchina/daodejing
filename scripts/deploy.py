@@ -65,7 +65,9 @@ def collect_files():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--alias", default="daodejing")
+    # 注意：daodejing.zheng-he.top 绑在项目 daodejing-lianhua 上，
+    # 若部署到同名项目 daodejing 会导致「推了但线上没变」。
+    ap.add_argument("--alias", default="daodejing-lianhua")
     ap.add_argument("--domain", default=None, help="自定义域名，如 dao.example.com")
     ap.add_argument("--team", default=None)
     args = ap.parse_args()
