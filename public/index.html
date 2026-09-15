@@ -20,11 +20,208 @@
 
   <!-- ============ 炼化炉 ============ -->
   <section class="furnace" id="furnace">
-    <div class="furnace-body">
 
-      <div class="flame" id="flame">
-        <span class="f1"></span><span class="f2"></span><span class="f3"></span>
-      </div>
+    <!-- ── 炉火（自炉口袅袅而起） ── -->
+    <div class="fire" id="fire" aria-hidden="true">
+      <span class="fl f1"></span><span class="fl f2"></span><span class="fl f3"></span>
+      <span class="fl f4"></span><span class="fl f5"></span>
+    </div>
+
+    <!-- ── 丹炉本体（SVG） ── -->
+    <div class="cauldron" id="cauldron">
+      <svg class="cauldron-svg" viewBox="0 0 320 316" role="img" aria-label="太极八卦炼丹炉">
+        <defs>
+          <!-- 青铜：左上冷高光 → 右下暖沉 -->
+          <linearGradient id="bronze" x1="16%" y1="4%" x2="88%" y2="100%">
+            <stop offset="0%"   stop-color="#9d8459"/>
+            <stop offset="20%"  stop-color="#c3ac7c"/>
+            <stop offset="46%"  stop-color="#a8905f"/>
+            <stop offset="72%"  stop-color="#7c663c"/>
+            <stop offset="100%" stop-color="#554325"/>
+          </linearGradient>
+          <!-- 赤金：耳、足、纽 -->
+          <linearGradient id="gilt" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#e2c078"/>
+            <stop offset="45%"  stop-color="#b18d46"/>
+            <stop offset="100%" stop-color="#71531f"/>
+          </linearGradient>
+          <!-- 炉腹体积 -->
+          <radialGradient id="belly" cx="36%" cy="24%" r="86%">
+            <stop offset="0%"   stop-color="#d3c093"/>
+            <stop offset="34%"  stop-color="#ab9263"/>
+            <stop offset="74%"  stop-color="#6f5b37"/>
+            <stop offset="100%" stop-color="#42331c"/>
+          </radialGradient>
+          <!-- 炉口深渊 -->
+          <radialGradient id="abyss" cx="50%" cy="48%" r="62%">
+            <stop offset="0%"   stop-color="#241a0d"/>
+            <stop offset="60%"  stop-color="#120c06"/>
+            <stop offset="100%" stop-color="#080503"/>
+          </radialGradient>
+          <!-- 炉膛余烬 -->
+          <radialGradient id="ember" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stop-color="#ffe6a6" stop-opacity="1"/>
+            <stop offset="38%"  stop-color="#f0a13c" stop-opacity=".72"/>
+            <stop offset="100%" stop-color="#b0431a" stop-opacity="0"/>
+          </radialGradient>
+          <!-- 丹纹金线 -->
+          <linearGradient id="danline2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"   stop-color="#f0dfae"/>
+            <stop offset="55%"  stop-color="#c9a75f"/>
+            <stop offset="100%" stop-color="#8a6a2c"/>
+          </linearGradient>
+          <!-- 口沿金属环 -->
+          <linearGradient id="rimG" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="#6f5a30"/>
+            <stop offset="18%"  stop-color="#e3cd93"/>
+            <stop offset="46%"  stop-color="#a98f57"/>
+            <stop offset="74%"  stop-color="#dcc287"/>
+            <stop offset="100%" stop-color="#63502a"/>
+          </linearGradient>
+          <filter id="soft" x="-35%" y="-35%" width="170%" height="170%">
+            <feGaussianBlur stdDeviation="3.4"/>
+          </filter>
+          <filter id="soft2" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="1.5"/>
+          </filter>
+        </defs>
+
+        <!-- 地面投影（炉足之下） -->
+        <ellipse class="ground" cx="160" cy="290" rx="78" ry="9"/>
+
+        <!-- ══════ 三足（粗壮矮足，鼎式） ══════ -->
+        <g class="legs">
+          <!-- 左足 -->
+          <path d="M100 226 C94 242 89 258 87 271 C85 282 92 288 103 288 L117 288
+                   C126 288 129 282 126 271 C122 256 122 242 126 226 Z" fill="url(#gilt)"/>
+          <path d="M90 279 h32 l-5 9 h-24 z" fill="#5d4320" opacity=".4"/>
+          <!-- 右足 -->
+          <path d="M220 226 C226 242 231 258 233 271 C235 282 228 288 217 288 L203 288
+                   C194 288 191 282 194 271 C198 256 198 242 194 226 Z" fill="url(#gilt)"/>
+          <path d="M198 279 h32 l-5 9 h-24 z" fill="#5d4320" opacity=".4"/>
+          <!-- 中足（略短，营造进深） -->
+          <path d="M152 240 C150 253 149 266 149 276 C149 283 153 287 160 287
+                   C167 287 171 283 171 276 C171 266 170 253 168 240 Z" fill="url(#gilt)"/>
+          <path d="M147 278 h26 l-4 8 h-18 z" fill="#4a3a22" opacity=".4"/>
+        </g>
+
+        <!-- ══════ 炉腹（圆鼎：腹深而不扁） ══════ -->
+        <path class="belly-shape"
+              d="M62 150 C62 112 96 86 160 86 C224 86 258 112 258 150
+                 C258 196 220 242 160 242 C100 242 62 196 62 150 Z"
+              fill="url(#belly)"/>
+        <!-- 下缘压暗 -->
+        <path d="M62 150 C62 196 100 242 160 242 C220 242 258 196 258 150
+                 C248 204 208 232 160 232 C112 232 72 204 62 150 Z"
+              fill="#332615" opacity=".42" filter="url(#soft)"/>
+        <!-- 左上高光 -->
+        <ellipse cx="110" cy="124" rx="28" ry="19" fill="#f0e3bd" opacity=".28"
+                 filter="url(#soft)" transform="rotate(-22 110 124)"/>
+        <!-- 右缘反光（青铜器特征） -->
+        <path d="M252 138 C252 174 236 206 210 224" stroke="#e3cd93" stroke-width="2.4"
+              fill="none" opacity=".22" filter="url(#soft2)"/>
+
+        <!-- 腹部弦纹（一道，古鼎标志） -->
+        <g fill="none" stroke="#5d4a2c" stroke-width="1.1" opacity=".28">
+          <path d="M70 186 C104 200 216 200 250 186"/>
+        </g>
+
+        <!-- 云雷丹纹：腹侧一对，居中留白给太极盘 -->
+        <g class="danwen" fill="none" stroke="url(#danline2)" stroke-width="1.6"
+           stroke-linecap="round" opacity=".78">
+          <path d="M80 150 c9-10 19-10 24 0 c-7-3-12-1-12 6 c0 6 7 8 11 3"/>
+          <path d="M240 150 c-9-10-19-10-24 0 c7-3 12-1 12 6 c0 6-7 8-11 3"/>
+          <path d="M100 196 c6-7 13-7 17 0 c-5-2-9 0-9 4 c0 4 5 5 8 2"/>
+          <path d="M220 196 c-6-7-13-7-17 0 c5-2 9 0 9 4 c0 4-5 5-8 2"/>
+        </g>
+        <!-- 竖棱 -->
+        <g stroke="#5d4a2c" stroke-width="1" opacity=".2" fill="none">
+          <path d="M94 112 C85 144 85 190 97 220"/>
+          <path d="M226 112 C235 144 235 190 223 220"/>
+        </g>
+
+        <!-- 腹心太极八卦盘 -->
+        <g class="bagua" transform="translate(160,162)" opacity=".92">
+          <circle r="31" fill="#3f3018" opacity=".26"/>
+          <circle r="31" fill="none" stroke="url(#danline2)" stroke-width=".9" opacity=".5"/>
+          <g stroke="url(#danline2)" stroke-width="1.5" fill="none" opacity=".85">
+            <!-- 乾三连（上） -->
+            <path d="M-10 -35.5 h20 M-10 -40 h20 M-10 -44.5 h20"/>
+            <!-- 坤六断（下） -->
+            <path d="M-10 35.5 h20 M-10 40 h20 M-10 44.5 h20" stroke-dasharray="8 4"/>
+            <!-- 离中虚（左） -->
+            <path d="M-41.5 -10 v20 M-46 -10 v20 M-50.5 -10 v20" stroke-dasharray="8 4"/>
+            <!-- 坎中满（右） -->
+            <path d="M41.5 -10 v20 M46 -10 v20 M50.5 -10 v20"/>
+          </g>
+          <g class="taiji">
+            <circle r="19.5" fill="#241a0d" opacity=".5"/>
+            <path d="M0 -19.5 A19.5 19.5 0 0 1 0 19.5 A9.75 9.75 0 0 1 0 0 A9.75 9.75 0 0 0 0 -19.5 Z"
+                  fill="url(#danline2)"/>
+            <circle cx="0" cy="-9.75" r="3.3" fill="#241a0d" opacity=".82"/>
+            <circle cx="0" cy="9.75" r="3.3" fill="url(#danline2)"/>
+          </g>
+        </g>
+
+        <!-- ══════ 炉颈 ══════ -->
+        <path class="neck" d="M112 92 C112 82 116 76 126 76 L194 76 C204 76 208 82 208 92 Z"
+              fill="url(#bronze)"/>
+        <!-- 颈上弦纹 -->
+        <path d="M114 86 C132 82 188 82 206 86" fill="none" stroke="#5d4a2c"
+              stroke-width="1" opacity=".32"/>
+
+        <!-- ══════ 炉口 ══════ -->
+        <ellipse class="rim-outer" cx="160" cy="76" rx="50" ry="13.5" fill="url(#rimG)"/>
+        <ellipse class="rim-inner" cx="160" cy="75" rx="42" ry="10.5" fill="url(#abyss)"/>
+        <ellipse class="ember" id="ember" cx="160" cy="75.5" rx="35" ry="8"
+                 fill="url(#ember)" opacity=".5"/>
+
+        <!-- ══════ 双耳（立于口沿） ══════ -->
+        <g class="ears" fill="none" stroke="url(#gilt)" stroke-width="6" stroke-linecap="round">
+          <path d="M118 80 C102 72 88 78 87 92 C86 105 94 112 106 110"/>
+          <path d="M202 80 C218 72 232 78 233 92 C234 105 226 112 214 110"/>
+        </g>
+        <g class="ears-hl" fill="none" stroke="#f0e3bd" stroke-width="1.5"
+           stroke-linecap="round" opacity=".5">
+          <path d="M119 77 C104 69 91 75 90 89"/>
+          <path d="M201 77 C216 69 229 75 230 89"/>
+        </g>
+
+        <!-- ══════ 炉盖（扣在口沿之内） ══════ -->
+        <g class="lid">
+          <!-- 盖身：坐于 76 口沿，收成覆碗 -->
+          <path d="M120 74 C124 50 140 38 160 38 C180 38 196 50 200 74 Z"
+                fill="url(#bronze)"/>
+          <!-- 盖身高光 -->
+          <path d="M120 74 C124 50 140 38 160 38 C180 38 196 50 200 74
+                   C192 58 178 49 160 49 C142 49 128 58 120 74 Z"
+                fill="#f0e3bd" opacity=".2"/>
+          <!-- 盖面放射棱 -->
+          <g stroke="#5d4a2c" stroke-width=".9" opacity=".28" fill="none">
+            <path d="M160 40 V71"/>
+            <path d="M142 44 L150 72"/>
+            <path d="M178 44 L170 72"/>
+            <path d="M129 54 L144 73"/>
+            <path d="M191 54 L176 73"/>
+          </g>
+          <!-- 盖顶宝珠（真金丹） -->
+          <path d="M152 38 C152 31 155 27 160 27 C165 27 168 31 168 38 Z" fill="url(#gilt)"/>
+          <circle cx="160" cy="23" r="6.6" fill="url(#gilt)"/>
+          <circle cx="157.6" cy="21.2" r="2.2" fill="#f7efd4" opacity=".8"/>
+        </g>
+
+        <!-- ══════ 炉肩云气 ══════ -->
+        <g class="clouds" fill="none" stroke="url(#danline2)" stroke-width="1.3" opacity=".45">
+          <path d="M124 100 c4-5 10-5 13 0 c3-5 9-5 12 0"/>
+          <path d="M171 100 c4-5 10-5 13 0 c3-5 9-5 12 0"/>
+        </g>
+      </svg>
+
+      <!-- 炉火外溢暖光 -->
+      <div class="glow" aria-hidden="true"></div>
+    </div>
+
+    <div class="furnace-body">
 
       <div class="furnace-head">
         <h2><span class="fx">炼</span> 投 料 入 炉</h2>

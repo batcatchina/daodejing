@@ -94,12 +94,10 @@ function forge() {
   btn.disabled = true;
   btn.innerHTML = '<span class="btn-flame"></span>炼 化 中';
   furnace.classList.add('forging');
-  $('#flame').classList.add('on');
   $('#danResult').hidden = true;
 
   setTimeout(() => {
     furnace.classList.remove('forging');
-    $('#flame').classList.remove('on');
     btn.disabled = false;
     btn.innerHTML = '<span class="btn-flame"></span>开 炉 炼 化';
     showDan(pickChapter(r.chapters), r);

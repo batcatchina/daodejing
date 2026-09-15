@@ -41,7 +41,10 @@ def main():
         print(f"  标题：{title}")
         print(f"  体积：{len(html)} bytes")
         for token, label in [("炼化炉", "炉名"), ("开 炉 炼 化", "炼化按钮"),
-                             ("投 料 入 炉", "炉口"), ("gateways", "入口区")]:
+                             ("投 料 入 炉", "炉口"), ("gateways", "入口区"),
+                             ('aria-label="太极八卦炼丹炉"', "丹炉器型"),
+                             ("taiji", "太极"), ("bagua", "八卦"),
+                             ("class=\"fire\"", "炉火")]:
             ok = token in html
             print(f"  {'✓' if ok else '✗'} {label}")
             if not ok:
