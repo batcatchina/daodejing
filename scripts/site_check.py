@@ -10,7 +10,7 @@ import urllib.request
 
 BASE = "https://daodejing.zheng-he.top"
 ASSETS = ["spirits.js", "furnace.js", "ask.js", "ask-page.js", "ingest.js", "app.js",
-          "vault.js", "style.css", "data/index.json"]
+          "vault.js", "style.css", "favicon.svg", "data/index.json"]
 
 
 def get(path, raw=False, timeout=25):
