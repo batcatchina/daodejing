@@ -18,8 +18,71 @@
     <p class="sub">一字一重天</p>
   </header>
 
-  <!-- ============ 炼化炉 ============ -->
+  <!-- ============ 问道（正门） ============ -->
+  <section class="ask-box home-ask" id="homeAsk">
+    <div class="ask-field">
+      <textarea id="homeQ" rows="2" placeholder="你有什么困惑？&#10;炉子从八十一章金丹里，取出最应得上的几枚给你。"></textarea>
+      <div class="ask-line"></div>
+    </div>
+    <div class="ask-actions">
+      <button class="btn-ask" id="homeAskBtn"><span class="btn-orb"></span>问 道</button>
+      <a class="btn-clear btn-to-ask" href="./ask.html">细 问 与 浏 览</a>
+    </div>
+    <div class="ask-samples" id="homeSamples"></div>
+    <p class="ask-note">
+      此处是正门 —— <b>先问，后取丹</b>。<br>
+      若要去炼化东西、投料入炉，请看下方的炉子。
+    </p>
+  </section>
+
+  <!-- ============ 首页答面 ============ -->
+  <section class="ask-answer home-answer" id="homeAnswer" hidden></section>
+
+  <!-- ============ 入口：藏丹阁 ============ -->
+  <section class="gateways">
+
+    <a class="gateway done-gate" href="./vault.html?status=refined">
+      <div class="gw-top">
+        <span class="gw-label">已 炼 化</span>
+        <span class="gw-count"><b id="cntDone">5</b> 章</span>
+      </div>
+      <div class="gw-words" id="gwWords">玄 · 水 · 无 · 法 · 慎</div>
+      <div class="gw-desc">金丹已成，可览一字、一句、本意引申与三维</div>
+      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+    </a>
+
+    <a class="gateway raw-gate" href="./vault.html?status=pending">
+      <div class="gw-top">
+        <span class="gw-label">未 炼 化</span>
+        <span class="gw-count"><b id="cntTodo">76</b> 章</span>
+      </div>
+      <div class="gw-words gw-words-plain">原文已就位，待引章句投入炉中</div>
+      <div class="gw-desc">可先诵读，或以火候试炼，知其深浅</div>
+      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+    </a>
+
+    <a class="gateway all-gate" href="./vault.html">
+      <div class="gw-top">
+        <span class="gw-label">全 部 八 十 一 章</span>
+        <span class="gw-count"><b>81</b> 章</span>
+      </div>
+      <div class="gw-words gw-words-plain">检索 · 筛选 · 总览</div>
+      <div class="gw-desc">按主题分类查看，或以字句反查章节</div>
+      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+    </a>
+
+  </section>
+
+  <!-- ============ 炼化炉（内务工序） ============ -->
   <section class="furnace" id="furnace">
+
+    <div class="furnace-door">
+      <span class="fd-mark">炉</span>
+      <div class="fd-text">
+        <b>炼 化 —— 炉 子 的 内 务</b>
+        <span>投料、试火、结丹。这是炉子自己的活计，不是给人的正门。</span>
+      </div>
+    </div>
 
     <!-- ── 炉火（自炉口袅袅而起） ── -->
     <div class="fire" id="fire" aria-hidden="true">
@@ -224,7 +287,7 @@
     <div class="furnace-body">
 
       <div class="furnace-head">
-        <h2><span class="fx">炼</span> 投 料 入 炉</h2>
+        <h3 class="fh-sm">投 料 入 炉</h3>
         <p class="furnace-sub">引原文章句，或就此章之义理申说。无根者不结丹。</p>
       </div>
 
@@ -314,47 +377,9 @@
     </div>
   </section>
 
-  <!-- ============ 金丹 ============ -->
-  <section class="dan-result" id="danResult" hidden></section>
-
-  <!-- ============ 藏丹阁入口 ============ -->
-  <section class="gateways">
-
-    <a class="gateway done-gate" href="./vault.html?status=refined">
-      <div class="gw-top">
-        <span class="gw-label">已 炼 化</span>
-        <span class="gw-count"><b id="cntDone">5</b> 章</span>
-      </div>
-      <div class="gw-words" id="gwWords">玄 · 水 · 无 · 法 · 慎</div>
-      <div class="gw-desc">金丹已成，可览一字、一句、本意引申与三维</div>
-      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-    </a>
-
-    <a class="gateway raw-gate" href="./vault.html?status=pending">
-      <div class="gw-top">
-        <span class="gw-label">未 炼 化</span>
-        <span class="gw-count"><b id="cntTodo">76</b> 章</span>
-      </div>
-      <div class="gw-words gw-words-plain">原文已就位，待引章句投入炉中</div>
-      <div class="gw-desc">可先诵读，或以火候试炼，知其深浅</div>
-      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-    </a>
-
-    <a class="gateway all-gate" href="./vault.html">
-      <div class="gw-top">
-        <span class="gw-label">全 部 八 十 一 章</span>
-        <span class="gw-count"><b>81</b> 章</span>
-      </div>
-      <div class="gw-words gw-words-plain">检索 · 筛选 · 总览</div>
-      <div class="gw-desc">按主题分类查看，或以字句反查章节</div>
-      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-    </a>
-
-  </section>
-
   <footer class="foot">
-    <p>投料 · 试火 · 结丹 · 藏阁</p>
-    <p class="foot-minor">本意 · 引申义 · 人生自主 · 健康养生 · 自然宇宙</p>
+    <p>问 · 投 · 炼 · 藏</p>
+    <p class="foot-minor">问道取丹 · 本意引申 · 人生自主 · 健康养生 · 自然宇宙</p>
   </footer>
 
 </div>
@@ -369,6 +394,7 @@
 </div>
 
 <script src="./furnace.js"></script>
+<script src="./ask.js"></script>
 <script src="./ingest.js"></script>
 <script src="./app.js"></script>
 </body>

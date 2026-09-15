@@ -62,6 +62,25 @@ const FURNACE = (() => {
     if (!CHAP_INDEX) return [];
     const flat = depunct(text);
     const hits = [];
+
+    // ── 短引优先：用户常只引半句（「上善若水」「知足不辱」），
+    //    4~5 字连续命中即足以定章，先收，免得被别的信号抢走。
+    for (const c of CHAP_INDEX) {
+      for (const n of [5, 4]) {
+        if (c.flat.length < n) continue;
+        let found = false;
+        for (let i = 0; i <= c.flat.length - n; i++) {
+          if (flat.includes(c.flat.slice(i, i + n))) {
+            hits.push({ id: c.id, n: n + 1, frag: c.orig.slice(i, i + n) }); // 记 5/6，高于「显式提及」
+            found = true;
+            break;
+          }
+        }
+        if (found) break;
+      }
+    }
+    if (hits.length) return hits;   // 短引已定章，不再走长匹配
+
     for (const c of CHAP_INDEX) {
       for (const n of [12, 9, 6]) {
         let found = false;

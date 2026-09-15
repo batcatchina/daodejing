@@ -277,8 +277,27 @@ def _depunct(s):
 def _match_chapters(text):
     """找出输入文本所扣的章节"""
     hits = []
-    # 直接引用原文片段。先去标点再匹配——「道可道，非常道」与「道可道非常道」应视为同一句
     flat_text = _depunct(text)
+
+    # 短引优先：用户常只引半句（「上善若水」「知足不辱」），
+    # 4~5 字连续命中即足以定章，先收，免得被别的信号抢走。（与 furnace.js 同步）
+    for cid, orig in CORPUS.items():
+        flat_orig = _depunct(orig)
+        for n in (5, 4):
+            if len(flat_orig) < n:
+                continue
+            found = False
+            for i in range(0, len(flat_orig) - n + 1):
+                if flat_orig[i:i + n] in flat_text:
+                    hits.append((cid, n + 1, orig[i:i + n]))  # 记 5/6，高于「显式提及」
+                    found = True
+                    break
+            if found:
+                break
+    if hits:
+        return hits
+
+    # 直接引用原文片段。先去标点再匹配——「道可道，非常道」与「道可道非常道」应视为同一句
     for cid, orig in CORPUS.items():
         flat_orig = _depunct(orig)
         for n in (12, 9, 6):

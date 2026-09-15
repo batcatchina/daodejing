@@ -814,3 +814,358 @@ h1{font-size:2.05rem;font-weight:500;letter-spacing:.24em;margin-bottom:.5rem}
   .pr-say{font-size:.73rem}
   .av-guide{padding:.9rem 1rem}
 }
+
+/* ==================== 问道 ==================== */
+.ask-box{
+  position:relative;
+  background:linear-gradient(168deg,#fdfaf3,#f5eedd 70%,#f0e7d3);
+  border:1px solid var(--gold);
+  border-radius:8px;
+  padding:1.5rem 1.5rem 1.3rem;
+  margin-bottom:2.2rem;
+  box-shadow:0 10px 30px rgba(150,115,60,.12), inset 0 1px 0 rgba(255,255,255,.8);
+}
+.ask-box::before,.ask-box::after{
+  content:'';position:absolute;width:18px;height:18px;border:1px solid var(--gold);opacity:.55;
+}
+.ask-box::before{top:9px;left:9px;border-right:0;border-bottom:0}
+.ask-box::after{bottom:9px;right:9px;border-left:0;border-top:0}
+
+.ask-field{position:relative;margin-bottom:.85rem}
+#q{
+  width:100%;padding:1rem 1.1rem;
+  border:1px solid var(--line);border-radius:5px;
+  background:#fffdf8;color:var(--ink);
+  font-family:inherit;font-size:1.02rem;line-height:1.9;
+  resize:vertical;min-height:76px;outline:none;
+  transition:border-color .22s,box-shadow .22s;
+}
+#q:focus{border-color:var(--cinnabar);box-shadow:0 0 0 3px rgba(156,43,43,.08)}
+#q::placeholder{color:#b3aa9b;font-size:.94rem;line-height:1.95}
+.ask-line{
+  height:2px;margin-top:-1px;
+  background:linear-gradient(90deg,transparent,var(--cinnabar) 22%,var(--gold-2) 50%,var(--cinnabar) 78%,transparent);
+  opacity:.5;border-radius:2px;
+}
+
+.ask-actions{display:flex;gap:.7rem;align-items:center;margin-bottom:.4rem}
+.btn-ask{
+  flex:1;position:relative;overflow:hidden;
+  padding:.88rem 1.4rem;
+  border:1px solid #7e2020;border-radius:5px;
+  background:linear-gradient(170deg,#a83030,#882323);
+  color:#fdf6e8;font-family:inherit;font-size:1.04rem;
+  letter-spacing:.34em;text-indent:.34em;cursor:pointer;
+  box-shadow:0 3px 14px rgba(150,35,35,.28), inset 0 1px 0 rgba(255,255,255,.2);
+  transition:transform .16s,box-shadow .2s;
+}
+.btn-ask:hover{transform:translateY(-1px);box-shadow:0 7px 22px rgba(150,35,35,.36), inset 0 1px 0 rgba(255,255,255,.26)}
+.btn-ask:active{transform:translateY(0) scale(.995)}
+.btn-orb{
+  display:inline-block;width:11px;height:11px;margin-right:.55rem;
+  border-radius:50%;
+  background:radial-gradient(circle at 34% 30%, #fff8e2, #f0d489 40%, #c9962f 100%);
+  box-shadow:0 0 8px rgba(240,212,137,.85);
+  vertical-align:middle;
+  animation:orbPulse 2.6s ease-in-out infinite;
+}
+@keyframes orbPulse{0%,100%{opacity:.72;transform:scale(1)}50%{opacity:1;transform:scale(1.14)}}
+
+.ask-samples{
+  display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;
+  margin-top:.9rem;padding-top:.85rem;border-top:1px dashed var(--line);
+}
+.ask-note{
+  font-size:.76rem;line-height:1.95;color:var(--ink-3);
+  text-align:center;margin-top:1rem;letter-spacing:.02em;
+}
+.ask-note b{color:var(--cinnabar);font-weight:600}
+
+/* ---------- 答面 ---------- */
+.ask-answer{margin-bottom:2.6rem;animation:fadeUp .45s ease}
+
+.ans-head{margin-bottom:1.3rem}
+.ans-path{
+  border-left:2px solid var(--gold);
+  background:rgba(168,132,60,.06);
+  border-radius:0 5px 5px 0;
+  padding:.7rem 1rem;
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.1rem .8rem;
+}
+.ans-path-tag{
+  flex:0 0 auto;font-size:.72rem;letter-spacing:.2em;
+  color:var(--paper);background:var(--gold);
+  padding:.06rem .55rem;border-radius:3px;
+}
+.ans-path-note{flex:1;font-size:.84rem;color:var(--ink-2);line-height:1.85}
+.ans-path-note b{color:var(--cinnabar);font-weight:600}
+.ans-stat{
+  font-size:.75rem;color:var(--ink-3);letter-spacing:.06em;
+  margin-top:.6rem;text-align:right;
+}
+.ans-stat b{color:var(--gold);font-size:.95rem}
+.ans-stat b.shallow{color:var(--ink-3)}
+
+/* 丹药卡 —— 深（金丹已成） */
+.ans-card{
+  position:relative;
+  border:1px solid var(--line);border-radius:6px;
+  padding:1.4rem 1.4rem 1.2rem;
+  margin-bottom:1.1rem;
+  animation:fadeUp .4s ease;
+}
+.ans-card.deep{
+  background:linear-gradient(165deg,#fffdf7,#faf4e6);
+  border-color:rgba(168,132,60,.5);
+  box-shadow:0 6px 22px rgba(168,132,60,.13), inset 0 1px 0 rgba(255,255,255,.85);
+}
+.ans-card.deep::after{
+  content:'';position:absolute;top:0;right:0;width:0;height:0;border-style:solid;
+  border-width:0 16px 16px 0;
+  border-color:transparent var(--gold-2) transparent transparent;
+  opacity:.8;border-radius:0 6px 0 0;
+}
+/* 丹药卡 —— 浅（金丹未炼） */
+.ans-card.shallow{
+  background:transparent;
+  border-style:dashed;
+  border-color:var(--line-2);
+}
+
+.ans-card-head{display:flex;align-items:flex-start;gap:.9rem;margin-bottom:.95rem}
+.ans-orb{
+  flex:0 0 auto;width:56px;height:56px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+.ans-orb span{font-size:1.5rem;line-height:1;font-weight:500}
+.ans-orb.on{
+  background:radial-gradient(circle at 34% 30%, #fff8e2 0%, #f0d489 24%, #d9a93f 54%, #a97a25 100%);
+  box-shadow:0 0 0 1px rgba(168,132,60,.45), 0 0 20px rgba(212,168,83,.45),
+             inset -3px -4px 10px rgba(110,75,20,.3);
+}
+.ans-orb.on span{color:#3d2a08;text-shadow:0 1px 2px rgba(255,250,230,.7)}
+.ans-orb.off{
+  background:var(--paper-3);
+  border:1px dashed var(--line);
+  box-shadow:none;
+}
+.ans-orb.off span{color:var(--ink-3)}
+
+.ans-head-text{flex:1;min-width:0}
+.ans-chap{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;margin-bottom:.3rem}
+.ans-num{font-size:.74rem;color:var(--cinnabar);letter-spacing:.16em}
+.ans-title{font-size:1.14rem;letter-spacing:.12em;color:var(--ink)}
+.ans-depth{
+  font-size:.64rem;letter-spacing:.14em;
+  padding:.02rem .45rem;border-radius:3px;
+}
+.ans-depth.deep{color:var(--paper);background:var(--gold)}
+.ans-depth.shallow{color:var(--ink-3);border:1px solid var(--line)}
+.ans-jue{font-size:.9rem;color:var(--ink-2);letter-spacing:.08em;line-height:1.75}
+.ans-jue::before{content:'「';color:var(--gold-2)}
+.ans-jue::after{content:'」';color:var(--gold-2)}
+.ans-order{
+  flex:0 0 auto;font-size:.78rem;color:var(--line);
+  letter-spacing:0;line-height:1;padding-top:.2rem;
+}
+
+.ans-why-wrap{margin-bottom:.9rem}
+.ans-why{
+  font-size:.82rem;line-height:1.9;color:var(--ink-2);
+  background:rgba(168,132,60,.07);
+  border-radius:4px;padding:.62rem .85rem;
+}
+.ans-why-tag{
+  font-size:.68rem;letter-spacing:.18em;color:var(--gold);
+  margin-right:.6rem;white-space:nowrap;
+}
+.ans-why b{color:var(--cinnabar);font-weight:600}
+
+.ans-tags{display:flex;gap:.32rem;flex-wrap:wrap;margin-top:.5rem}
+.ans-tags span{
+  font-size:.64rem;color:var(--gold);
+  border:1px solid rgba(168,132,60,.3);border-radius:3px;padding:.02rem .42rem;
+}
+
+.ans-original{
+  font-size:.9rem;line-height:2.05;color:var(--ink-2);
+  text-align:justify;letter-spacing:.03em;
+  border-top:1px solid var(--line-2);padding-top:.85rem;margin-bottom:.85rem;
+}
+.ans-orig-tag{
+  font-size:.66rem;letter-spacing:.2em;color:var(--ink-3);
+  display:block;margin-bottom:.35rem;
+}
+.ans-shallow-note{
+  font-size:.77rem;line-height:1.9;color:var(--ink-3);
+  border-left:2px solid var(--line);padding-left:.85rem;
+}
+.ans-shallow-note b{color:var(--cinnabar);font-weight:600}
+.ans-shallow-acts{margin-top:.6rem;display:flex;gap:1rem;flex-wrap:wrap}
+
+.ans-body{margin-top:.4rem}
+.ans-sec{margin-bottom:1.35rem}
+.ans-sec:last-child{margin-bottom:0}
+.ans-sec h4{
+  font-size:.88rem;font-weight:500;letter-spacing:.18em;color:var(--cinnabar);
+  margin-bottom:.6rem;display:flex;align-items:center;gap:.55rem;
+}
+.ans-sec h4::before{content:'';width:14px;height:1px;background:var(--cinnabar)}
+.ans-sec h4 em{font-style:normal;font-size:.62rem;color:var(--ink-3);letter-spacing:.14em}
+.ans-sec .body{font-size:.92rem;line-height:2.02;color:var(--ink-2);text-align:justify}
+.ans-sec .body p{margin-bottom:.62rem}
+.ans-sec .body ul{margin:.45rem 0 .7rem 1.15rem}
+.ans-sec .body li{margin-bottom:.4rem;line-height:1.92}
+.ans-sec .body strong{color:var(--ink);font-weight:600}
+
+.ans-none{
+  text-align:center;padding:2.4rem 1.6rem;
+  border:1px dashed var(--line);border-radius:8px;
+  background:rgba(255,255,255,.35);
+}
+.ans-none-mark{font-size:2rem;color:var(--line);margin-bottom:.7rem}
+.ans-none h3{font-size:1rem;font-weight:500;letter-spacing:.2em;color:var(--ink-2);margin-bottom:.6rem}
+.ans-none p{font-size:.85rem;color:var(--ink-3);line-height:1.95;max-width:32em;margin:0 auto}
+.ans-none p b{color:var(--cinnabar);font-weight:600}
+
+.ans-foot{
+  text-align:center;margin-top:1.6rem;padding-top:1.1rem;
+  border-top:1px solid var(--line);
+}
+.ans-foot p{font-size:.8rem;color:var(--ink-3);line-height:1.95}
+.ans-foot b{color:var(--ink-2);font-weight:600}
+.ans-foot-minor{margin-top:.7rem;font-size:.76rem}
+
+/* ---------- 浏览 ---------- */
+.browse{margin-bottom:1rem}
+.browse-tabs{
+  display:flex;justify-content:center;gap:.2rem;
+  border-bottom:1px solid var(--line);margin-bottom:1.5rem;
+}
+.btab{
+  position:relative;padding:.62rem 1rem .68rem;
+  background:none;border:0;
+  font-family:inherit;font-size:.86rem;letter-spacing:.2em;text-indent:.2em;
+  color:var(--ink-3);cursor:pointer;transition:color .2s;
+}
+.btab:hover{color:var(--ink-2)}
+.btab.on{color:var(--cinnabar)}
+.btab.on::after{
+  content:'';position:absolute;left:.5rem;right:.5rem;bottom:-1px;height:2px;
+  background:var(--cinnabar);border-radius:2px;
+}
+
+.browse-themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:.75rem}
+.bt-item{
+  border:1px solid var(--line);border-radius:5px;
+  background:var(--paper-2);padding:.85rem .9rem;
+  cursor:pointer;transition:all .2s;
+}
+.bt-item:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 6px 18px rgba(60,45,20,.09)}
+.bt-head{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;margin-bottom:.5rem}
+.bt-name{font-size:.94rem;letter-spacing:.14em;color:var(--ink)}
+.bt-n{font-size:.68rem;color:var(--ink-3)}
+.bt-words{display:flex;flex-wrap:wrap;gap:.22rem}
+.bt-w{
+  font-size:.76rem;color:var(--ink-3);
+  width:1.5em;height:1.5em;line-height:1.5em;text-align:center;
+  border-radius:3px;background:rgba(0,0,0,.035);
+}
+.bt-w.deep{color:var(--paper);background:var(--gold)}
+
+.browse-danzi{display:flex;flex-wrap:wrap;gap:.45rem}
+.dz-chip{
+  display:inline-flex;align-items:baseline;gap:.4rem;
+  padding:.3rem .7rem;
+  border:1px solid var(--line);border-radius:99px;
+  background:transparent;font-family:inherit;cursor:pointer;
+  transition:all .18s;
+}
+.dz-chip:hover{border-color:var(--gold);background:rgba(168,132,60,.06)}
+.dz-zi{font-size:1rem;color:var(--ink-2);letter-spacing:0}
+.dz-ids{font-size:.64rem;color:var(--ink-3);letter-spacing:0}
+.dz-chip.deep{border-color:rgba(168,132,60,.55);background:rgba(212,168,83,.1)}
+.dz-chip.deep .dz-zi{color:var(--gold);font-weight:600}
+.dz-chip.deep .dz-ids{color:var(--gold)}
+
+.browse-deep{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.75rem}
+.bd-card{
+  display:flex;flex-direction:column;align-items:flex-start;gap:.35rem;
+  padding:1rem .95rem;
+  border:1px solid rgba(168,132,60,.5);border-radius:5px;
+  background:linear-gradient(165deg,#fffdf7,#faf4e6);
+  font-family:inherit;text-align:left;cursor:pointer;
+  box-shadow:0 2px 10px rgba(168,132,60,.1);
+  transition:all .2s;
+}
+.bd-card:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 8px 20px rgba(168,132,60,.2)}
+.bd-orb{
+  width:34px;height:34px;line-height:34px;text-align:center;
+  font-size:1rem;color:#3d2a08;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%, #fff8e2, #e8c877 45%, #b8892c 100%);
+  box-shadow:0 0 0 1px rgba(168,132,60,.4), 0 0 12px rgba(212,168,83,.35);
+}
+.bd-title{font-size:.86rem;color:var(--ink);letter-spacing:.08em}
+.bd-jue{font-size:.72rem;color:var(--gold);line-height:1.65}
+
+.browse-hint{
+  font-size:.75rem;color:var(--ink-3);text-align:center;
+  margin-top:1.3rem;letter-spacing:.04em;
+}
+
+/* ==================== 首页：问道门与炉子降级 ==================== */
+.home-ask{margin-bottom:1.3rem}
+.home-answer{padding:0 .0rem}
+
+.btn-to-ask{
+  display:inline-flex;align-items:center;justify-content:center;
+  text-decoration:none;white-space:nowrap;
+  padding:.88rem 1.05rem;letter-spacing:.14em;font-size:.84rem;
+}
+
+/* 答面里"读其全丹"一句 */
+.ans-more{margin-top:.55rem;font-size:.78rem}
+
+/* 炉子入口说明：明示此为内务，不是正门 */
+.furnace-door{
+  display:flex;align-items:center;gap:.85rem;
+  max-width:640px;margin:0 auto 1.5rem;
+  padding:.75rem 1rem;
+  border:1px dashed var(--line);
+  border-radius:5px;
+  background:rgba(255,255,255,.42);
+}
+.fd-mark{
+  flex:0 0 auto;width:30px;height:30px;line-height:30px;text-align:center;
+  font-size:.86rem;border-radius:4px;
+  background:var(--paper-3);color:var(--ink-3);
+  border:1px solid var(--line);
+}
+.fd-text{flex:1;display:flex;flex-direction:column;gap:.15rem}
+.fd-text b{font-size:.82rem;letter-spacing:.2em;color:var(--ink-2);font-weight:500}
+.fd-text span{font-size:.72rem;color:var(--ink-3);line-height:1.75}
+
+/* 炉内标题降为小号 */
+.fh-sm{
+  font-size:1.02rem;font-weight:500;letter-spacing:.32em;
+  text-indent:.32em;color:var(--ink);
+}
+
+@media(max-width:640px){
+  .home-ask{padding:1.2rem 1rem 1.05rem}
+  .btn-to-ask{padding:.8rem .85rem;font-size:.78rem}
+  .furnace-door{gap:.6rem;padding:.65rem .8rem}
+  .fd-text b{font-size:.76rem;letter-spacing:.14em}
+  .fd-text span{font-size:.68rem}
+  .ans-card{padding:1.1rem 1rem 1rem}
+  .ans-orb{width:48px;height:48px}
+  .ans-orb span{font-size:1.3rem}
+  .ans-title{font-size:1.02rem;letter-spacing:.08em}
+  .ans-jue{font-size:.84rem}
+  .ans-order{display:none}
+  .ans-sec h4{font-size:.84rem;letter-spacing:.14em}
+  .ans-sec .body{font-size:.88rem;line-height:1.98}
+  .browse-themes{grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:.6rem}
+  .browse-deep{grid-template-columns:1fr}
+  .btab{padding:.56rem .7rem;font-size:.79rem;letter-spacing:.12em}
+}

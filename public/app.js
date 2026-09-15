@@ -37,6 +37,7 @@ async function load() {
   state.data = await res.json();
   FURNACE.buildIndex(state.data.chapters);
   renderGateways();
+  renderHomeAsk();
 
   // 带 ?ch=N 时自动投料
   const ch = new URLSearchParams(location.search).get('ch');
@@ -399,3 +400,133 @@ initTabs();
 initDrop();
 initUrl();
 load();
+
+
+/* ============================================================
+   问道（首页正门）
+   ------------------------------------------------------------
+   与 ask.html 共用 ask.js 的检索内核与答面渲染。
+   首页只出答面、不做浏览，细则请往 ask.html。
+   ============================================================ */
+
+function renderHomeAsk() {
+  const ss = ASK.samples(state.data, 6);
+  const box = $('#homeSamples');
+  if (!box) return;
+  box.innerHTML = `<span class="samples-label">可试：</span>` +
+    ss.map((s) => `<button class="sample" data-q="${esc(s.q)}" title="${esc(s.yili)}">${esc(s.q)}</button>`).join('');
+  box.querySelectorAll('.sample').forEach((b) =>
+    b.addEventListener('click', () => { $('#homeQ').value = b.dataset.q; homeAsk(); }));
+}
+
+function homeAsk() {
+  const raw = $('#homeQ').value.trim();
+  if (!raw) { $('#homeQ').focus(); return; }
+
+  const r = ASK.query(raw, state.data, 3);
+  const box = $('#homeAnswer');
+  box.hidden = false;
+
+  if (!r.hits.length) {
+    box.innerHTML = `
+      <div class="ans-none">
+        <div class="ans-none-mark">◯</div>
+        <h3>炉中无丹可应此问</h3>
+        <p>${ansWhy(r.note)}</p>
+        <p style="margin-top:1rem">
+          <a class="dan-link" href="./ask.html?q=${encodeURIComponent(raw)}">往 问 道 页 细 看 →</a>
+        </p>
+      </div>`;
+    box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  const deepN = r.hits.filter((h) => h.deep).length;
+  const shallowN = r.hits.length - deepN;
+
+  box.innerHTML = `
+    <div class="ans-head">
+      <div class="ans-path">
+        <span class="ans-path-tag">${esc(ansPathName(r.mode))}</span>
+        <span class="ans-path-note">${ansWhy(r.note)}</span>
+      </div>
+      <div class="ans-stat">
+        取丹 <b>${r.hits.length}</b> 枚
+        ${deepN ? `· 金丹已成 <b>${deepN}</b>` : ''}
+        ${shallowN ? `· 金丹未炼 <b class="shallow">${shallowN}</b>` : ''}
+      </div>
+    </div>
+    ${r.hits.map(ansCard).join('')}
+    <div class="ans-foot">
+      <p>炉子只指出<b>哪几章在回答你</b>，不替你想好答案。此处仅示其要。</p>
+      <p class="ans-foot-minor">
+        <a class="dan-link" href="./ask.html?q=${encodeURIComponent(raw)}">往 问 道 页 看 全 部 →</a>
+        　·　<a class="dan-link" href="./vault.html">往 藏 丹 阁 →</a>
+      </p>
+    </div>`;
+
+  box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function ansPathName(mode) {
+  return { bridge: '语 义 桥', quote: '直 引 原 文', theme: '主 题 参 证', empty: '空 问' }[mode] || mode;
+}
+function ansWhy(s) {
+  return esc(s).replace(/&lt;b&gt;/g, '<b>').replace(/&lt;\/b&gt;/g, '</b>');
+}
+
+/* 答面用丹卡：compact=true 时深章只截首段 */
+function ansCard(h, i) {
+  const deep = h.deep;
+  const d = h.detail;
+  const head = `
+    <div class="ans-card-head">
+      <div class="ans-orb ${deep ? 'on' : 'off'}"><span>${esc(h.danzi || '·')}</span></div>
+      <div class="ans-head-text">
+        <div class="ans-chap">
+          <span class="ans-num">第 ${h.id} 章</span>
+          <span class="ans-title">${esc(h.title)}</span>
+          <span class="ans-depth ${deep ? 'deep' : 'shallow'}">${deep ? '金丹已成' : '金丹未炼'}</span>
+        </div>
+        <div class="ans-jue">${esc(h.danjue)}</div>
+      </div>
+      <div class="ans-order">${i + 1}</div>
+    </div>`;
+  const why = `<div class="ans-why"><span class="ans-why-tag">何以应你</span>${ansWhy(h.why)}</div>`;
+
+  if (!deep) {
+    return `<article class="ans-card shallow">
+      ${head}<div class="ans-why-wrap">${why}</div>
+      <div class="ans-original"><span class="ans-orig-tag">原文</span>${esc(h.original)}</div>
+      <div class="ans-shallow-note">
+        此章<b>金丹未炼</b>——炉中只有它的原文。炉子不替它编造，故此处只有老子自己的话。<br>
+        可先诵读；或引此章句入炉炼化。
+        <div class="ans-shallow-acts">
+          <a class="dan-link" href="./?ch=${h.id}">入 炉 炼 此 章 →</a>
+          <a class="dan-link" href="./ask.html?q=${encodeURIComponent(h.danjue)}">往 问 道 页 细 看 →</a>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  // 深章：首页只出本意之首段，余往问道页
+  const first = String(d.benyi || '').split('\n').find((l) => l.trim()) || '';
+  return `<article class="ans-card deep">
+    ${head}<div class="ans-why-wrap">${why}</div>
+    <div class="ans-body">
+      <section class="ans-sec">
+        <h4>本意 <em>BENYI</em></h4>
+        <div class="body">${md(first)}</div>
+        <p class="ans-more"><a class="dan-link" href="./ask.html?q=${encodeURIComponent(h.danjue)}">读 其 全 丹（本意 · 引申 · 三维）→</a></p>
+      </section>
+    </div>
+  </article>`;
+}
+
+/* 事件 */
+if ($('#homeAskBtn')) {
+  $('#homeAskBtn').addEventListener('click', homeAsk);
+  $('#homeQ').addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') homeAsk();
+  });
+}

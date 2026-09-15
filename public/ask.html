@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>问道 · 道德经炼化炉</title>
+<meta name="description" content="问道：提一个真问题，从八十一章金丹中取出最应得上的几枚——哪几章在回答你">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div class="paper">
+
+  <!-- ============ 抬头 ============ -->
+  <header class="masthead masthead-sm">
+    <a class="back" href="./">← 回 炼 化 炉</a>
+    <div class="seal seal-sm">问</div>
+    <h1>问 道</h1>
+    <p class="sub sub-sm" id="askSub">取 用 金 丹</p>
+  </header>
+
+  <!-- ============ 问 ============ -->
+  <section class="ask-box" id="askBox">
+    <div class="ask-field">
+      <textarea id="q" rows="2" placeholder="你有什么困惑？&#10;例：我最近很焦虑，静不下来 / 干得多，功劳却被别人抢了 / 不知道该不该辞职"></textarea>
+      <div class="ask-line"></div>
+    </div>
+    <div class="ask-actions">
+      <button class="btn-ask" id="askBtn"><span class="btn-orb"></span>问 道</button>
+      <button class="btn-clear" id="clearBtn">清 问</button>
+    </div>
+
+    <div class="ask-samples" id="askSamples"></div>
+
+    <p class="ask-note">
+      炉子不外求——它不下断语，也不替你想。<br>
+      它只做一件事：从八十一章里，<b>指出哪几章在回答你</b>，并把那几章的金丹取出来给你看。
+    </p>
+  </section>
+
+  <!-- ============ 答 ============ -->
+  <section class="ask-answer" id="answer" hidden></section>
+
+  <!-- ============ 浏览：主题 / 丹字 ============ -->
+  <section class="browse" id="browse" hidden>
+    <nav class="browse-tabs" id="browseTabs">
+      <button class="btab on" data-view="theme">按 主 题</button>
+      <button class="btab" data-view="danzi">按 丹 字</button>
+      <button class="btab" data-view="deep">已 炼 化</button>
+    </nav>
+    <div class="browse-body" id="browseBody"></div>
+    <p class="browse-hint" id="browseHint"></p>
+  </section>
+
+  <footer class="foot">
+    <p>问 · 取 · 用</p>
+    <p class="foot-minor">哪几章在回答你 · 金丹分深浅，如实相告</p>
+  </footer>
+
+</div>
+
+<!-- ============ 章节详情 ============ -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-bg" data-close></div>
+  <article class="sheet">
+    <button class="close" data-close aria-label="关闭">×</button>
+    <div id="detail"></div>
+  </article>
+</div>
+
+<script src="./furnace.js"></script>
+<script src="./ask.js"></script>
+<script src="./ask-page.js"></script>
+</body>
+</html>

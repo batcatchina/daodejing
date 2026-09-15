@@ -9,7 +9,8 @@ import sys
 import urllib.request
 
 BASE = "https://daodejing.zheng-he.top"
-ASSETS = ["furnace.js", "ingest.js", "app.js", "vault.js", "style.css", "data/index.json"]
+ASSETS = ["furnace.js", "ask.js", "ask-page.js", "ingest.js", "app.js",
+          "vault.js", "style.css", "data/index.json"]
 
 
 def get(path, raw=False, timeout=25):
@@ -73,6 +74,19 @@ def main():
         else:
             print("  ✓ 首页已收敛（藏丹阁已拆至二级页）")
 
+        # 问道（正门）
+        print("  ── 问道（正门）──")
+        for token, label in [('id="homeAsk"', "首页问道区"),
+                             ('id="homeQ"', "提问框"),
+                             ("btn-ask", "问道按钮"),
+                             ('id="homeAnswer"', "答面"),
+                             ('class="furnace-door"', "炉子内务说明"),
+                             ("ask.js", "问道内核")]:
+            ok = token in html
+            print(f"    {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"问道/{label}")
+
         for cls, label in [("done-gate", "已炼化入口"),
                            ("raw-gate", "未炼化入口"),
                            ("all-gate", "全部入口")]:
@@ -113,6 +127,57 @@ def main():
         print(f"  ✗ 藏丹阁失败：{e}")
         failed.append("藏丹阁")
 
+    # 2b2. 问道页
+    print("\n── 问道 · 二级页 ──")
+    try:
+        ah = get("ask.html")
+        atitle = ah.split("<title>")[1].split("</title>")[0] if "<title>" in ah else "无"
+        print(f"  标题：{atitle}")
+        print(f"  体积：{len(ah)} bytes")
+        for token, label in [("问 道", "页名"), ('id="q"', "提问框"),
+                             ('id="askBtn"', "问道按钮"), ('id="answer"', "答面"),
+                             ('id="browse"', "浏览区"), ('data-view="theme"', "主题签"),
+                             ('data-view="danzi"', "丹字签"), ('data-view="deep"', "已炼化签"),
+                             ('class="back"', "返回炉"), ("ask-page.js", "页面脚本")]:
+            ok = token in ah
+            print(f"  {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"问道页/{label}")
+
+        for q, label in [("%E6%88%91%E5%BE%88%E7%84%A6%E8%99%91", "?q=焦虑")]:
+            try:
+                get(f"ask.html?q={q}", raw=True)
+                print(f"  ✓ {label} 可访问")
+            except Exception as e:  # noqa: BLE001
+                print(f"  ✗ {label} 失败：{e}")
+                failed.append(label)
+    except Exception as e:  # noqa: BLE001
+        print(f"  ✗ 问道页失败：{e}")
+        failed.append("问道页")
+
+    # 2d. 问道内核
+    print("\n── 问道内核 ──")
+    try:
+        aj = get("ask.js")
+        print(f"  ask.js 体积：{len(aj)} 字节")
+        for token, label in [("BRIDGE", "语义桥表"), ("虚静守笃", "簇：虚静"),
+                             ("不争之德", "簇：不争"), ("祸福相倚", "簇：祸福"),
+                             ("知足知止", "簇：知足"), ("无为顺时", "簇：无为"),
+                             ("bridgeAnswer", "① 语义桥"),
+                             ("quoteAnswer", "② 语料直检"),
+                             ("themeAnswer", "③ 主题降级"),
+                             ("danziIndex", "丹字索引"), ("themeIndex", "主题索引")]:
+            ok = token in aj
+            print(f"  {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"问道内核/{label}")
+        import re as _re
+        n = len(_re.findall(r"key: '", aj))
+        print(f"  语义簇数：约 {n}")
+    except Exception as e:  # noqa: BLE001
+        print(f"  ✗ ask.js 失败：{e}")
+        failed.append("ask.js")
+
     # 2c. 投料模块与四条判据
     print("\n── 投料模块 ──")
     try:
@@ -133,7 +198,7 @@ def main():
         fj = get("furnace.js")
         for token, label in [("道法自然", "道法自然"), ("非恒道", "非恒道"),
                              ("六度周全", "六度周全"), ("多维度", "多维度"),
-                             ("principles", "三问输出")]:
+                             ("principles", "三问输出"), ("短引优先", "短引匹配")]:
             ok = token in fj
             print(f"  {'✓' if ok else '✗'} {label}")
             if not ok:
@@ -174,7 +239,7 @@ def main():
     if failed:
         print(f"[x] 检查未通过，异常项：{failed}")
         sys.exit(1)
-    print("[✓] 全部通过 —— 炼化炉 v2 + 藏丹阁二级页 已上线")
+    print("[✓] 全部通过 —— 炼化炉 v3 + 藏丹阁 + 问道 已上线")
 
 
 if __name__ == "__main__":
