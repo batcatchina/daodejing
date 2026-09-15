@@ -17,14 +17,35 @@
     "辩证"
   ],
   "refined": {
+    "danzi": "和",
+    "danjue": "万物负阴而抱阳，冲气以为和。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 42 章（12 字连续命中）",
+      "篇幅适中（90 字），可炼",
+      "义理词密集（万物、得、谷、损、道、生），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      42
+    ],
+    "ok": true
+  }
 }

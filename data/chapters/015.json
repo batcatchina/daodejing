@@ -17,14 +17,35 @@
     "修身"
   ],
   "refined": {
+    "danzi": "朴",
+    "danjue": "夫唯不盈，故能蔽而新成。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 15 章（12 字连续命中）",
+      "篇幅适中（114 字），可炼",
+      "义理词密集（朴、谷、道、欲、微、静），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      15
+    ],
+    "ok": true
+  }
 }

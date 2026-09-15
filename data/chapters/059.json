@@ -17,14 +17,35 @@
     "治国"
   ],
   "refined": {
+    "danzi": "啬",
+    "danjue": "治人事天，莫若啬。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 59 章（12 字连续命中）",
+      "篇幅适中（77 字），可炼",
+      "义理词密集（道、德、母、生、无、治），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      59
+    ],
+    "ok": true
+  }
 }

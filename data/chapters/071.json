@@ -13,14 +13,35 @@
     "通论"
   ],
   "refined": {
+    "danzi": "病",
+    "danjue": "知不知，尚矣。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 71,
+    "level": "中品·可炼",
+    "verdict": "火候尚可，可结丹，然需精炼。",
+    "reasons": [
+      "直引原文，扣第 71 章（12 字连续命中）",
+      "篇幅适中（34 字），可炼",
+      "仅触及「人」一隅，未成体系"
+    ],
+    "missing": [],
+    "chapters": [
+      71
+    ],
+    "ok": true
+  }
 }

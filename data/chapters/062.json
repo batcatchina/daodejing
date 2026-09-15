@@ -16,14 +16,35 @@
     "宇宙论"
   ],
   "refined": {
+    "danzi": "宝",
+    "danjue": "道者，万物之奥。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 62 章（12 字连续命中）",
+      "篇幅适中（98 字），可炼",
+      "义理词密集（万物、天下、得、道、人、有），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      62
+    ],
+    "ok": true
+  }
 }

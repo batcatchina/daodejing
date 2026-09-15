@@ -18,14 +18,37 @@
     "处世"
   ],
   "refined": {
+    "danzi": "和",
+    "danjue": "知和曰常，知常曰明。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 16、30、55 章（12 字连续命中）",
+      "篇幅适中（98 字），可炼",
+      "义理词密集（常、道、德、生、强、厚），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      16,
+      30,
+      55
+    ],
+    "ok": true
+  }
 }

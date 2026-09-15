@@ -16,14 +16,35 @@
     "宇宙论"
   ],
   "refined": {
+    "danzi": "独",
+    "danjue": "我独异于人，而贵食母。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 20 章（12 字连续命中）",
+      "篇幅适中（163 字），可炼",
+      "义理词密集（与、母、无、心、人、归），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      20
+    ],
+    "ok": true
+  }
 }

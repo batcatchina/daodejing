@@ -18,14 +18,35 @@
     "辩证"
   ],
   "refined": {
+    "danzi": "柔",
+    "danjue": "天下之至柔，驰骋天下之至坚。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 43 章（12 字连续命中）",
+      "篇幅适中（46 字），可炼",
+      "义理词密集（无为、天下、无、柔、益、有），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      43
+    ],
+    "ok": true
+  }
 }

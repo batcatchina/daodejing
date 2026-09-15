@@ -17,14 +17,37 @@
     "无为"
   ],
   "refined": {
+    "danzi": "细",
+    "danjue": "天下大事必作于细。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 34、63、73 章（12 字连续命中）",
+      "篇幅适中（94 字），可炼",
+      "义理词密集（无为、天下、德、成、无、人），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      34,
+      63,
+      73
+    ],
+    "ok": true
+  }
 }

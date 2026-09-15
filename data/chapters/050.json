@@ -16,14 +16,35 @@
     "宇宙论"
   ],
   "refined": {
+    "danzi": "生",
+    "danjue": "善摄生者，无死地。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 50 章（12 字连续命中）",
+      "篇幅适中（99 字），可炼",
+      "义理词密集（生、无、厚、兵、人、有），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      50
+    ],
+    "ok": true
+  }
 }

@@ -16,14 +16,35 @@
     "治国"
   ],
   "refined": {
+    "danzi": "烹",
+    "danjue": "治大国，若烹小鲜。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 60 章（12 字连续命中）",
+      "篇幅适中（58 字），可炼",
+      "义理词密集（天下、道、德、神、治、人），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      60
+    ],
+    "ok": true
+  }
 }

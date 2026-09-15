@@ -16,14 +16,35 @@
     "治国"
   ],
   "refined": {
+    "danzi": "浑",
+    "danjue": "圣人无常心，以百姓心为心。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 49 章（12 字连续命中）",
+      "篇幅适中（82 字），可炼",
+      "义理词密集（天下、常、德、无、心、人），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      49
+    ],
+    "ok": true
+  }
 }

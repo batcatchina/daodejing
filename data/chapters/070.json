@@ -17,14 +17,35 @@
     "治国"
   ],
   "refined": {
+    "danzi": "褐",
+    "danjue": "知我者希，则我者贵。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 80,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 70 章（12 字连续命中）",
+      "篇幅适中（59 字），可炼",
+      "涉义理（天下、无、人、有）"
+    ],
+    "missing": [],
+    "chapters": [
+      70
+    ],
+    "ok": true
+  }
 }

@@ -17,14 +17,36 @@
     "治国"
   ],
   "refined": {
+    "danzi": "江",
+    "danjue": "以其不争，故天下莫能与之争。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 22、66 章（12 字连续命中）",
+      "篇幅适中（91 字），可炼",
+      "义理词密集（不争、天下、民、谷、与、争），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      22,
+      66
+    ],
+    "ok": true
+  }
 }

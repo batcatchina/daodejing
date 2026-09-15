@@ -42,6 +42,8 @@ SKILL = ROOT / "SKILL.md"
 sys.path.insert(0, str(ROOT / "scripts"))
 from _source_p1 import CHAPTERS_1_40   # noqa: E402
 from _source_p2 import CHAPTERS_41_81  # noqa: E402
+from goldwords import (GOLD_WORDS, GOLD_LINES, DIMENSIONS,  # noqa: E402
+                       judge_ferocity)
 
 SOURCE = CHAPTERS_1_40 + CHAPTERS_41_81
 
@@ -95,13 +97,24 @@ def blank_chapter(cid: int, title: str, original: str) -> dict:
         "original": original,
         "keywords": keywords_of(original),
         "themes": classify(original),
-        "refined": {"benyi": "", "yinshen": "", "qidi": ""},
+        "refined": {
+            "danzi": "",       # 一字金丹
+            "danjue": "",      # 一句丹诀
+            "benyi": "",       # 本意
+            "yinshen": "",     # 引申义
+            "wei": {           # 三维系辞
+                "rensheng": "",   # 人生·自主
+                "jiankang": "",   # 健康·养生
+                "yuzhou": "",     # 自然·宇宙
+            },
+        },
         "notes": [],          # 从素材中抽取的要点
         "sources": [],        # 素材来源
         "media": [],          # 关联视频 / 音频
         "status": "pending",  # pending | refined
         "refined_at": None,
         "engine": None,
+        "ferocity": None,     # 火候评级
     }
 
 
@@ -248,7 +261,7 @@ def ingest(kind: str, path: str, force: bool = False) -> None:
 # --------------------------------------------------------------------------
 # 炼化层
 # --------------------------------------------------------------------------
-SKILL_PROMPT = """你是《道德经》炼化引擎。给定一章原文，输出严格 JSON，不要任何额外文字。
+SKILL_PROMPT = """你是《道德经》炼化炉。给定一章原文，结出金丹。输出严格 JSON，不要任何多余文字。
 
 原文（第{id}章·{title}）：
 {original}
@@ -257,12 +270,22 @@ SKILL_PROMPT = """你是《道德经》炼化引擎。给定一章原文，输�
 
 输出格式：
 {{
-  "benyi": "本意：逐句直解，重点字词训诂，回到先秦语境，说清老子原本在说什么。200-400字。",
-  "yinshen": "引申义：由本意向外推演，与前后章节互证，讲清这一章在整个体系中的位置。200-400字。",
-  "qidi": "启迪：拆成「人生」「自然」「宇宙」三层，每层给出可践行的具体指引，不要空话。300-500字。"
+  "danzi": "一字金丹：全章精神凝于一字，只输出这一个字，不加标点。",
+  "danjue": "一句丹诀：摄全章之要的一句话，不超过20字。",
+  "benyi": "本意：字词训诂、逐句直解、先秦语境。200-400字。",
+  "yinshen": "引申义：前后章互证，在81章体系中的位置。200-400字。",
+  "wei": {{
+    "rensheng": "人生·自主：如何指导处世、抉择、心性，须能落地。150-250字。",
+    "jiankang": "健康·养生：形神相守、节律调摄、气机之道。150-250字。",
+    "yuzhou": "自然·宇宙：天地运行、万物法则、宇宙层面的观照。150-250字。"
+  }}
 }}
 
-要求：语言凝练，避免鸡汤，避免空泛赞美。凡有争议处，点明争议而不强作定论。
+铁律：
+1. 语言凝练，忌鸡汤，忌空泛赞美。
+2. 一字金丹必须是一个字，宁缺毋滥。
+3. 有争议处点明争议，不强作定论。
+4. 三维须给出可践行的具体指引，不可空谈。
 """
 
 
@@ -277,14 +300,38 @@ def build_prompt(ch: dict) -> str:
     )
 
 
+def make_danzi(ch: dict) -> str:
+    """一字金丹"""
+    if ch["id"] in GOLD_WORDS:
+        return GOLD_WORDS[ch["id"]]
+    banned = set("之乎者也矣焉哉其所以故夫唯兮曰不无有而则于者所")
+    for w in ch.get("keywords", []):
+        if w not in banned:
+            return w
+    return "道"
+
+
+def make_danjue(ch: dict) -> str:
+    """一句丹诀"""
+    if ch["id"] in GOLD_LINES:
+        return GOLD_LINES[ch["id"]]
+    parts = re.split(r"[；。！？]", ch["original"])
+    return (parts[0].strip() + "。") if parts and parts[0].strip() else ch["original"][:20]
+
+
 def engine_template(ch: dict) -> dict:
-    """无 LLM 时的骨架生成：不编造解读，只搭结构 + 标注待补"""
-    ori = ch["original"]
+    """无 LLM 时的骨架：结成「字」「诀」，三维留待补炼。绝不编造解读。"""
     return {
-        "benyi": f"【待炼化】原文：{ori[:60]}……\n\n"
+        "danzi": make_danzi(ch),
+        "danjue": make_danjue(ch),
+        "benyi": f"【待炼化】原文：{ch['original'][:60]}……\n\n"
                  f"本意层应说明：关键字词训诂、逐句直解、先秦语境还原。",
         "yinshen": "【待炼化】引申义层应说明：与前后章互证、在 81 章体系中的位置。",
-        "qidi": "【待炼化】启迪层应分「人生 / 自然 / 宇宙」三层，给出可践行指引。",
+        "wei": {
+            "rensheng": f"【待炼化】第{ch['id']}章于「人生·自主」之维，当就处世抉择申说。",
+            "jiankang": f"【待炼化】第{ch['id']}章于「健康·养生」之维，当就形神节律申说。",
+            "yuzhou": f"【待炼化】第{ch['id']}章于「自然·宇宙」之维，当就天地法则申说。",
+        },
     }
 
 
@@ -316,8 +363,14 @@ def engine_llm(ch: dict) -> dict:
     if not m:
         raise SystemExit(f"[x] 第 {ch['id']} 章返回非 JSON：{content[:200]}")
     obj = json.loads(m.group(0))
-    for k in ("benyi", "yinshen", "qidi"):
+    wei = obj.setdefault("wei", {})
+    for k in ("rensheng", "jiankang", "yuzhou"):
+        wei.setdefault(k, "")
+    for k in ("danzi", "danjue", "benyi", "yinshen"):
         obj.setdefault(k, "")
+    # 一字金丹必须真是一字
+    if len(obj["danzi"]) > 1:
+        obj["danzi"] = obj["danzi"].strip("「」《》")[:1]
     return obj
 
 
@@ -328,23 +381,43 @@ def cmd_refine(args) -> None:
     for cid in targets:
         ch = load_chapter(cid)
         if ch["status"] == "refined" and not args.force:
-            print(f"[-] 第 {cid:02d} 章已炼化，跳过（--force 可覆盖）")
+            print(f"[-] 第 {cid:02d} 章已结丹，跳过（--force 可覆盖）")
             continue
         try:
-            result = engine(ch)
-            ch["refined"] = result
+            ch["refined"] = engine(ch)
             ch["status"] = "refined"
             ch["refined_at"] = time.strftime("%Y-%m-%d")
             ch["engine"] = args.engine
+            ch["ferocity"] = judge_ferocity(ch["original"])
             save_chapter(ch)
             ok += 1
-            print(f"[✓] 第 {cid:02d} 章炼化完成")
+            r = ch["refined"]
+            print(f"[✓] 第 {cid:02d} 章结丹　字「{r['danzi']}」　{r['danjue']}")
         except Exception as e:  # noqa: BLE001
             fail += 1
             print(f"[x] 第 {cid:02d} 章失败：{e}")
-    print(f"\n完成 {ok} 章，失败 {fail} 章")
+    print(f"\n结丹 {ok} 章，失败 {fail} 章")
     if ok:
         cmd_build(args)
+
+
+def cmd_assay(args) -> None:
+    """试火候：判断一段输入能否结丹（宽进严出）"""
+    r = judge_ferocity(args.text)
+    print(f"\n输入：{args.text[:90]}{'...' if len(args.text) > 90 else ''}\n")
+    print(f"  火候：{r['level']}　（{r['score']}/100）")
+    print(f"  结论：{r['verdict']}")
+    if r["chapters"]:
+        print(f"  所扣：第 {'、'.join(map(str, r['chapters']))} 章")
+    if r["reasons"]:
+        print("\n  火候依据：")
+        for x in r["reasons"]:
+            print(f"    · {x}")
+    if r["missing"]:
+        print("\n  差在：")
+        for x in r["missing"]:
+            print(f"    · {x}")
+    print()
 
 
 # --------------------------------------------------------------------------
@@ -360,6 +433,7 @@ def cmd_build(_args) -> None:
         "total": len(chs),
         "refined": len(done),
         "updated": time.strftime("%Y-%m-%d %H:%M"),
+        "dimensions": DIMENSIONS,
         "chapters": [
             {
                 "id": c["id"],
@@ -369,15 +443,21 @@ def cmd_build(_args) -> None:
                 "keywords": c["keywords"],
                 "status": c["status"],
                 "has_media": bool(c.get("media")),
+                "danzi": (c["refined"] or {}).get("danzi", ""),
+                "danjue": (c["refined"] or {}).get("danjue", ""),
+                "ferocity": c.get("ferocity"),
             }
             for c in chs
         ],
         "detail": {
             str(c["id"]): {
+                "danzi": c["refined"]["danzi"],
+                "danjue": c["refined"]["danjue"],
                 "benyi": c["refined"]["benyi"],
                 "yinshen": c["refined"]["yinshen"],
-                "qidi": c["refined"]["qidi"],
+                "wei": c["refined"].get("wei", {}),
                 "sources": c.get("sources", []),
+                "ferocity": c.get("ferocity"),
             }
             for c in done
         },
@@ -400,28 +480,37 @@ def cmd_build(_args) -> None:
         "",
         "## 使用方法",
         "",
-        "当用户提出与《道德经》相关的问题时，按以下三步回应：",
+        "当用户提出与《道德经》相关的问题时，按此顺序回应：",
         "",
+        "0. **一字 / 一句** —— 先给出该章的一字金丹与一句丹诀，直指要害",
         "1. **本意** —— 回到原文，说清字词训诂与先秦语境，不附会、不玄化",
         "2. **引申义** —— 由此及彼，与相关章节互证，给出体系化理解",
-        "3. **启迪** —— 分「人生 / 自然 / 宇宙」三层，给出可践行的指引",
+        "3. **三维** —— 分「人生·自主 / 健康·养生 / 自然·宇宙」给出可践行的指引",
         "",
-        "优先引用下方已炼化章节的内容；未炼化章节须明确标注，不得臆造。",
+        "玄律：无原文之根者不结丹。用户所问若无所扣章节，须指明「火候未到」并说明差在哪里。",
         "",
-        "## 已炼化章节",
+        "## 已结丹章节",
         "",
     ]
     for c in done:
+        r = c["refined"]
+        w = r.get("wei", {})
         lines += [
-            f"### 第{c['id']}章 · {c['title']}",
+            f"### 第{c['id']}章 · {c['title']}　【{r['danzi']}】",
             "",
             f"> {c['original']}",
             "",
-            f"**本意**：{c['refined']['benyi']}",
+            f"**丹诀**：{r['danjue']}",
             "",
-            f"**引申义**：{c['refined']['yinshen']}",
+            f"**本意**：{r['benyi']}",
             "",
-            f"**启迪**：{c['refined']['qidi']}",
+            f"**引申义**：{r['yinshen']}",
+            "",
+            f"**人生·自主**：{w.get('rensheng','')}",
+            "",
+            f"**健康·养生**：{w.get('jiankang','')}",
+            "",
+            f"**自然·宇宙**：{w.get('yuzhou','')}",
             "",
         ]
     SKILL.write_text("\n".join(lines), encoding="utf-8")
@@ -435,12 +524,16 @@ def cmd_status(_args) -> None:
     if not chs:
         print("[!] 尚未初始化")
         return
-    done = [c["id"] for c in chs if c["status"] == "refined"]
+    done = [c for c in chs if c["status"] == "refined"]
     with_note = [c["id"] for c in chs if c.get("notes")]
     print(f"章节总数：{len(chs)}")
-    print(f"已炼化　：{len(done)}")
-    print(f"有素材　：{len(with_note)} -> {with_note[:20]}{'...' if len(with_note) > 20 else ''}")
-    print(f"待炼化　：{[c['id'] for c in chs if c['status'] != 'refined'][:20]}")
+    print(f"已结丹　：{len(done)}")
+    if done:
+        print("　　　　　" + "  ".join(
+            f"{c['id']}:{c['refined']['danzi']}" for c in done[:20]
+        ))
+    print(f"有素材　：{len(with_note)}")
+    print(f"待结丹　：{len(chs) - len(done)} 章")
 
 
 # --------------------------------------------------------------------------
@@ -451,6 +544,10 @@ def main() -> None:
     sub.add_parser("init").set_defaults(func=cmd_init)
     sub.add_parser("status").set_defaults(func=cmd_status)
     sub.add_parser("build").set_defaults(func=cmd_build)
+
+    p = sub.add_parser("assay", help="试火候：判断一段输入能否结丹")
+    p.add_argument("text")
+    p.set_defaults(func=cmd_assay)
 
     p = sub.add_parser("ingest-text")
     p.add_argument("file")

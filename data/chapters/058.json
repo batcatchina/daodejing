@@ -17,14 +17,35 @@
     "治国"
   ],
   "refined": {
+    "danzi": "福",
+    "danjue": "祸兮福之所倚，福兮祸之所伏。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 58 章（12 字连续命中）",
+      "篇幅适中（87 字），可炼",
+      "义理词密集（祸、民、复、政、无、缺），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      58
+    ],
+    "ok": true
+  }
 }

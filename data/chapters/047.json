@@ -16,14 +16,35 @@
     "治国"
   ],
   "refined": {
+    "danzi": "知",
+    "danjue": "不出户，知天下。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 47 章（12 字连续命中）",
+      "篇幅适中（45 字），可炼",
+      "义理词密集（天下、道、成、人、明），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      47
+    ],
+    "ok": true
+  }
 }

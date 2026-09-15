@@ -16,14 +16,36 @@
     "治国"
   ],
   "refined": {
+    "danzi": "甚",
+    "danjue": "去甚，去奢，去泰。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 29、64 章（12 字连续命中）",
+      "篇幅适中（71 字），可炼",
+      "义理词密集（天下、得、失、欲、取、神），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      29,
+      64
+    ],
+    "ok": true
+  }
 }

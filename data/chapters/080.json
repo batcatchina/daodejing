@@ -17,14 +17,35 @@
     "宇宙论"
   ],
   "refined": {
+    "danzi": "朴",
+    "danjue": "甘其食，美其服，安其居，乐其俗。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 80 章（12 字连续命中）",
+      "篇幅适中（91 字），可炼",
+      "义理词密集（民、复、无、兵、人、国），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      80
+    ],
+    "ok": true
+  }
 }

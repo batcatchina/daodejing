@@ -1,7 +1,24 @@
 {
   "total": 81,
   "refined": 5,
-  "updated": "2026-09-15 10:43",
+  "updated": "2026-09-15 20:30",
+  "dimensions": [
+    {
+      "key": "rensheng",
+      "name": "人生·自主",
+      "en": "SHENG"
+    },
+    {
+      "key": "jiankang",
+      "name": "健康·养生",
+      "en": "YANG"
+    },
+    {
+      "key": "yuzhou",
+      "name": "自然·宇宙",
+      "en": "ZHOU"
+    }
+  ],
   "chapters": [
     {
       "id": 1,
@@ -21,7 +38,24 @@
         "观"
       ],
       "status": "refined",
-      "has_media": false
+      "has_media": false,
+      "danzi": "玄",
+      "danjue": "道可道，非常道。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 1 章（12 字连续命中）",
+          "篇幅适中（73 字），可炼",
+          "义理词密集（万物、天地、常、道、欲、母），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          1
+        ],
+        "ok": true
+      }
     },
     {
       "id": 2,
@@ -43,7 +77,27 @@
         "已"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "对",
+      "danjue": "有无相生，难易相成。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 2、10、51、77 章（12 字连续命中）",
+          "篇幅适中（106 字），可炼",
+          "义理词密集（万物、无为、天下、形、生、成），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          2,
+          10,
+          51,
+          77
+        ],
+        "ok": true
+      }
     },
     {
       "id": 3,
@@ -64,7 +118,25 @@
         "争"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "虚",
+      "danjue": "为无为，则无不治。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 3、64 章（12 字连续命中）",
+          "篇幅适中（82 字），可炼",
+          "义理词密集（不争、无为、得、民、常、争），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          3,
+          64
+        ],
+        "ok": true
+      }
     },
     {
       "id": 4,
@@ -84,7 +156,25 @@
         "万"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "冲",
+      "danjue": "道冲而用之或不盈。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 4、56 章（12 字连续命中）",
+          "篇幅适中（51 字），可炼",
+          "义理词密集（万物、道、盈、和、同），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          4,
+          56
+        ],
+        "ok": true
+      }
     },
     {
       "id": 5,
@@ -104,7 +194,24 @@
         "圣"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "虚",
+      "danjue": "多言数穷，不如守中。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 5 章（12 字连续命中）",
+          "篇幅适中（55 字），可炼",
+          "义理词密集（万物、天地、中、守、虚、人），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          5
+        ],
+        "ok": true
+      }
     },
     {
       "id": 6,
@@ -124,7 +231,24 @@
         "门"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "绵",
+      "danjue": "绵绵若存，用之不勤。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 6 章（12 字连续命中）",
+          "篇幅适中（31 字），可炼",
+          "义理词密集（天地、谷、神、玄、根），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          6
+        ],
+        "ok": true
+      }
     },
     {
       "id": 7,
@@ -144,7 +268,24 @@
         "私"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "后",
+      "danjue": "后其身而身先。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 7 章（12 字连续命中）",
+          "篇幅适中（57 字），可炼",
+          "义理词密集（天地、自、生、成、身、无），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          7
+        ],
+        "ok": true
+      }
     },
     {
       "id": 8,
@@ -165,7 +306,24 @@
         "物"
       ],
       "status": "refined",
-      "has_media": false
+      "has_media": false,
+      "danzi": "水",
+      "danjue": "上善若水，水善利万物而不争。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 8 章（12 字连续命中）",
+          "篇幅适中（63 字），可炼",
+          "义理词密集（万物、不争、与、道、争、时），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          8
+        ],
+        "ok": true
+      }
     },
     {
       "id": 9,
@@ -185,7 +343,24 @@
         "长"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "止",
+      "danjue": "功遂身退，天之道也。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 9 章（12 字连续命中）",
+          "篇幅适中（50 字），可炼",
+          "义理词密集（自、道、守、身、盈），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          9
+        ],
+        "ok": true
+      }
     },
     {
       "id": 10,
@@ -206,7 +381,26 @@
         "一"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "抱",
+      "danjue": "载营魄抱一，能无离乎？",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 2、10、51 章（12 字连续命中）",
+          "篇幅适中（86 字），可炼",
+          "义理词密集（无为、民、德、生、无、治），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          2,
+          10,
+          51
+        ],
+        "ok": true
+      }
     },
     {
       "id": 11,
@@ -226,7 +420,24 @@
         "共"
       ],
       "status": "refined",
-      "has_media": false
+      "has_media": false,
+      "danzi": "无",
+      "danjue": "有之以为利，无之以为用。",
+      "ferocity": {
+        "score": 80,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 11 章（12 字连续命中）",
+          "篇幅适中（60 字），可炼",
+          "涉义理（无、利、有）"
+        ],
+        "missing": [],
+        "chapters": [
+          11
+        ],
+        "ok": true
+      }
     },
     {
       "id": 12,
@@ -246,7 +457,24 @@
         "耳"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "腹",
+      "danjue": "为腹不为目。",
+      "ferocity": {
+        "score": 80,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 12 章（12 字连续命中）",
+          "篇幅适中（56 字），可炼",
+          "涉义理（得、取、心、人）"
+        ],
+        "missing": [],
+        "chapters": [
+          12
+        ],
+        "ok": true
+      }
     },
     {
       "id": 13,
@@ -266,7 +494,24 @@
         "天"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "身",
+      "danjue": "吾所以有大患者，为吾有身。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 13 章（12 字连续命中）",
+          "篇幅适中（97 字），可炼",
+          "义理词密集（天下、得、失、身、无、有），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          13
+        ],
+        "ok": true
+      }
     },
     {
       "id": 14,
@@ -287,7 +532,24 @@
         "古"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "惚",
+      "danjue": "执古之道，以御今之有。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 14 章（12 字连续命中）",
+          "篇幅适中（112 字），可炼",
+          "义理词密集（得、道、复、微、无、归），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          14
+        ],
+        "ok": true
+      }
     },
     {
       "id": 15,
@@ -308,7 +570,24 @@
         "盈"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "朴",
+      "danjue": "夫唯不盈，故能蔽而新成。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 15 章（12 字连续命中）",
+          "篇幅适中（114 字），可炼",
+          "义理词密集（朴、谷、道、欲、微、静），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          15
+        ],
+        "ok": true
+      }
     },
     {
       "id": 16,
@@ -329,7 +608,25 @@
         "芸"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "静",
+      "danjue": "致虚极，守静笃。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 16、55 章（12 字连续命中）",
+          "篇幅适中（86 字），可炼",
+          "义理词密集（万物、常、道、复、守、静），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          16,
+          55
+        ],
+        "ok": true
+      }
     },
     {
       "id": 17,
@@ -349,7 +646,25 @@
         "誉"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "自",
+      "danjue": "功成事遂，百姓皆谓我自然。",
+      "ferocity": {
+        "score": 80,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 17、23 章（12 字连续命中）",
+          "篇幅适中（58 字），可炼",
+          "涉义理（自然、自、成、有）"
+        ],
+        "missing": [],
+        "chapters": [
+          17,
+          23
+        ],
+        "ok": true
+      }
     },
     {
       "id": 18,
@@ -369,7 +684,24 @@
         "出"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "废",
+      "danjue": "大道废，有仁义。",
+      "ferocity": {
+        "score": 80,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 18 章（12 字连续命中）",
+          "篇幅适中（34 字），可炼",
+          "涉义理（道、和、国、有）"
+        ],
+        "missing": [],
+        "chapters": [
+          18
+        ],
+        "ok": true
+      }
     },
     {
       "id": 19,
@@ -390,7 +722,24 @@
         "倍"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "素",
+      "danjue": "见素抱朴，少私寡欲。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 19 章（12 字连续命中）",
+          "篇幅适中（55 字），可炼",
+          "义理词密集（朴、民、复、欲、无、利），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          19
+        ],
+        "ok": true
+      }
     },
     {
       "id": 20,
@@ -410,7 +759,24 @@
         "与"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "独",
+      "danjue": "我独异于人，而贵食母。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 20 章（12 字连续命中）",
+          "篇幅适中（163 字），可炼",
+          "义理词密集（与、母、无、心、人、归），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          20
+        ],
+        "ok": true
+      }
     },
     {
       "id": 21,
@@ -430,7 +796,24 @@
         "众"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "信",
+      "danjue": "其精甚真，其中有信。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 21 章（12 字连续命中）",
+          "篇幅适中（88 字），可炼",
+          "义理词密集（自、中、道、德、精、有），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          21
+        ],
+        "ok": true
+      }
     },
     {
       "id": 22,
@@ -452,7 +835,25 @@
         "直"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "曲",
+      "danjue": "夫唯不争，故天下莫能与之争。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 22、66 章（12 字连续命中）",
+          "篇幅适中（98 字），可炼",
+          "义理词密集（不争、天下、得、自、与、争），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          22,
+          66
+        ],
+        "ok": true
+      }
     },
     {
       "id": 23,
@@ -473,7 +874,25 @@
         "终"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "希",
+      "danjue": "希言自然。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 17、23 章（12 字连续命中）",
+          "篇幅适中（107 字），可炼",
+          "义理词密集（天地、自然、得、自、失、道），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          17,
+          23
+        ],
+        "ok": true
+      }
     },
     {
       "id": 24,
@@ -493,7 +912,25 @@
         "明"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "赘",
+      "danjue": "企者不立，跨者不行。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 24、31 章（12 字连续命中）",
+          "篇幅适中（57 字），可炼",
+          "义理词密集（自、道、无、明、有），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          24,
+          31
+        ],
+        "ok": true
+      }
     },
     {
       "id": 25,
@@ -514,7 +951,24 @@
         "远"
       ],
       "status": "refined",
-      "has_media": false
+      "has_media": false,
+      "danzi": "法",
+      "danjue": "人法地，地法天，天法道，道法自然。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 25 章（12 字连续命中）",
+          "篇幅适中（107 字），可炼",
+          "义理词密集（天地、周行、自然、天下、反、自），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          25
+        ],
+        "ok": true
+      }
     },
     {
       "id": 26,
@@ -535,7 +989,24 @@
         "圣"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "重",
+      "danjue": "重为轻根，静为躁君。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 26 章（12 字连续命中）",
+          "篇幅适中（56 字），可炼",
+          "义理词密集（天下、失、静、身、主、本），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          26
+        ],
+        "ok": true
+      }
     },
     {
       "id": 27,
@@ -555,7 +1026,24 @@
         "谓"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "袭",
+      "danjue": "常善救人，故无弃人。",
+      "ferocity": {
+        "score": 80,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 27 章（12 字连续命中）",
+          "篇幅适中（109 字），可炼",
+          "涉义理（常、无、人、明）"
+        ],
+        "missing": [],
+        "chapters": [
+          27
+        ],
+        "ok": true
+      }
     },
     {
       "id": 28,
@@ -577,7 +1065,24 @@
         "归"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "朴",
+      "danjue": "复归于朴。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 28 章（12 字连续命中）",
+          "篇幅适中（108 字），可炼",
+          "义理词密集（天下、朴、谷、常、德、复），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          28
+        ],
+        "ok": true
+      }
     },
     {
       "id": 29,
@@ -597,7 +1102,25 @@
         "吾"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "甚",
+      "danjue": "去甚，去奢，去泰。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 29、64 章（12 字连续命中）",
+          "篇幅适中（71 字），可炼",
+          "义理词密集（天下、得、失、欲、取、神），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          29,
+          64
+        ],
+        "ok": true
+      }
     },
     {
       "id": 30,
@@ -619,7 +1142,25 @@
         "主"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "果",
+      "danjue": "物壮则老，是谓不道。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 30、55 章（12 字连续命中）",
+          "篇幅适中（92 字），可炼",
+          "义理词密集（天下、得、道、取、生、主），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          30,
+          55
+        ],
+        "ok": true
+      }
     },
     {
       "id": 31,
@@ -640,7 +1181,25 @@
         "人"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "哀",
+      "danjue": "兵者不祥之器，不得已而用之。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 24、31 章（12 字连续命中）",
+          "篇幅适中（139 字），可炼",
+          "义理词密集（天下、得、战、道、志、兵），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          24,
+          31
+        ],
+        "ok": true
+      }
     },
     {
       "id": 32,
@@ -662,7 +1221,25 @@
         "自"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "止",
+      "danjue": "知止可以不殆。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 32、37 章（12 字连续命中）",
+          "篇幅适中（85 字），可炼",
+          "义理词密集（知止、万物、天地、天下、朴、自），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          32,
+          37
+        ],
+        "ok": true
+      }
     },
     {
       "id": 33,
@@ -682,7 +1259,24 @@
         "力"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "明",
+      "danjue": "知人者智，自知者明。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 33 章（12 字连续命中）",
+          "篇幅适中（46 字），可炼",
+          "义理词密集（知足、自、失、志、强、人），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          33
+        ],
+        "ok": true
+      }
     },
     {
       "id": 34,
@@ -702,7 +1296,25 @@
         "道"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "大",
+      "danjue": "以其终不自为大，故能成其大。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 34、63 章（12 字连续命中）",
+          "篇幅适中（72 字），可炼",
+          "义理词密集（万物、自、常、道、欲、生），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          34,
+          63
+        ],
+        "ok": true
+      }
     },
     {
       "id": 35,
@@ -722,7 +1334,24 @@
         "害"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "淡",
+      "danjue": "道之出口，淡乎其无味。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 35 章（12 字连续命中）",
+          "篇幅适中（54 字），可炼",
+          "义理词密集（天下、与、道、无、害），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          35
+        ],
+        "ok": true
+      }
     },
     {
       "id": 36,
@@ -743,7 +1372,24 @@
         "歙"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "微",
+      "danjue": "柔弱胜刚强。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 36 章（12 字连续命中）",
+          "篇幅适中（68 字），可炼",
+          "义理词密集（刚、与、欲、微、强、利），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          36
+        ],
+        "ok": true
+      }
     },
     {
       "id": 37,
@@ -765,7 +1411,26 @@
         "常"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "化",
+      "danjue": "道常无为而无不为。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 32、37、48 章（12 字连续命中）",
+          "篇幅适中（59 字），可炼",
+          "义理词密集（万物、无为、天下、化、朴、自），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          32,
+          37,
+          48
+        ],
+        "ok": true
+      }
     },
     {
       "id": 38,
@@ -786,7 +1451,24 @@
         "下"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "厚",
+      "danjue": "失道而后德，失德而后仁。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 38 章（12 字连续命中）",
+          "篇幅适中（154 字），可炼",
+          "义理词密集（无为、华、失、应、道、德），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          38
+        ],
+        "ok": true
+      }
     },
     {
       "id": 39,
@@ -808,7 +1490,24 @@
         "王"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "一",
+      "danjue": "贵以贱为本，高以下为基。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 39 章（12 字连续命中）",
+          "篇幅适中（166 字），可炼",
+          "义理词密集（万物、天下、得、自、谷、欲），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          39
+        ],
+        "ok": true
+      }
     },
     {
       "id": 40,
@@ -829,7 +1528,24 @@
         "下"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "反",
+      "danjue": "反者道之动，弱者道之用。",
+      "ferocity": {
+        "score": 78,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 40 章（12 字连续命中）",
+          "有实义，然尚简",
+          "义理词密集（万物、天下、反、道、生、无），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          40
+        ],
+        "ok": true
+      }
     },
     {
       "id": 41,
@@ -850,7 +1566,24 @@
         "笑"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "隐",
+      "danjue": "大音希声，大象无形。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 41 章（12 字连续命中）",
+          "篇幅适中（118 字），可炼",
+          "义理词密集（形、中、谷、道、德、成），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          41
+        ],
+        "ok": true
+      }
     },
     {
       "id": 42,
@@ -871,7 +1604,24 @@
         "人"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "和",
+      "danjue": "万物负阴而抱阳，冲气以为和。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 42 章（12 字连续命中）",
+          "篇幅适中（90 字），可炼",
+          "义理词密集（万物、得、谷、损、道、生），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          42
+        ],
+        "ok": true
+      }
     },
     {
       "id": 43,
@@ -893,7 +1643,24 @@
         "坚"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "柔",
+      "danjue": "天下之至柔，驰骋天下之至坚。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 43 章（12 字连续命中）",
+          "篇幅适中（46 字），可炼",
+          "义理词密集（无为、天下、无、柔、益、有），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          43
+        ],
+        "ok": true
+      }
     },
     {
       "id": 44,
@@ -913,7 +1680,24 @@
         "名"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "足",
+      "danjue": "知足不辱，知止不殆。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 44 章（12 字连续命中）",
+          "篇幅适中（45 字），可炼",
+          "义理词密集（知止、知足、得、与、身、厚），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          44
+        ],
+        "ok": true
+      }
     },
     {
       "id": 45,
@@ -933,7 +1717,24 @@
         "弊"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "静",
+      "danjue": "清静为天下正。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 45 章（12 字连续命中）",
+          "篇幅适中（50 字），可炼",
+          "义理词密集（天下、静、成、盈、缺），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          45
+        ],
+        "ok": true
+      }
     },
     {
       "id": 46,
@@ -953,7 +1754,24 @@
         "知"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "足",
+      "danjue": "祸莫大于不知足。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 46 章（12 字连续命中）",
+          "篇幅适中（47 字），可炼",
+          "义理词密集（知足、天下、得、祸、常、道），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          46
+        ],
+        "ok": true
+      }
     },
     {
       "id": 47,
@@ -973,7 +1791,24 @@
         "窥"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "知",
+      "danjue": "不出户，知天下。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 47 章（12 字连续命中）",
+          "篇幅适中（45 字），可炼",
+          "义理词密集（天下、道、成、人、明），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          47
+        ],
+        "ok": true
+      }
     },
     {
       "id": 48,
@@ -995,7 +1830,25 @@
         "益"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "损",
+      "danjue": "为学日益，为道日损。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 37、48 章（12 字连续命中）",
+          "篇幅适中（48 字），可炼",
+          "义理词密集（无为、天下、常、损、道、取），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          37,
+          48
+        ],
+        "ok": true
+      }
     },
     {
       "id": 49,
@@ -1015,7 +1868,24 @@
         "姓"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "浑",
+      "danjue": "圣人无常心，以百姓心为心。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 49 章（12 字连续命中）",
+          "篇幅适中（82 字），可炼",
+          "义理词密集（天下、常、德、无、心、人），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          49
+        ],
+        "ok": true
+      }
     },
     {
       "id": 50,
@@ -1035,7 +1905,24 @@
         "何"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "生",
+      "danjue": "善摄生者，无死地。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 50 章（12 字连续命中）",
+          "篇幅适中（99 字），可炼",
+          "义理词密集（生、无、厚、兵、人、有），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          50
+        ],
+        "ok": true
+      }
     },
     {
       "id": 51,
@@ -1055,7 +1942,26 @@
         "尊"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "德",
+      "danjue": "生而不有，为而不恃，长而不宰。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 2、10、51 章（12 字连续命中）",
+          "篇幅适中（89 字），可炼",
+          "义理词密集（万物、自然、自、形、常、道），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          2,
+          10,
+          51
+        ],
+        "ok": true
+      }
     },
     {
       "id": 52,
@@ -1076,7 +1982,25 @@
         "复"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "守",
+      "danjue": "见小曰明，守柔曰强。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 52、56 章（12 字连续命中）",
+          "篇幅适中（91 字），可炼",
+          "义理词密集（天下、得、常、复、守、母），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          52,
+          56
+        ],
+        "ok": true
+      }
     },
     {
       "id": 53,
@@ -1096,7 +2020,24 @@
         "知"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "径",
+      "danjue": "大道甚夷，而人好径。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 53 章（12 字连续命中）",
+          "篇幅适中（66 字），可炼",
+          "义理词密集（道、虚、利、人、有），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          53
+        ],
+        "ok": true
+      }
     },
     {
       "id": 54,
@@ -1116,7 +2057,25 @@
         "家"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "修",
+      "danjue": "修之于身，其德乃真。",
+      "ferocity": {
+        "score": 80,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 54、57 章（12 字连续命中）",
+          "篇幅适中（111 字），可炼",
+          "涉义理（天下、德、身、国）"
+        ],
+        "missing": [],
+        "chapters": [
+          54,
+          57
+        ],
+        "ok": true
+      }
     },
     {
       "id": 55,
@@ -1138,7 +2097,26 @@
         "厚"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "和",
+      "danjue": "知和曰常，知常曰明。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 16、30、55 章（12 字连续命中）",
+          "篇幅适中（98 字），可炼",
+          "义理词密集（常、道、德、生、强、厚），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          16,
+          30,
+          55
+        ],
+        "ok": true
+      }
     },
     {
       "id": 56,
@@ -1158,7 +2136,26 @@
         "兑"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "同",
+      "danjue": "知者不言，言者不知。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 4、52、56 章（12 字连续命中）",
+          "篇幅适中（82 字），可炼",
+          "义理词密集（天下、得、利、和、同、害），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          4,
+          52,
+          56
+        ],
+        "ok": true
+      }
     },
     {
       "id": 57,
@@ -1180,7 +2177,25 @@
         "奇"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "正",
+      "danjue": "我无为而民自化。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 54、57 章（12 字连续命中）",
+          "篇幅适中（106 字），可炼",
+          "义理词密集（无为、天下、化、朴、自、民），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          54,
+          57
+        ],
+        "ok": true
+      }
     },
     {
       "id": 58,
@@ -1201,7 +2216,24 @@
         "福"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "福",
+      "danjue": "祸兮福之所倚，福兮祸之所伏。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 58 章（12 字连续命中）",
+          "篇幅适中（87 字），可炼",
+          "义理词密集（祸、民、复、政、无、缺），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          58
+        ],
+        "ok": true
+      }
     },
     {
       "id": 59,
@@ -1222,7 +2254,24 @@
         "德"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "啬",
+      "danjue": "治人事天，莫若啬。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 59 章（12 字连续命中）",
+          "篇幅适中（77 字），可炼",
+          "义理词密集（道、德、母、生、无、治），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          59
+        ],
+        "ok": true
+      }
     },
     {
       "id": 60,
@@ -1242,7 +2291,24 @@
         "国"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "烹",
+      "danjue": "治大国，若烹小鲜。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 60 章（12 字连续命中）",
+          "篇幅适中（58 字），可炼",
+          "义理词密集（天下、道、德、神、治、人），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          60
+        ],
+        "ok": true
+      }
     },
     {
       "id": 61,
@@ -1262,7 +2328,24 @@
         "牝"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "下",
+      "danjue": "大邦者下流。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 61 章（12 字连续命中）",
+          "篇幅适中（97 字），可炼",
+          "义理词密集（天下、得、常、欲、静、取），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          61
+        ],
+        "ok": true
+      }
     },
     {
       "id": 62,
@@ -1282,7 +2365,24 @@
         "此"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "宝",
+      "danjue": "道者，万物之奥。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 62 章（12 字连续命中）",
+          "篇幅适中（98 字），可炼",
+          "义理词密集（万物、天下、得、道、人、有），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          62
+        ],
+        "ok": true
+      }
     },
     {
       "id": 63,
@@ -1303,7 +2403,26 @@
         "细"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "细",
+      "danjue": "天下大事必作于细。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 34、63、73 章（12 字连续命中）",
+          "篇幅适中（94 字），可炼",
+          "义理词密集（无为、天下、德、成、无、人），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          34,
+          63,
+          73
+        ],
+        "ok": true
+      }
     },
     {
       "id": 64,
@@ -1325,7 +2444,26 @@
         "圣"
       ],
       "status": "refined",
-      "has_media": false
+      "has_media": false,
+      "danzi": "慎",
+      "danjue": "慎终如始，则无败事。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 3、29、64 章（12 字连续命中）",
+          "篇幅适中（150 字），可炼",
+          "义理词密集（万物、无为、自然、得、自、民），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          3,
+          29,
+          64
+        ],
+        "ok": true
+      }
     },
     {
       "id": 65,
@@ -1347,7 +2485,25 @@
         "玄"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "愚",
+      "danjue": "以智治国，国之贼。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 65、75 章（12 字连续命中）",
+          "篇幅适中（85 字），可炼",
+          "义理词密集（反、民、常、与、道、德），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          65,
+          75
+        ],
+        "ok": true
+      }
     },
     {
       "id": 66,
@@ -1368,7 +2524,25 @@
         "人"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "江",
+      "danjue": "以其不争，故天下莫能与之争。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 22、66 章（12 字连续命中）",
+          "篇幅适中（91 字），可炼",
+          "义理词密集（不争、天下、民、谷、与、争），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          22,
+          66
+        ],
+        "ok": true
+      }
     },
     {
       "id": 67,
@@ -1389,7 +2563,24 @@
         "舍"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "慈",
+      "danjue": "一曰慈，二曰俭，三曰不敢为天下先。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 67 章（12 字连续命中）",
+          "篇幅适中（123 字），可炼",
+          "义理词密集（天下、战、道、守、成、有），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          67
+        ],
+        "ok": true
+      }
     },
     {
       "id": 68,
@@ -1409,7 +2600,24 @@
         "怒"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "争",
+      "danjue": "善用人者，为之下。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 68 章（12 字连续命中）",
+          "篇幅适中（55 字），可炼",
+          "义理词密集（不争、战、与、争、德、人），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          68
+        ],
+        "ok": true
+      }
     },
     {
       "id": 69,
@@ -1429,7 +2637,24 @@
         "言"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "哀",
+      "danjue": "祸莫大于轻敌。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 69 章（12 字连续命中）",
+          "篇幅适中（67 字），可炼",
+          "义理词密集（祸、主、无、兵、有），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          69
+        ],
+        "ok": true
+      }
     },
     {
       "id": 70,
@@ -1450,7 +2675,24 @@
         "能"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "褐",
+      "danjue": "知我者希，则我者贵。",
+      "ferocity": {
+        "score": 80,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 70 章（12 字连续命中）",
+          "篇幅适中（59 字），可炼",
+          "涉义理（天下、无、人、有）"
+        ],
+        "missing": [],
+        "chapters": [
+          70
+        ],
+        "ok": true
+      }
     },
     {
       "id": 71,
@@ -1467,7 +2709,24 @@
         "人"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "病",
+      "danjue": "知不知，尚矣。",
+      "ferocity": {
+        "score": 71,
+        "level": "中品·可炼",
+        "verdict": "火候尚可，可结丹，然需精炼。",
+        "reasons": [
+          "直引原文，扣第 71 章（12 字连续命中）",
+          "篇幅适中（34 字），可炼",
+          "仅触及「人」一隅，未成体系"
+        ],
+        "missing": [],
+        "chapters": [
+          71
+        ],
+        "ok": true
+      }
     },
     {
       "id": 72,
@@ -1487,7 +2746,24 @@
         "狎"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "自",
+      "danjue": "圣人自知不自见，自爱不自贵。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 72 章（12 字连续命中）",
+          "篇幅适中（54 字），可炼",
+          "义理词密集（自、民、取、生、无、人），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          72
+        ],
+        "ok": true
+      }
     },
     {
       "id": 73,
@@ -1507,7 +2783,25 @@
         "活"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "网",
+      "danjue": "天网恢恢，疏而不失。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 63、73 章（12 字连续命中）",
+          "篇幅适中（78 字），可炼",
+          "义理词密集（不争、自、失、应、道、争），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          63,
+          73
+        ],
+        "ok": true
+      }
     },
     {
       "id": 74,
@@ -1527,7 +2821,24 @@
         "大"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "畏",
+      "danjue": "民不畏死，奈何以死惧之？",
+      "ferocity": {
+        "score": 80,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 74 章（12 字连续命中）",
+          "篇幅适中（70 字），可炼",
+          "涉义理（得、民、常、有）"
+        ],
+        "missing": [],
+        "chapters": [
+          74
+        ],
+        "ok": true
+      }
     },
     {
       "id": 75,
@@ -1548,7 +2859,25 @@
         "死"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "生",
+      "danjue": "无以生为者，是贤于贵生。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 65、75 章（12 字连续命中）",
+          "篇幅适中（65 字），可炼",
+          "义理词密集（民、生、无、厚、治、有），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          65,
+          75
+        ],
+        "ok": true
+      }
     },
     {
       "id": 76,
@@ -1568,7 +2897,24 @@
         "徒"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "弱",
+      "danjue": "坚强者死之徒，柔弱者生之徒。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 76 章（12 字连续命中）",
+          "篇幅适中（66 字），可炼",
+          "义理词密集（万物、生、强、兵、柔、人），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          76
+        ],
+        "ok": true
+      }
     },
     {
       "id": 77,
@@ -1589,7 +2935,25 @@
         "人"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "损",
+      "danjue": "天之道，损有余而补不足。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 2、77 章（12 字连续命中）",
+          "篇幅适中（94 字），可炼",
+          "义理词密集（天下、损、与、道、欲、成），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          2,
+          77
+        ],
+        "ok": true
+      }
     },
     {
       "id": 78,
@@ -1611,7 +2975,24 @@
         "能"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "柔",
+      "danjue": "弱之胜强，柔之胜刚。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 78 章（12 字连续命中）",
+          "篇幅适中（78 字），可炼",
+          "义理词密集（天下、刚、反、主、无、强），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          78
+        ],
+        "ok": true
+      }
     },
     {
       "id": 79,
@@ -1631,7 +3012,24 @@
         "大"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "契",
+      "danjue": "天道无亲，常与善人。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 79 章（12 字连续命中）",
+          "篇幅适中（49 字），可炼",
+          "义理词密集（常、与、道、德、无、和），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          79
+        ],
+        "ok": true
+      }
     },
     {
       "id": 80,
@@ -1652,7 +3050,24 @@
         "小"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "朴",
+      "danjue": "甘其食，美其服，安其居，乐其俗。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 80 章（12 字连续命中）",
+          "篇幅适中（91 字），可炼",
+          "义理词密集（民、复、无、兵、人、国），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          80
+        ],
+        "ok": true
+      }
     },
     {
       "id": 81,
@@ -1672,39 +3087,163 @@
         "博"
       ],
       "status": "pending",
-      "has_media": false
+      "has_media": false,
+      "danzi": "为",
+      "danjue": "天之道，利而不害；圣人之道，为而不争。",
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 81 章（12 字连续命中）",
+          "篇幅适中（70 字），可炼",
+          "义理词密集（不争、与、道、争、利、人），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          81
+        ],
+        "ok": true
+      }
     }
   ],
   "detail": {
     "1": {
+      "danzi": "玄",
+      "danjue": "道可道，非常道。",
       "benyi": "逐句直解：\n\n- **道可道，非常道**：第一个\"道\"是名词，指老子所说的终极实在；第二个\"道\"是动词，言说、表述。\"常\"本作\"恒\"（帛书本作\"恒\"），汉人为避文帝刘恒讳改作\"常\"。句意：凡能被言语表述的道，便不是那恒常不变之道。\n- **名可名，非常名**：可被命名的名，便不是恒常之名。此句与前句对举，把批判从\"言说\"推进到\"概念\"。\n- **无名天地之始，有名万物之母**：断句存两派。主流读法以\"无名/有名\"为对，指道的两种状态；另一派（王安石、司马光等）读作\"无，名天地之始；有，名万物之母\"，以\"无/有\"为对。两说皆通，后者与下文\"此两者\"呼应更紧。\n- **常无欲以观其妙，常有欲以观其徼**：亦有断为\"常无，欲以观其妙；常有，欲以观其徼\"。\"妙\"是精微不可见的本源，\"徼\"是边界、迹兆、显现之端。\n- **此两者同出而异名，同谓之玄**：无与有同出于道，只是称谓不同，都可谓之\"玄\"——幽远深暗、不可穷究。\n- **玄之又玄，众妙之门**：层层深入，是一切奥妙所由出的总门。\n\n关键字词：**玄**（幽远不可测）、**妙**（精微）、**徼**（边界显现）、**门**（所由出）。",
       "yinshen": "这一章是整部《道德经》的认识论总纲，它不是在说\"道很神秘\"，而是在划一条严格的界限：**语言与概念所能把握的，不是实在本身。**\n\n三点推演：\n\n1. **不是不可知论，是分层次的可说性。** 老子承认\"道\"可以被言说、可以被命名，只是被言说的那个已经\"非常道\"。这相当于说：地图不是疆域，但地图有用。第25章\"吾不知其名，字之曰道，强为之名曰大\"正是同一层意思——命名是不得已的方便。\n\n2. **\"无\"与\"有\"不是先后生成，是同一实在的两种观照。** 从本体看是无（未分化），从功用看是有（已显现）。第11章\"有之以为利，无之以为用\"是这一思路的具体展开；第40章\"天下万物生于有，有生于无\"则容易被误读为宇宙生成的时间序列，需与此章对读矫正。\n\n3. **关键落在\"观\"字上。** 老子给的从来不是纯粹的存在论断言，而是一套修养方法：通过调节自身状态（无欲/有欲）来切换观照方式。无欲则能见其微，有欲则能察其迹。这与第16章\"致虚极，守静笃，万物并作，吾以观复\"、第47章\"不出户知天下\"同属一条工夫论线索。\n\n与第32章\"道常无名\"、第41章\"道隐无名\"互证：整部书对\"命名\"始终抱有警惕。",
-      "qidi": "**人生**：不要把任何标签当成实相本身。你给一个人贴的标签、给自己贴的标签、给一段关系下的定义，都只是\"可名之名\"，不是那个人、那个你、那段关系。可行的练法：每周挑一件你笃定\"就是这样\"的事，刻意找出三个反例。这是在训练\"知不知\"（第71章）。\n\n**自然**：观察一片森林，你可以数清树种、量出树高、画出分布图（有，观其徼）；也可以静坐其中，感受它作为整体的气息与生机（无，观其妙）。两者看到的不是两片森林，是同一片森林的两个面向。科学做前者，艺术与冥想做后者——任何一面被取消，认知就是残缺的。\n\n**宇宙**：现代物理学的\"真空不空\"、量子场论的基态涨落，与\"无中生有\"在结构上确有呼应。但必须警醒：老子的\"无\"不是物理真空，而是一切规定性尚未分化的状态。可借鉴，不可等同——把古典智慧硬套现代科学，恰恰犯了\"可道非常道\"的忌。\n\n**实践**：每天留一段不用语言整理经验的时间。不写日记、不复盘、不发朋友圈，只是经历。这是训练\"以观其妙\"的能力，也是给\"名\"松绑。\n",
-      "sources": []
+      "wei": {
+        "rensheng": "不要把标签当实相。你给一个人贴的标签、给自己下的定义、给一段关系作的判断，都只是\"可名之名\"。\n可行的练法：每周挑一件你笃定\"就是这样\"的事，刻意找出三个反例。这是在训练\"知不知\"（第71章）——知不知，尚矣。\n\n更进一层：\"常无欲以观其妙，常有欲以观其徼\"给的是两把钥匙。无欲时看得见精微，有欲时看得见迹象。多数人的问题不是不懂得静，而是**只会用一种方式看世界**。该看迹象时在冥想，该看精微时在算计，于是两头落空。学会切换，是自主的第一课。",
+        "jiankang": "\"无欲\"不是压抑欲望，是让心神从追逐中抽身。现代人的耗损多在\"常有欲\"——眼睛盯着屏幕、心里算着得失，交感神经长期亢奋，此为\"其出弥远，其知弥少\"（第47章）。\n\n两味药：一是每日留一段\"不用语言整理经验\"的时间，不写日记、不复盘、不倾诉，只是经历。二是练\"观\"而不\"判\"——看一片叶子就只是看，不评价好坏。这是《道德经》的摄生法门：**先让神回来，形才能安。**\n\n需警醒者：此章讲的是认识论，不是养生术。若把\"无欲\"直接读成\"少动多睡\"，则失之远矣。",
+        "yuzhou": "此章是全书认识论总纲：语言与概念所能把握的，不是实在本身。\n\n现代物理学的\"真空不空\"、量子场论的基态涨落，与\"无中生有\"在结构上确有呼应。但必须警醒：老子的\"无\"不是物理真空，而是一切规定性尚未分化的状态。可借鉴，不可等同——把古典智慧硬套现代科学，恰恰犯了\"可道非常道\"的忌。\n\n真正的宇宙论提示在这里：**任何模型都是\"可道之道\"。** 牛顿力学、相对论、量子场论，都是在各自尺度上极精确的\"可名之名\"，却都不等于实在。物理学史就是一部\"非常道\"的证词。老子两千五百年前先把这条底线划下了。"
+      },
+      "sources": [],
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 1 章（12 字连续命中）",
+          "篇幅适中（73 字），可炼",
+          "义理词密集（万物、天地、常、道、欲、母），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          1
+        ],
+        "ok": true
+      }
     },
     "8": {
+      "danzi": "水",
+      "danjue": "上善若水，水善利万物而不争。",
       "benyi": "- **上善若水**：最高的善像水一样。注意是\"若\"（像），不是\"是\"——老子用比喻而非定义，正合第1章\"道可道非常道\"。\n- **水善利万物而不争，处众人之所恶，故几于道**：水滋养万物却不与之相争，停留在众人厌恶的低洼之处，所以**接近于**道。\"几\"是接近而非等同——水有形，道无形，故只能\"几\"。\n- **居善地，心善渊，与善仁，言善信，正善治，事善能，动善时**：七个\"善\"是水的七种德性，也是人应效法的七个面向：择下而居、存心深沉、施与仁厚、言语守信、为政清静、做事能干、行动合时。\n- **夫唯不争，故无尤**：正因为不争，所以没有过失与怨咎。\n\n关键字词：**几**（接近）、**尤**（过失、怨咎）、**渊**（深静）。",
       "yinshen": "这一章最容易被读成\"劝人温和\"的道德说教，那是读浅了。它的内核是**一种关于优势的策略学**。\n\n1. **\"处众人之所恶\"是主动选择，不是被动忍受。** 众人趋高，水趋下。低处之所以有价值，正因为无人争夺——所有竞争成本都归零。这与第66章\"江海所以能为百谷王者，以其善下之\"是同一原理的放大版：低处不是失败者的位置，是汇聚者的位置。\n\n2. **\"不争\"不是放弃，是换赛道。** 第22章\"夫唯不争，故天下莫能与之争\"、第66章\"以其不争，故天下莫能与之争\"、第81章\"圣人之道，为而不争\"，构成全书的一条主线。争的逻辑是零和，不争的逻辑是把蛋糕做大后自然处于枢纽位置。水的\"不争\"建立在\"善利万物\"之上——先有功，才有不争的资格。顺序不能颠倒。\n\n3. **七善是完整的能力结构，不是性格描述。** 尤其\"事善能\"\"动善时\"两项，把\"上善\"从柔弱的 caricature 里救了出来：真正的上善包含执行力与时机感。柔弱若无能力支撑，只是软弱。这一点要与第36章\"柔弱胜刚强\"、第78章\"天下莫柔弱于水，而攻坚强者莫之能胜\"合看。\n\n**争议点**：\"与善仁\"一句，帛书本作\"予善天\"，与\"仁\"义有别。传世本强调仁爱，帛书本强调法天。两说并存，不必强合。",
-      "qidi": "**人生**：把\"处众人之所恶\"翻译成现代语境——去做那些没人愿意做、但系统离不开的事。整理文档、维护旧代码、带新人、在冲突中做协调者。这些位置短期吃亏，长期却让你成为不可替代的枢纽。这是\"不争\"的真实收益。\n\n**自然**：水往低处流，不是因为谦逊，是因为重力。但正是顺着必然性走，它才积蓄出切割峡谷的力量。观察一条河：它从不与岩石正面冲撞，而是绕行、渗透、日积月累。这是\"弱者道之用\"（第40章）的物理演示。\n\n**宇宙**：热力学第二定律说孤立系统趋向熵增，而生命是局部减熵的逆流——靠的是持续的能量输入与开放。水\"善利万物\"恰是开放系统的写照：它在流动中保持自身的活。封闭则腐，流动则生，这是跨越两千五百年的一致性。\n\n**实践**：遇到正面冲突时，先问自己三个问题：这件事的\"低处\"在哪？我能否先给予再谈条件？我的\"不争\"是真有底气，还是没能力争？第三个问题最要紧——无能力的不争是逃避，有能力的不争才是水。\n",
-      "sources": []
+      "wei": {
+        "rensheng": "把\"处众人之所恶\"翻译成现代语境——去做那些没人愿意做、但系统离不开的事。整理文档、维护旧代码、带新人、在冲突中做协调者。这些位置短期吃亏，长期却让你成为不可替代的枢纽。这是\"不争\"的真实收益。\n\n但顺序不能颠倒。水的\"不争\"建立在\"善利万物\"之上——**先有功，才有不争的资格。** 无能力的不争是逃避，有能力的不争才是水。第81章\"圣人之道，为而不争\"说得明白：先是\"为\"，再是\"不争\"。\n\n七善之中，\"事善能\"\"动善时\"最易被忽略。真正的上善包含执行力与时机感，柔弱若无能力支撑，只是软弱。",
+        "jiankang": "水的德性是\"善利万物\"而不断流动。人身七成是水，最忌的恰是\"滞\"。\n\n养生上的启示有三：**居善地**——住处、坐处、卧处，择下而安，不高不险；**心善渊**——心要沉得下去，不浮躁、不轻动；**动善时**——什么时候该动、什么时候该歇，依时令而行，不硬撑。\n\n第78章\"天下莫柔弱于水，而攻坚强者莫之能胜\"是同一原理的身体版本：关节、筋膜、气血，柔则通，硬则滞。熬夜、久坐、憋怒，皆是\"与水相争\"，消耗的是自己。",
+        "yuzhou": "水往低处流，不是因为谦逊，是因为重力。但正是顺着必然性走，它才积蓄出切割峡谷的力量。观察一条河：它从不与岩石正面冲撞，而是绕行、渗透、日积月累。这是\"弱者道之用\"（第40章）的物理演示。\n\n热力学第二定律说孤立系统趋向熵增，而生命是局部减熵的逆流——靠的是持续的能量输入与开放。水\"善利万物\"恰是开放系统的写照：**它在流动中保持自身的活。封闭则腐，流动则生。**\n\n第66章\"江海所以能为百谷王者，以其善下之\"，把这一原理放大到地理尺度：最低处成了最终的汇聚者。自然从不奖励\"争高\"，只奖励\"容\"。"
+      },
+      "sources": [],
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 8 章（12 字连续命中）",
+          "篇幅适中（63 字），可炼",
+          "义理词密集（万物、不争、与、道、争、时），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          8
+        ],
+        "ok": true
+      }
     },
     "11": {
+      "danzi": "无",
+      "danjue": "有之以为利，无之以为用。",
       "benyi": "- **三十辐共一毂**：三十根辐条汇聚于车轮中心的毂。辐是连接轮圈与毂的直木，毂是承轴的圆木。\n- **当其无，有车之用**：正因为毂中心是空的（无），车轮才能套在轴上转动，才有车的作用。\n- **埏埴以为器**：揉和黏土做成器皿。\"埏\"是揉，\"埴\"是黏土。\n- **凿户牖以为室**：开凿门窗建造房屋。\"牖\"是窗。\n- **故有之以为利，无之以为用**：所以\"有\"（实体部分）提供条件与便利，\"无\"（空的部分）才成就真正的功用。\n\n关键字词：**当**（正是、正在）、**利**（便利、条件）、**用**（功用、效用）。全章的枢纽在\"利\"与\"用\"的区分。",
       "yinshen": "这是全书最锋利的一章之一：它用一个日常观察，拆解了**价值到底寄居在哪里**。\n\n1. **\"利\"与\"用\"的分野。** 有形的部分（辐、器壁、墙）是\"利\"——必要条件；无形的部分（毂中空、器内腔、室内空间）才是\"用\"——目的本身。人天生追逐\"有\"，因为\"有\"可占有、可计量、可炫耀；但一切效用的发生点都在\"无\"。这个颠倒，是第1章\"无/有\"之辨落到实处的版本。\n\n2. **三个例子的递进是有设计的。** 车（工具）→ 器（容器）→ 室（居所），从外物推进到人栖居其中，暗示这一原理最终要落回人身与人心。\n\n3. **\"无\"不是空无一物，是被有意留出的空间。** 这一点极要紧。老子的无是**功能性的空位**，是设计出来的，不是废墟。车毂若实心则不能转，器皿若实心则不能盛，房屋若实心则不能居。留白是结构的一部分。\n\n4. **与\"虚\"的工夫论相连。** 第5章\"虚而不屈，动而愈出\"讲风箱因中空而生生不竭；第16章\"致虚极\"讲人心因虚而能观复。器物的空与心灵的虚，是同一原理的两个层面——这解释了为什么老子反复以器物喻心。\n\n**常见误读**：有人把\"无之以为用\"读成\"虚无主义\"或\"空谈\"，恰恰相反——老子说的是**空位的生产性**，是极其务实的工程学智慧。",
-      "qidi": "**人生**：你的时间表、你的注意力、你的房间，都需要\"当其无\"。日程排满则无应变之力，注意力填满则无生发之机，房间堆满则无安住之所。具体做法：每天保留两小时空白不安排，每周留半天不产出。这不是偷懒，是给\"用\"留出发生的位置。\n\n**自然**：一间屋子不是墙，是被墙围出来的空间；一只鸟的飞行能力不在羽毛，而在羽毛间与骨腔中的空气；一个生态系统的健康不在物种数量，而在物种之间的空隙与缓冲带。大自然处处是\"当其无\"的工程学。\n\n**宇宙**：可观测宇宙的绝大部分是虚空，正是这虚空让星系得以形成、光线得以传播。若宇宙是实心的，就没有运动，也没有时间。现代宇宙学越来越倾向于认为，看似\"空\"的真空具有结构（度规、场、能量）——这恰是\"无之以为用\"在最大尺度上的回声。\n\n**实践**：下次做计划时，先决定不留什么。删掉一项再开始。做产品时先决定不做什么功能。教育孩子时先决定不管什么。判断你是否理解了这一章，就看你的\"不做什么\"清单，是否比\"要做什么\"清单更清晰。\n",
-      "sources": []
+      "wei": {
+        "rensheng": "你的时间表、注意力、房间，都需要\"当其无\"。日程排满则无应变之力，注意力填满则无生发之机，房间堆满则无安住之所。\n\n具体做法：每天保留两小时空白不安排，每周留半天不产出。这不是偷懒，是给\"用\"留出发生的位置。\n\n判断你是否真懂了这一章，就看你的\"不做什么\"清单是否比\"要做什么\"清单更清晰。多数人的困境不是不努力，是把\"利\"当成了\"用\"——买了跑车却没有要去的地方，填满了日程却没有想做的事。",
+        "jiankang": "一间屋子不是墙，是被墙围出来的空间。身体亦然：腑脏为空腔而能运化，肺为空囊而能纳气，肠胃为管道而能通降。**生命的关键功能全发生在\"空\"里。**\n\n养生上最直接的落点：**留白即养。** 不把胃塞满（七分饱），不把神用尽（留有余地），不把气憋住（呼吸要长）。第5章\"虚而不屈，动而愈出\"讲风箱因中空而生生不竭，人身亦然。\n\n现代人最典型的违逆是\"实心化\"——信息填充每一个间隙，胃填充到几乎不空，情绪填满不知留白。这三者都因\"无\"的消失而致病。",
+        "yuzhou": "三十辐共一毂，当其无，有车之用。这一章用三个日常观察，拆解了**价值到底寄居在哪里**。\n\n有形的部分（辐、器壁、墙）是\"利\"——必要条件；无形的部分（毂中空、器内腔、室内空间）才是\"用\"——目的本身。这个颠倒，是第1章\"无/有\"之辨落到实处的版本。\n\n宇宙层面的回响：可观测宇宙绝大部分是虚空，正是这虚空让星系得以形成、光线得以传播。若宇宙是实心的，就没有运动，也没有时间。现代宇宙学越来越倾向于认为，看似\"空\"的真空具有结构（度规、场、能量）——这恰是\"无之以为用\"在最大尺度上的回声。\n\n须辨明者：老子的\"无\"不是空无一物，是**被有意留出的空间**，是设计出来的，不是废墟。"
+      },
+      "sources": [],
+      "ferocity": {
+        "score": 80,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 11 章（12 字连续命中）",
+          "篇幅适中（60 字），可炼",
+          "涉义理（无、利、有）"
+        ],
+        "missing": [],
+        "chapters": [
+          11
+        ],
+        "ok": true
+      }
     },
     "25": {
+      "danzi": "法",
+      "danjue": "人法地，地法天，天法道，道法自然。",
       "benyi": "- **有物混成，先天地生**：有一个东西浑然而成，在天地之前就已存在。\"物\"不是普通物体，是勉强指称；\"混成\"是未分化的整全状态。\n- **寂兮寥兮**：寂是无声，寥是无形（一说空虚无形）。\n- **独立不改，周行而不殆**：独立自存、不随他物改变；循环运行而永不衰竭。\"殆\"是困乏、止息。\n- **可以为天下母**：可以作为天下万物的根源。\n- **吾不知其名，字之曰道，强为之名曰大**：我不知道它的名字，勉强给它取个\"字\"叫道，再勉强形容它叫大。古人有名有字，此处两级勉强，语气极审慎。\n- **大曰逝，逝曰远，远曰反**：大就运行不止（逝），运行不止就达于极远（远），达于极远就返回本原（反）。\"反\"通\"返\"。\n- **故道大，天大，地大，王亦大。域中有四大，而王居其一焉**：宇宙间有四大，人居其一。\n- **人法地，地法天，天法道，道法自然**：人以地为法，地以天为法，天以道为法，道以自身为法。\n\n关键字词：**反/返**（返回，亦通\"相反\"）、**自然**（自己如此，非今义之\"自然界\"）、**法**（效法、以……为准则）。",
       "yinshen": "这一章是《道德经》的**本体论核心章**，也是被误读最多的一章。\n\n1. **\"自然\"不是自然界，是\"自己如此\"。** 这是最要紧的澄清。道法自然＝道只以自身为根据，不效法任何外在者。若把\"自然\"读成山川草木，整句就成了\"道效法自然界\"，逻辑上把自然界置于道之上——恰好颠倒。刘笑敢等学者反复申明此点。\n\n2. **\"独立不改\"断了人格神的退路。** 道不依赖任何东西，也不被任何东西改变。这与先秦\"帝\"\"天\"的主宰义划清界限——第4章\"吾不知谁之子，象帝之先\"是同一立场的另一表述。道不是造物主，是万物自生的根据。\n\n3. **\"周行而不殆\"\"远曰反\"揭示循环结构。** 道的运行不是线性的进步，是往复的回归。这与第16章\"各复归其根\"、第40章\"反者道之动\"构成一组。老子眼中的时间不是箭头，是环——这个差别决定了整部书的处世基调：既然极盛必反，那么守弱、知止、不盈才是理性选择（第9章、第30章、第55章\"物壮则老\"）。\n\n4. **\"四大\"把人抬到与道天地并列，是极高的肯定。** 但紧接着\"人法地……\"又把人放回从属序列。这个张力是老子的深意：人既贵重，又必须有所法。人的尊严不在主宰，而在能自觉地效法。\n\n**争议点**：\"王亦大\"中的\"王\"，帛书本作\"人\"，傅奕本作\"人\"。若从\"人\"，则\"人居其一\"更顺。两说义理皆通。",
-      "qidi": "**人生**：\"道法自然\"落到个人身上，就是\"成为你自己\"——不是任性，而是找到自己运行的固有节律并按它生活。可行的检验：做一件事时，是出于\"应该\"还是\"不得不如此\"？后者更接近自然。另有一层：\"远曰反\"提醒你，任何单向度的狂奔终将折返，留出返回的路径比冲刺更重要。\n\n**自然**：观察四季——生长到极盛必转衰，衰到极处又复生。生态系统的稳定来自负反馈循环，而非单向增长。\"周行而不殆\"正是循环的自我维持。人类经济系统追求线性增长，与这一原理正面冲突，这是环境危机的哲学根源。\n\n**宇宙**：从大爆炸到热寂、从恒星诞生到黑洞蒸发，现代宇宙学描绘的也是循环与回归的图景（尽管细节争议巨大）。\"大曰逝，逝曰远，远曰反\"在结构上惊人地接近\"膨胀—减速—再塌缩\"的振荡宇宙模型。同样地：可互参，不可互证。\n\n**实践**：给自己定一条\"知止线\"——在事业、消费、情绪、表达上，各设一个\"八分满即收\"的阈值。这不是保守，是顺应\"反者道之动\"。真正的高手不是能冲多高，而是知道在多高处转身。\n",
-      "sources": []
+      "wei": {
+        "rensheng": "\"道法自然\"落到个人身上，就是**成为你自己**——不是任性，而是找到自己运行的固有节律并按它生活。\n\n检验方法：做一件事时，是出于\"应该\"还是\"不得不如此\"？后者更接近自然。若一件事既非\"应该\"又非\"不得不\"，那多半是在替别人活。\n\n另有一层：\"远曰反\"提醒你，任何单向度的狂奔终将折返。**留出返回的路径比冲刺更重要。** 给自己定一条\"知止线\"——事业、消费、情绪、表达，各设\"八分满即收\"的阈值。真正的高手不是能冲多高，而是知道在多高处转身。",
+        "jiankang": "\"周行而不殆\"是这一章给养生最重要的提示：**循环才是不衰的机制。**\n\n人身之要在循环——气血循环、昼夜循环、四时循环。所有慢性耗损几乎都可归为\"循环受阻\"：久坐使气血不行，熬夜使昼夜节律颠倒，情志不畅使气机郁结。\n\n具体做法：日出而作、日落而息的古训，本质是顺从\"周行\"。不与之相争，是\"法\"的第一步。第16章\"致虚极，守静笃……吾以观复\"讲的是同一件事的精神版本——让身体回到它本来的循环里去。",
+        "yuzhou": "这一章是《道德经》的本体论核心章，也是被误读最多的一章。\n\n**首先澄清**：\"自然\"不是自然界，是\"自己如此\"。道法自然＝道只以自身为根据，不效法任何外在者。若读成\"道效法自然界\"，逻辑上把自然界置于道之上——恰好颠倒。\n\n\"独立不改\"断了人格神的退路：道不依赖任何东西，也不被任何东西改变。这与第4章\"吾不知谁之子，象帝之先\"是同一立场。**道不是造物主，是万物自生的根据。**\n\n\"周行而不殆\"\"远曰反\"揭示循环结构。从大爆炸到热寂、从恒星诞生到黑洞蒸发，现代宇宙学描绘的也是循环与回归的图景（尽管细节争议巨大）。可互参，不可互证。\n\n**争议点**：\"王亦大\"中的\"王\"，帛书本与傅奕本作\"人\"。从\"人\"则\"人居其一\"更顺，两说义理皆通。"
+      },
+      "sources": [],
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 25 章（12 字连续命中）",
+          "篇幅适中（107 字），可炼",
+          "义理词密集（天地、周行、自然、天下、反、自），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          25
+        ],
+        "ok": true
+      }
     },
     "64": {
+      "danzi": "慎",
+      "danjue": "慎终如始，则无败事。",
       "benyi": "- **其安易持，其未兆易谋**：局面安定时容易把持，征兆未显时容易谋划。\n- **其脆易泮，其微易散**：脆弱时容易消解，微细时容易散去。\"泮\"是消解、分离。\n- **为之于未有，治之于未乱**：在事情尚未发生时处理，在混乱尚未形成时治理。\n- **合抱之木，生于毫末；九层之台，起于累土；千里之行，始于足下**：三人合抱的大树从细芽长成，九层高台从一筐土筑起，千里远行从脚下第一步开始。\"毫末\"是毫毛尖端，喻极细小；\"累土\"是一筐筐土。\n- **为者败之，执者失之**：强为者败坏它，把持者失去它。\n- **是以圣人无为故无败，无执故无失**：因为不强为所以不失败，不把持所以不失去。\n- **民之从事，常于几成而败之**：人们做事，常在快要成功时失败。\n- **慎终如始，则无败事**：结束时像开始时一样谨慎，就不会有败事。\n- **是以圣人欲不欲，不贵难得之货；学不学，复众人之所过，以辅万物之自然而不敢为**：圣人以\"不欲\"为欲，不珍视稀有之物；以\"不学\"为学，补救众人所犯的过错，以此辅助万物自己如此，而不敢妄为。\n\n关键字词：**泮**（消解）、**几**（将近）、**复**（补救、返还）、**辅**（辅助而非主导）。",
       "yinshen": "这一章把\"无为\"从玄谈拉回到**操作层面**，是全书最可执行的一章。\n\n1. **前后两段存在张力，须辨明。** 前段讲\"为之于未有\"——要在事情未发时动手，这是主动的；后段讲\"无为\"\"不敢为\"——似乎又是不作为。矛盾吗？不矛盾。**前段说的是时机，后段说的是方式。** 在\"未有\"时以最小成本介入（时机），介入的方式是顺应趋势而非强加意志（方式）。这就是无为的真实含义：**因势而动，不逆势强为。**\n\n2. **\"毫末—累土—足下\"三喻容易被误读成励志鸡汤。** 老子的重点不在\"坚持就能成功\"，而在**量变的不可逆性**：大由小成，所以要在\"小\"的阶段就识别方向。方向错了，越坚持越远离。结合\"其脆易泮，其微易散\"看：小的时候既是可塑的，也是可纠正的——这才是\"图难于其易\"（第63章）的本意。\n\n3. **\"常于几成而败之\"是对人性的精准观察。** 为什么在接近成功时失败？因为松懈、因为加码、因为想锁定成果而开始\"执\"。前功尽弃往往不是因为能力不足，而是因为**在临界点上改变了做法**。所以\"慎终如始\"不是道德劝诫，是风险管理。\n\n4. **\"以辅万物之自然而不敢为\"给出了\"为\"的边界。** 辅——是提供条件，不是替代生长。这是第2章\"万物作焉而不辞\"、第10章\"生而不有，为而不恃，长而不宰\"、第51章\"莫之命而常自然\"的一贯立场。用在教育、管理、治理上，都是同一条原则：**创造条件，然后退开。**\n\n**争议点**：\"学不学\"一语，或解为\"学习众人所不学的（即道）\"，或解为\"以不学为学（摒弃世俗之学）\"。与第19章\"绝学无忧\"、第48章\"为道日损\"合看，后者更顺。",
-      "qidi": "**人生**：把\"慎终如始\"具体化——做任何长期项目，在自认为\"快成了\"的那个节点，反而要回到最初的标准检查一遍。多数翻车发生在胜利前夜。另一个可执行的点：做重大决定前，问\"这件事在'未兆'阶段我本可以做什么\"，用来校准自己的预警系统。\n\n**自然**：森林防火、病虫害治理、生态保护，全都遵循\"为之于未有\"——一旦成灾，成本是预防的千百倍。自然系统没有后悔药，它的时间箭头是单向的，这正是\"其安易持\"的残酷之处。\n\n**宇宙**：混沌理论中的\"对初始条件的敏感依赖\"（蝴蝶效应），是\"其微易散\"的数学表达：微小扰动在非线性系统中被放大。反过来说，这也意味着**在早期施加极小的作用，能获得后期极大的效果**——这是\"图难于其易\"的科学版本，也是无为而治的效能根据。\n\n**实践**：给你的每个项目设一个\"未兆检查点\"——在问题还没成形时就固定的自查时刻。同时设一条红线：什么情况下我必须停止\"为\"，改为\"辅\"。能说出这条红线，才算真正读懂了这一章。\n",
-      "sources": []
+      "wei": {
+        "rensheng": "把\"慎终如始\"具体化——做任何长期项目，在自认为\"快成了\"的那个节点，反而要回到最初的标准检查一遍。**多数翻车发生在胜利前夜。**\n\n为什么？因为松懈、因为加码、因为想锁定成果而开始\"执\"。前功尽弃往往不是能力不足，而是**在临界点上改变了做法**。\n\n另一个可执行的点：做重大决定前，问\"这件事在'未兆'阶段我本可以做什么\"，用来校准自己的预警系统。第63章\"图难于其易，为大于其细\"是同一原则的正面表述。\n\n**注意前后两段的张力**：前段\"为之于未有\"是主动的，后段\"无为\"\"不敢为\"像是被动。不矛盾——前段说时机，后段说方式。在\"未有\"时以最小成本介入，介入的方式是顺应趋势而非强加意志。",
+        "jiankang": "养生最贵\"为之于未有\"。\n\n一切大病的早期都是\"脆\"而\"微\"的：此时最易消解，也最易被忽略。**\"其脆易泮，其微易散\"是这一章给健康最锋利的提示。** 定期检查之所以重要，正因它把干预提前到\"未乱\"之时。\n\n但同样要\"慎终如始\"：养生不能靠一时猛攻。突然开始高强度锻炼、突然严格断食，恰是\"为者败之\"——身体不是被病打倒的，是被折腾垮的。\n\n可行的做法：把养生拆成微不可察的日常——早睡十五分钟、每餐少吃一口、每天多走一千步。这条路径慢，但它是\"生于毫末\"的那条。",
+        "yuzhou": "森林防火、病虫害治理、生态保护，全都遵循\"为之于未有\"——一旦成灾，成本是预防的千百倍。**自然系统没有后悔药**，它的时间箭头是单向的，这正是\"其安易持\"的残酷之处。\n\n混沌理论中的\"对初始条件的敏感依赖\"（蝴蝶效应），是\"其微易散\"的数学表达：微小扰动在非线性系统中被放大。反过来说，这也意味着**在早期施加极小的作用，能获得后期极大的效果**——这是\"图难于其易\"的科学版本，也是无为而治的效能根据。\n\n\"合抱之木生于毫末，九层之台起于累土\"的重点不在\"坚持就能成功\"，而在**量变的不可逆性**：方向错了，越坚持越远离。"
+      },
+      "sources": [],
+      "ferocity": {
+        "score": 90,
+        "level": "上品·可炼",
+        "verdict": "火候已足，可结金丹。",
+        "reasons": [
+          "直引原文，扣第 3、29、64 章（12 字连续命中）",
+          "篇幅适中（150 字），可炼",
+          "义理词密集（万物、无为、自然、得、自、民），在道上"
+        ],
+        "missing": [],
+        "chapters": [
+          3,
+          29,
+          64
+        ],
+        "ok": true
+      }
     }
   }
 }

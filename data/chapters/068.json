@@ -16,14 +16,35 @@
     "处世"
   ],
   "refined": {
+    "danzi": "争",
+    "danjue": "善用人者，为之下。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 68 章（12 字连续命中）",
+      "篇幅适中（55 字），可炼",
+      "义理词密集（不争、战、与、争、德、人），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      68
+    ],
+    "ok": true
+  }
 }

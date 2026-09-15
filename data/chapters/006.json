@@ -16,14 +16,35 @@
     "宇宙论"
   ],
   "refined": {
+    "danzi": "绵",
+    "danjue": "绵绵若存，用之不勤。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 6 章（12 字连续命中）",
+      "篇幅适中（31 字），可炼",
+      "义理词密集（天地、谷、神、玄、根），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      6
+    ],
+    "ok": true
+  }
 }

@@ -16,14 +16,36 @@
     "宇宙论"
   ],
   "refined": {
+    "danzi": "赘",
+    "danjue": "企者不立，跨者不行。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 24、31 章（12 字连续命中）",
+      "篇幅适中（57 字），可炼",
+      "义理词密集（自、道、无、明、有），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      24,
+      31
+    ],
+    "ok": true
+  }
 }

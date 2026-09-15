@@ -17,14 +17,36 @@
     "无为"
   ],
   "refined": {
+    "danzi": "希",
+    "danjue": "希言自然。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 17、23 章（12 字连续命中）",
+      "篇幅适中（107 字），可炼",
+      "义理词密集（天地、自然、得、自、失、道），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      17,
+      23
+    ],
+    "ok": true
+  }
 }

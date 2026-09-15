@@ -16,14 +16,35 @@
     "宇宙论"
   ],
   "refined": {
+    "danzi": "信",
+    "danjue": "其精甚真，其中有信。",
     "benyi": "",
     "yinshen": "",
-    "qidi": ""
+    "wei": {
+      "rensheng": "",
+      "jiankang": "",
+      "yuzhou": ""
+    }
   },
   "notes": [],
   "sources": [],
   "media": [],
   "status": "pending",
   "refined_at": null,
-  "engine": null
+  "engine": null,
+  "ferocity": {
+    "score": 90,
+    "level": "上品·可炼",
+    "verdict": "火候已足，可结金丹。",
+    "reasons": [
+      "直引原文，扣第 21 章（12 字连续命中）",
+      "篇幅适中（88 字），可炼",
+      "义理词密集（自、中、道、德、精、有），在道上"
+    ],
+    "missing": [],
+    "chapters": [
+      21
+    ],
+    "ok": true
+  }
 }
