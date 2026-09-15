@@ -14,29 +14,18 @@ jobs:
           for u in \
             "https://daodejing.zheng-he.top" \
             "https://daodejing-lianhua.vercel.app" \
-            "https://www.zheng-he.top" \
-            "https://zheng-he.top"; do
+            "https://www.zheng-he.top"; do
             printf "### %s\n" "$u"
-            curl -sSL -m 25 -o /dev/null \
-              -w "  code=%{http_code} time=%{time_total}s ip=%{remote_ip}\n" \
-              "$u" 2>&1 || echo "  FAILED"
+            curl -sSL -m 25 -o /dev/null -w "  code=%{http_code} time=%{time_total}s ip=%{remote_ip}\n" "$u" || echo "  FAILED"
           done
-      - name: Response headers
-        run: |
-          echo "### headers (daodejing.zheng-he.top)"
-          curl -sSI -L -m 25 "https://daodejing.zheng-he.top" 2>&1 | head -15 || echo "  FAILED"
-      - name: DNS from runner
-        run: |
-          echo "### nslookup"
-          nslookup daodejing.zheng-he.top 2>&1 | head -10 || true
+
       - name: Content check
         run: |
-          echo "### title & cards"
           curl -sSL -m 25 "https://daodejing.zheng-he.top" -o /tmp/p.html
-          grep -o '<title>[^<]*</title>' /tmp/p.html || echo "  no title"
+          echo "  title: $(grep -o '<title>[^<]*</title>' /tmp/p.html || echo none)"
           echo "  bytes: $(wc -c < /tmp/p.html)"
-          echo "### data api"
           curl -sSL -m 25 "https://daodejing.zheng-he.top/data/index.json" -o /tmp/d.json
-          python3 -c "
-import json;d=json.load(open('/tmp/d.json'))
-print('  章节:',d['total'],'| 已炼化:',d['refined'])"
+          python3 -c "import json; d=json.load(open('/tmp/d.json')); print('  chapters:', d['total'], 'refined:', d['refined'])"
+
+      - name: DNS from runner
+        run: nslookup daodejing.zheng-he.top 2>&1 | head -8 || true
