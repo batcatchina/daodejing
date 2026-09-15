@@ -832,7 +832,8 @@ h1{font-size:2.05rem;font-weight:500;letter-spacing:.24em;margin-bottom:.5rem}
 .ask-box::after{bottom:9px;right:9px;border-left:0;border-top:0}
 
 .ask-field{position:relative;margin-bottom:.85rem}
-#q{
+/* 问道输入框（首页 #homeQ 与问道页 #q 共用同一副长相） */
+#q,#homeQ{
   width:100%;padding:1rem 1.1rem;
   border:1px solid var(--line);border-radius:5px;
   background:#fffdf8;color:var(--ink);
@@ -840,8 +841,8 @@ h1{font-size:2.05rem;font-weight:500;letter-spacing:.24em;margin-bottom:.5rem}
   resize:vertical;min-height:76px;outline:none;
   transition:border-color .22s,box-shadow .22s;
 }
-#q:focus{border-color:var(--cinnabar);box-shadow:0 0 0 3px rgba(156,43,43,.08)}
-#q::placeholder{color:#b3aa9b;font-size:.94rem;line-height:1.95}
+#q:focus,#homeQ:focus{border-color:var(--cinnabar);box-shadow:0 0 0 3px rgba(156,43,43,.08)}
+#q::placeholder,#homeQ::placeholder{color:#b3aa9b;font-size:.94rem;line-height:1.95}
 .ask-line{
   height:2px;margin-top:-1px;
   background:linear-gradient(90deg,transparent,var(--cinnabar) 22%,var(--gold-2) 50%,var(--cinnabar) 78%,transparent);
@@ -1168,4 +1169,169 @@ h1{font-size:2.05rem;font-weight:500;letter-spacing:.24em;margin-bottom:.5rem}
   .browse-themes{grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:.6rem}
   .browse-deep{grid-template-columns:1fr}
   .btab{padding:.56rem .7rem;font-size:.79rem;letter-spacing:.12em}
+}
+
+/* ==================== AI 智能炉 · 炉中三位 ==================== */
+
+/* 抬头下的 AI 标识 */
+.ai-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  margin-top:.85rem;padding:.26rem .85rem;
+  border:1px solid rgba(74,124,111,.35);
+  border-radius:99px;
+  background:rgba(74,124,111,.06);
+  font-size:.7rem;letter-spacing:.16em;color:var(--jade);
+}
+.ai-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--jade);
+  box-shadow:0 0 0 0 rgba(74,124,111,.6);
+  animation:aiPulse 2.4s ease-out infinite;
+}
+@keyframes aiPulse{
+  0%{box-shadow:0 0 0 0 rgba(74,124,111,.55)}
+  70%{box-shadow:0 0 0 7px rgba(74,124,111,0)}
+  100%{box-shadow:0 0 0 0 rgba(74,124,111,0)}
+}
+
+/* ---------- 角色条 ---------- */
+.spirit{
+  display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;
+  padding:.55rem .9rem;margin-bottom:.9rem;
+  border-left:2px solid var(--jade);
+  background:rgba(74,124,111,.055);
+  border-radius:0 4px 4px 0;
+  font-size:.79rem;line-height:1.8;
+  animation:fadeUp .32s ease;
+}
+.spirit.sp-bad{border-left-color:var(--cinnabar);background:rgba(156,43,43,.055)}
+.spirit.sp-good{border-left-color:var(--gold);background:rgba(168,132,60,.06)}
+
+.sp-seal{
+  flex:0 0 auto;
+  width:19px;height:19px;line-height:19px;text-align:center;
+  font-size:.68rem;border-radius:3px;
+  background:var(--jade);color:var(--paper);
+  transform:translateY(2px);
+}
+.sp-bad .sp-seal{background:var(--cinnabar)}
+.sp-good .sp-seal{background:var(--gold)}
+
+.sp-name{font-size:.79rem;letter-spacing:.2em;color:var(--ink);font-weight:500}
+.sp-duty{
+  font-size:.64rem;letter-spacing:.1em;color:var(--ink-3);
+  border:1px solid var(--line);border-radius:3px;padding:0 .3rem;
+}
+.sp-say{flex:1;color:var(--ink-2);font-size:.79rem;min-width:8em}
+.sp-ai{
+  flex:0 0 auto;font-size:.58rem;letter-spacing:.12em;
+  color:var(--jade);border:1px solid rgba(74,124,111,.4);
+  border-radius:2px;padding:0 .28rem;
+}
+.sp-bad .sp-ai{color:var(--cinnabar);border-color:rgba(156,43,43,.4)}
+
+/* 料识回执：角色条 + 明细两行 */
+.intake-status{display:block;padding:.7rem .9rem .6rem}
+.intake-status .is-meta{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem .8rem;
+  font-size:.78rem;
+}
+.intake-status .spirit{margin-bottom:.5rem}
+
+/* ---------- 三个节点小标题 ---------- */
+.sect-head{
+  display:flex;align-items:center;gap:.75rem;
+  margin-bottom:1rem;
+}
+.sect-k{
+  flex:0 0 auto;
+  width:22px;height:22px;line-height:22px;text-align:center;
+  font-size:.7rem;border-radius:50%;
+  background:var(--cinnabar);color:var(--paper);
+}
+.sect-t{flex:1;display:flex;flex-direction:column;gap:.1rem}
+.sect-t b{font-size:.94rem;letter-spacing:.22em;color:var(--ink);font-weight:500}
+.sect-t span{font-size:.72rem;color:var(--ink-3);letter-spacing:.04em}
+.sect-toggle{
+  flex:0 0 auto;font-size:.72rem;letter-spacing:.12em;color:var(--ink-3);
+  cursor:pointer;user-select:none;
+}
+.sect-toggle:hover{color:var(--cinnabar)}
+
+/* 炼化区小标题在框外还是框内：这里在框内顶部留白处 */
+.sect-head-in{margin:0 0 1.4rem}
+
+/* ---------- 折叠：更多 ---------- */
+.more{margin:1.4rem 0 .6rem}
+.more-toggle{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:.6rem;
+  padding:.85rem 1rem;
+  border:1px solid var(--line);border-radius:5px;
+  background:rgba(255,255,255,.42);
+  font-family:inherit;font-size:.82rem;letter-spacing:.24em;text-indent:.24em;
+  color:var(--ink-2);cursor:pointer;
+  transition:all .2s;
+}
+.more-toggle:hover{border-color:var(--gold);color:var(--gold);background:rgba(168,132,60,.05)}
+.more-toggle.on{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom-color:transparent}
+.mt-arrow{font-size:.9rem;transition:transform .25s ease;letter-spacing:0}
+.more-toggle.on .mt-arrow{transform:rotate(180deg)}
+
+.more-body{
+  border:1px solid var(--line);border-top:0;
+  border-radius:0 0 5px 5px;
+  padding:1.4rem 1.2rem 1.2rem;
+  background:rgba(255,255,255,.28);
+  animation:fadeUp .3s ease;
+}
+.more-body .gateways{margin-bottom:1.8rem}
+
+/* ---------- 三位合影 ---------- */
+.trio-wrap{border-top:1px solid var(--line);padding-top:1.4rem}
+.trio-title{
+  font-size:.9rem;font-weight:500;letter-spacing:.3em;text-indent:.3em;
+  color:var(--ink);text-align:center;margin-bottom:.45rem;
+}
+.trio-title em{font-style:normal;font-size:.6rem;color:var(--jade);letter-spacing:.16em}
+.trio-sub{
+  font-size:.72rem;color:var(--ink-3);text-align:center;
+  margin-bottom:1.2rem;letter-spacing:.06em;
+}
+
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+.trio-item{
+  display:flex;gap:.7rem;align-items:flex-start;
+  padding:.95rem 1rem;
+  border:1px solid var(--line);border-left:2px solid var(--jade);
+  border-radius:0 5px 5px 0;
+  background:var(--paper-2);
+  transition:border-left-color .2s,transform .2s;
+}
+.trio-item:hover{border-left-color:var(--gold);transform:translateY(-2px)}
+.trio-seal{
+  flex:0 0 auto;
+  width:30px;height:30px;line-height:30px;text-align:center;
+  font-size:1rem;border-radius:5px;
+  background:linear-gradient(150deg,#5d9384,#3f6a5d);
+  color:#f6fbf9;
+  box-shadow:0 2px 8px rgba(74,124,111,.28);
+}
+.trio-text{flex:1;min-width:0}
+.trio-head{display:flex;align-items:baseline;gap:.4rem;flex-wrap:wrap;margin-bottom:.15rem}
+.trio-name{font-size:.86rem;letter-spacing:.16em;color:var(--ink)}
+.trio-en{font-size:.58rem;color:var(--ink-3);letter-spacing:.14em}
+.trio-ai{
+  font-size:.56rem;letter-spacing:.1em;color:var(--jade);
+  border:1px solid rgba(74,124,111,.4);border-radius:2px;padding:0 .24rem;
+}
+.trio-duty{font-size:.66rem;color:var(--gold);letter-spacing:.1em;margin-bottom:.35rem}
+.trio-intro{font-size:.74rem;line-height:1.85;color:var(--ink-3);text-align:justify}
+
+@media(max-width:760px){
+  .trio{grid-template-columns:1fr;gap:.6rem}
+  .ai-badge{font-size:.64rem;letter-spacing:.1em}
+  .sect-t b{font-size:.88rem;letter-spacing:.16em}
+  .spirit{padding:.5rem .75rem;gap:.45rem}
+  .sp-say{min-width:100%;flex-basis:100%}
+  .more-body{padding:1.1rem .9rem 1rem}
 }

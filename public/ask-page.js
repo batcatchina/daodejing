@@ -94,6 +94,7 @@ function ask() {
 
   if (!r.hits.length) {
     box.innerHTML = `
+      ${SPIRITS.strip('ling', SPIRITS.say('ling', 'none'), { tone: 'bad' })}
       <div class="ans-none">
         <div class="ans-none-mark">◯</div>
         <h3>炉中无丹可应此问</h3>
@@ -106,7 +107,9 @@ function ask() {
   const deepN = r.hits.filter((h) => h.deep).length;
   const shallowN = r.hits.length - deepN;
 
+  const lingSlot = r.mode === 'quote' ? 'quote' : r.mode === 'theme' ? 'theme' : 'bridge';
   box.innerHTML = `
+    ${SPIRITS.strip('ling', SPIRITS.say('ling', lingSlot), { tone: r.mode === 'theme' ? 'idle' : 'good' })}
     <div class="ans-head">
       <div class="ans-path">
         <span class="ans-path-tag">${esc(pathName(r.mode))}</span>
@@ -169,7 +172,7 @@ function danCard(h, i) {
       <div class="ans-why-wrap">${why}${tags}</div>
       <div class="ans-original"><span class="ans-orig-tag">原文</span>${esc(h.original)}</div>
       <div class="ans-shallow-note">
-        此章<b>金丹未炼</b>——炉中只有它的原文，未及本意、引申与三维。<br>
+        <b>炉灵：</b>此章<b>金丹未炼</b>——我只有它的原文，未及本意、引申与三维。<br>
         炉子不替它编造，所以此处只有老子自己的话。<br>
         可先诵读；或引此章句入炉炼化，它便有了自己的丹。
         <div class="ans-shallow-acts">

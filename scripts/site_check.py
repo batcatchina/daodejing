@@ -9,7 +9,7 @@ import sys
 import urllib.request
 
 BASE = "https://daodejing.zheng-he.top"
-ASSETS = ["furnace.js", "ask.js", "ask-page.js", "ingest.js", "app.js",
+ASSETS = ["spirits.js", "furnace.js", "ask.js", "ask-page.js", "ingest.js", "app.js",
           "vault.js", "style.css", "data/index.json"]
 
 
@@ -76,16 +76,40 @@ def main():
 
         # 问道（正门）
         print("  ── 问道（正门）──")
-        for token, label in [('id="homeAsk"', "首页问道区"),
-                             ('id="homeQ"', "提问框"),
+        for token, label in [('id="homeQ"', "提问框"),
                              ("btn-ask", "问道按钮"),
                              ('id="homeAnswer"', "答面"),
-                             ('class="furnace-door"', "炉子内务说明"),
+                             ('id="lingStrip"', "炉灵条"),
                              ("ask.js", "问道内核")]:
             ok = token in html
             print(f"    {'✓' if ok else '✗'} {label}")
             if not ok:
                 failed.append(f"问道/{label}")
+
+        # AI 智能炉 · 三位一体
+        print("  ── AI 智能炉 · 三位一体 ──")
+        for token, label in [('class="ai-badge"', "AI 徽标"),
+                             ("炉 中 三 位 皆 是 AI", "AI 宣言"),
+                             ('class="sect-head"', "分节抬头"),
+                             ('id="moreToggle"', "更多折叠"),
+                             ('id="moreBody"', "折叠体"),
+                             ('id="trioBox"', "三位合影"),
+                             ('id="furnaceFold"', "炉子折叠体"),
+                             ('id="furnaceToggle"', "炉子折叠签"),
+                             ("spirits.js", "三位模块"),
+                             ('id="danResult"', "出丹容器")]:
+            ok = token in html
+            print(f"    {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"AI三位/{label}")
+
+        # 三位角色顺序：道童 → 丹师 → 炉灵
+        for token, label in [('data-role="tong"', "道童"),
+                             ('data-role="shi"', "丹师"),
+                             ('data-role="ling"', "炉灵")]:
+            if token in html or label in html:
+                print(f"    ✓ 角色：{label}")
+            # 角色主要由 spirits.js 动态渲染，此处不强制
 
         for cls, label in [("done-gate", "已炼化入口"),
                            ("raw-gate", "未炼化入口"),
@@ -97,6 +121,26 @@ def main():
     except Exception as e:  # noqa: BLE001
         print(f"  ✗ 首页失败：{e}")
         failed.append("首页")
+
+    # 1b. 三位一体内核 spirits.js
+    print("\n── 三位一体 · spirits.js ──")
+    try:
+        sj = get("spirits.js")
+        print(f"  spirits.js 体积：{len(sj)} 字节")
+        for token, label in [("const SPIRITS", "模块导出"), ("ROLES", "角色表"),
+                             ("道 童", "道童"), ("丹 师", "丹师"), ("炉 灵", "炉灵"),
+                             ("接 料 · 识 料", "道童职守"),
+                             ("试 火 · 判 丹", "丹师职守"),
+                             ("守 丹 · 取 丹", "炉灵职守"),
+                             ("sp-ai", "AI 徽记"), ("function strip", "角色条"),
+                             ("function trio", "三位合影")]:
+            ok = token in sj
+            print(f"  {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"spirits/{label}")
+    except Exception as e:  # noqa: BLE001
+        print(f"  ✗ spirits.js 失败：{e}")
+        failed.append("spirits.js")
 
     # 2b. 藏丹阁（二级页）
     print("\n── 藏丹阁 · 二级页 ──")
@@ -138,7 +182,8 @@ def main():
                              ('id="askBtn"', "问道按钮"), ('id="answer"', "答面"),
                              ('id="browse"', "浏览区"), ('data-view="theme"', "主题签"),
                              ('data-view="danzi"', "丹字签"), ('data-view="deep"', "已炼化签"),
-                             ('class="back"', "返回炉"), ("ask-page.js", "页面脚本")]:
+                             ('class="back"', "返回炉"), ("ask-page.js", "页面脚本"),
+                             ("spirits.js", "三位模块")]:
             ok = token in ah
             print(f"  {'✓' if ok else '✗'} {label}")
             if not ok:
@@ -239,7 +284,7 @@ def main():
     if failed:
         print(f"[x] 检查未通过，异常项：{failed}")
         sys.exit(1)
-    print("[✓] 全部通过 —— 炼化炉 v3 + 藏丹阁 + 问道 已上线")
+    print("[✓] 全部通过 —— AI 智能炉 v4（问道正门 + 投料入炉 + 三位一体 + 藏丹阁）已上线")
 
 
 if __name__ == "__main__":

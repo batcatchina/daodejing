@@ -38,6 +38,8 @@ async function load() {
   FURNACE.buildIndex(state.data.chapters);
   renderGateways();
   renderHomeAsk();
+  initTrio();
+  initFold();
 
   // 带 ?ch=N 时自动投料
   const ch = new URLSearchParams(location.search).get('ch');
@@ -102,7 +104,16 @@ function showIntakeStatus(rec, srcLabel, extra, text) {
   bits.push(`<span class="is-num">计 ${text.length} 字</span>`);
   if (srcLabel) bits.push(`<span class="is-from">来自：${esc(srcLabel)}</span>`);
   if (extra) bits.push(`<span class="is-extra">${esc(extra)}</span>`);
-  box.innerHTML = bits.join('');
+
+  // 道童接线：以道童口吻说一句，让人知道是谁在接料
+  const slot = ({ srt: 'srt', av: 'av', rich: 'av', thin: 'thin',
+                  rootless: 'thin', empty: 'empty' })[rec.kind]
+               || (text.length > 600 ? 'rich' : 'ok');
+  const line = extra && extra.includes('时间轴') ? SPIRITS.say('tong', 'srt')
+             : SPIRITS.say('tong', slot, '料已收下。');
+
+  box.innerHTML = SPIRITS.strip('tong', line, { tone: rec.kind === 'rootless' ? 'bad' : 'idle' })
+                + `<div class="is-meta">${bits.join('')}</div>`;
   box.hidden = false;
   box.className = 'intake-status s-' + rec.kind;
 }
@@ -196,6 +207,12 @@ function forge() {
   const text = $('#charge').value.trim();
   if (!text) { setMode('paste'); $('#charge').focus(); return; }
 
+  // 复位上一次的动画余留（炼化中途再点也应能立即响应）
+  const fbtn = $('#forgeBtn');
+  fbtn.disabled = false;
+  fbtn.innerHTML = '<span class="btn-flame"></span>开 炉 炼 化';
+  $('#furnace').classList.remove('forging');
+
   const r = FURNACE.assay(text);
   const box = $('#assay');
 
@@ -205,7 +222,14 @@ function forge() {
 
   box.hidden = false;
   box.className = 'assay ' + (r.ok ? 'ok' : 'deny');
-  box.innerHTML = `
+
+  // 丹师接线：由丹师说出判词
+  const shiSlot = r.ok
+    ? (r.score >= 75 ? 'ready' : r.score >= 55 ? 'pass' : 'weak')
+    : (r.chapters.length ? 'deny' : 'noroot');
+  const shiLine = SPIRITS.say('shi', shiSlot, r.verdict);
+
+  box.innerHTML = SPIRITS.strip('shi', shiLine, { tone: r.ok ? 'good' : 'bad' }) + `
     <div class="assay-head">
       <span class="assay-level">${esc(r.level)}</span>
       <span class="assay-score">火候 ${r.score} / 100</span>
@@ -417,6 +441,59 @@ function renderHomeAsk() {
     ss.map((s) => `<button class="sample" data-q="${esc(s.q)}" title="${esc(s.yili)}">${esc(s.q)}</button>`).join('');
   box.querySelectorAll('.sample').forEach((b) =>
     b.addEventListener('click', () => { $('#homeQ').value = b.dataset.q; homeAsk(); }));
+
+  const ls = $('#lingStrip');
+  if (ls) ls.innerHTML = SPIRITS.strip('ling', SPIRITS.ROLES.ling.intro);
+}
+
+/* ---------- 炉中三位 ---------- */
+function initTrio() {
+  const b = $('#trioBox');
+  if (b) b.innerHTML = SPIRITS.trio();
+}
+
+/* ---------- 折叠：炉子 / 更多 ---------- */
+function initFold() {
+  const mBtn = $('#moreToggle');
+  const mBody = $('#moreBody');
+  if (mBtn && mBody) {
+    mBtn.addEventListener('click', () => {
+      const open = mBody.hidden;
+      mBody.hidden = !open;
+      mBtn.classList.toggle('on', open);
+      const t = mBtn.querySelector('.mt-text');
+      t.textContent = open ? '收 起' : '藏 丹 阁 · 炉 中 三 位';
+    });
+  }
+
+  // 炉子在窄屏折叠（宽屏直接展示）
+  const fBtn = $('#furnaceToggle');
+  const fFold = $('#furnaceFold');
+  if (fBtn && fFold) {
+    // 记住用户手动开合过没有：手动开过，切换尺寸时不强行收回去
+    let touched = false;
+    const sync = () => {
+      const narrow = window.matchMedia('(max-width: 760px)').matches;
+      fBtn.hidden = !narrow;
+      if (!narrow) {
+        // 宽屏：炉子永远展开
+        fFold.hidden = false;
+        fBtn.textContent = '展 开 ⌄';
+      } else if (!touched) {
+        // 窄屏首屏：默认收起，避免一屏塞满
+        fFold.hidden = true;
+        fBtn.textContent = '投 料 入 炉 ⌄';
+      }
+    };
+    fBtn.addEventListener('click', () => {
+      const open = fFold.hidden;
+      fFold.hidden = !open;
+      touched = true;
+      fBtn.textContent = open ? '收 起 ⌃' : '投 料 入 炉 ⌄';
+    });
+    window.addEventListener('resize', sync);
+    sync();
+  }
 }
 
 function homeAsk() {
@@ -429,6 +506,7 @@ function homeAsk() {
 
   if (!r.hits.length) {
     box.innerHTML = `
+      ${SPIRITS.strip('ling', SPIRITS.say('ling', 'none'), { tone: 'bad' })}
       <div class="ans-none">
         <div class="ans-none-mark">◯</div>
         <h3>炉中无丹可应此问</h3>
@@ -444,7 +522,9 @@ function homeAsk() {
   const deepN = r.hits.filter((h) => h.deep).length;
   const shallowN = r.hits.length - deepN;
 
+  const lingSlot = r.mode === 'quote' ? 'quote' : r.mode === 'theme' ? 'theme' : 'bridge';
   box.innerHTML = `
+    ${SPIRITS.strip('ling', SPIRITS.say('ling', lingSlot), { tone: r.mode === 'theme' ? 'idle' : 'good' })}
     <div class="ans-head">
       <div class="ans-path">
         <span class="ans-path-tag">${esc(ansPathName(r.mode))}</span>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>道德经 · 炼化炉</title>
-<meta name="description" content="《道德经》炼化炉：投入章句，炼出一字金丹 · 一句丹诀 · 本意引申 · 人生健康宇宙三维">
+<meta name="description" content="《道德经》AI 智能炼化炉：道童接料、丹师试火、炉灵取丹。投料炼金丹，问道取金丹。">
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -16,12 +16,20 @@
     <div class="seal">道</div>
     <h1>道德经 · 炼化炉</h1>
     <p class="sub">一字一重天</p>
+    <p class="ai-badge"><span class="ai-dot"></span>AI 智 能 炉 · 炉 中 三 位 皆 是 AI</p>
   </header>
 
   <!-- ============ 问道（正门） ============ -->
   <section class="ask-box home-ask" id="homeAsk">
+    <div class="sect-head">
+      <span class="sect-k">一</span>
+      <div class="sect-t">
+        <b>问 道</b>
+        <span>有困惑，直接问。炉灵替你取丹。</span>
+      </div>
+    </div>
     <div class="ask-field">
-      <textarea id="homeQ" rows="2" placeholder="你有什么困惑？&#10;炉子从八十一章金丹里，取出最应得上的几枚给你。"></textarea>
+      <textarea id="homeQ" rows="2" placeholder="你有什么困惑？例：我最近很焦虑，静不下来"></textarea>
       <div class="ask-line"></div>
     </div>
     <div class="ask-actions">
@@ -29,60 +37,25 @@
       <a class="btn-clear btn-to-ask" href="./ask.html">细 问 与 浏 览</a>
     </div>
     <div class="ask-samples" id="homeSamples"></div>
-    <p class="ask-note">
-      此处是正门 —— <b>先问，后取丹</b>。<br>
-      若要去炼化东西、投料入炉，请看下方的炉子。
-    </p>
+    <div id="lingStrip"></div>
   </section>
 
   <!-- ============ 首页答面 ============ -->
   <section class="ask-answer home-answer" id="homeAnswer" hidden></section>
 
-  <!-- ============ 入口：藏丹阁 ============ -->
-  <section class="gateways">
-
-    <a class="gateway done-gate" href="./vault.html?status=refined">
-      <div class="gw-top">
-        <span class="gw-label">已 炼 化</span>
-        <span class="gw-count"><b id="cntDone">5</b> 章</span>
-      </div>
-      <div class="gw-words" id="gwWords">玄 · 水 · 无 · 法 · 慎</div>
-      <div class="gw-desc">金丹已成，可览一字、一句、本意引申与三维</div>
-      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-    </a>
-
-    <a class="gateway raw-gate" href="./vault.html?status=pending">
-      <div class="gw-top">
-        <span class="gw-label">未 炼 化</span>
-        <span class="gw-count"><b id="cntTodo">76</b> 章</span>
-      </div>
-      <div class="gw-words gw-words-plain">原文已就位，待引章句投入炉中</div>
-      <div class="gw-desc">可先诵读，或以火候试炼，知其深浅</div>
-      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-    </a>
-
-    <a class="gateway all-gate" href="./vault.html">
-      <div class="gw-top">
-        <span class="gw-label">全 部 八 十 一 章</span>
-        <span class="gw-count"><b>81</b> 章</span>
-      </div>
-      <div class="gw-words gw-words-plain">检索 · 筛选 · 总览</div>
-      <div class="gw-desc">按主题分类查看，或以字句反查章节</div>
-      <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-    </a>
-
-  </section>
-
-  <!-- ============ 炼化炉（内务工序） ============ -->
+  <!-- ============ 炼化（次行） ============ -->
   <section class="furnace" id="furnace">
 
-    <div class="furnace-door">
-      <span class="fd-mark">炉</span>
-      <div class="fd-text">
-        <b>炼 化 —— 炉 子 的 内 务</b>
-        <span>投料、试火、结丹。这是炉子自己的活计，不是给人的正门。</span>
+    <div class="sect-head sect-head-in">
+      <span class="sect-k">二</span>
+      <div class="sect-t">
+        <b>投 料 入 炉</b>
+        <span>有道童接料识料，丹师试火判丹。</span>
       </div>
+      <span class="sect-toggle" id="furnaceToggle" hidden>投 料 入 炉 ⌄</span>
     </div>
+
+    <div class="furnace-fold" id="furnaceFold">
 
     <!-- ── 炉火（自炉口袅袅而起） ── -->
     <div class="fire" id="fire" aria-hidden="true">
@@ -366,6 +339,9 @@
       <!-- ── 火候回执 ── -->
       <div class="assay" id="assay" hidden></div>
 
+      <!-- ── 出丹 ── -->
+      <div class="dan-result" id="danResult" hidden></div>
+
       <div class="samples">
         <span class="samples-label">可试：</span>
         <button class="sample" data-t="上善若水，水善利万物而不争，处众人之所恶，故几于道。">上善若水</button>
@@ -375,11 +351,59 @@
       </div>
 
     </div>
+    </div><!-- /furnaceFold -->
+  </section>
+
+  <!-- ============ 更多（折叠） ============ -->
+  <section class="more">
+    <button class="more-toggle" id="moreToggle">
+      <span class="mt-text">藏 丹 阁 · 炉 中 三 位</span>
+      <span class="mt-arrow">⌄</span>
+    </button>
+
+    <div class="more-body" id="moreBody" hidden>
+
+      <div class="gateways">
+        <a class="gateway done-gate" href="./vault.html?status=refined">
+          <div class="gw-top">
+            <span class="gw-label">已 炼 化</span>
+            <span class="gw-count"><b id="cntDone">5</b> 章</span>
+          </div>
+          <div class="gw-words" id="gwWords">玄 · 水 · 无 · 法 · 慎</div>
+          <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+        </a>
+
+        <a class="gateway raw-gate" href="./vault.html?status=pending">
+          <div class="gw-top">
+            <span class="gw-label">未 炼 化</span>
+            <span class="gw-count"><b id="cntTodo">76</b> 章</span>
+          </div>
+          <div class="gw-words gw-words-plain">原文已就位，待炼</div>
+          <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+        </a>
+
+        <a class="gateway all-gate" href="./vault.html">
+          <div class="gw-top">
+            <span class="gw-label">全 部</span>
+            <span class="gw-count"><b>81</b> 章</span>
+          </div>
+          <div class="gw-words gw-words-plain">检索 · 筛选 · 总览</div>
+          <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+        </a>
+      </div>
+
+      <div class="trio-wrap">
+        <h3 class="trio-title">炉 中 三 位 <em>A I</em></h3>
+        <p class="trio-sub">此炉无真人。接料、试火、守丹，尽是 AI。</p>
+        <div id="trioBox"></div>
+      </div>
+
+    </div>
   </section>
 
   <footer class="foot">
     <p>问 · 投 · 炼 · 藏</p>
-    <p class="foot-minor">问道取丹 · 本意引申 · 人生自主 · 健康养生 · 自然宇宙</p>
+    <p class="foot-minor">AI 智能炉 · 道童接料 · 丹师试火 · 炉灵取丹</p>
   </footer>
 
 </div>
@@ -393,6 +417,7 @@
   </article>
 </div>
 
+<script src="./spirits.js"></script>
 <script src="./furnace.js"></script>
 <script src="./ask.js"></script>
 <script src="./ingest.js"></script>
