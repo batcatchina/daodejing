@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>道德经 · 炼化</title>
+<meta name="description" content="《道德经》三段式解读：本意 · 引申义 · 启迪">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div class="paper">
+
+  <header class="masthead">
+    <div class="seal">道</div>
+    <h1>道德经 · 炼化</h1>
+    <p class="sub">本意 · 引申义 · 启迪</p>
+    <div class="progress-wrap">
+      <div class="progress-bar"><span id="pbar"></span></div>
+      <p class="progress-text"><span id="ptext">加载中</span></p>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <input type="text" id="search" placeholder="输入关键词、章名或句子，如：水 / 无为 / 知足" autocomplete="off">
+    <div class="filters" id="filters"></div>
+  </div>
+
+  <main id="grid" class="grid"></main>
+
+  <p id="empty" class="empty" hidden>没有匹配的章节，换个词试试。</p>
+
+  <footer class="foot">
+    <p>素材可导入 · 解读可炼化 · 技能可固化</p>
+  </footer>
+
+</div>
+
+<!-- 章节详情 -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-bg" data-close></div>
+  <article class="sheet">
+    <button class="close" data-close aria-label="关闭">×</button>
+    <div id="detail"></div>
+  </article>
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>

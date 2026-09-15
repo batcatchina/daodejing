@@ -1,0 +1,13 @@
+{
+  "name": "daodejing-lianhua",
+  "version": "1.0.0",
+  "private": true,
+  "description": "《道德经》炼化系统：文字/视频导入 → 三段式解读 → 技能固化",
+  "scripts": {
+    "init": "python3 scripts/refine.py init",
+    "build": "python3 scripts/refine.py build",
+    "status": "python3 scripts/refine.py status",
+    "serve": "python3 -m http.server 8080 --directory public",
+    "deploy": "python3 scripts/deploy.py --alias daodejing-lianhua"
+  }
+}
