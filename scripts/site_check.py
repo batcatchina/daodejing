@@ -103,6 +103,33 @@ def main():
             if not ok:
                 failed.append(f"AI三位/{label}")
 
+        # 一条通路：道童是门
+        print("  ── 一条通路（道童是门）──")
+        for token, label in [('class="pathway"', "通路图"),
+                             ("pw-tong", "节点：道童"),
+                             ("pw-shi", "节点：丹师"),
+                             ("pw-ling", "节点：炉灵"),
+                             ("pw-out", "节点：金丹·解惑"),
+                             ("都先过道童这一关", "门之说明")]:
+            ok = token in html
+            print(f"    {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"通路/{label}")
+
+        # 随身炉：挥之即来，用之即去
+        print("  ── 随身炉（挥之即来）──")
+        for token, label in [('id="pocket"', "随身炉面板"),
+                             ('id="pocketBtn"', "唤炉钮"),
+                             ('id="pocketSheet"', "炉屉"),
+                             ('id="pocketClose"', "收起钮"),
+                             ("挥之即来", "题辞"),
+                             ('id="pkCharge"', "随身投料"),
+                             ('id="pkQ"', "随身问道")]:
+            ok = token in html
+            print(f"    {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"随身炉/{label}")
+
         # 三位角色顺序：道童 → 丹师 → 炉灵
         for token, label in [('data-role="tong"', "道童"),
                              ('data-role="shi"', "丹师"),
@@ -129,10 +156,12 @@ def main():
         print(f"  spirits.js 体积：{len(sj)} 字节")
         for token, label in [("const SPIRITS", "模块导出"), ("ROLES", "角色表"),
                              ("道 童", "道童"), ("丹 师", "丹师"), ("炉 灵", "炉灵"),
-                             ("接 料 · 识 料", "道童职守"),
+                             ("接 料 · 接 问 · 转 交", "道童职守（门）"),
                              ("试 火 · 判 丹", "丹师职守"),
-                             ("守 丹 · 取 丹", "炉灵职守"),
+                             ("守 丹 · 取 丹 · 解 惑", "炉灵职守"),
                              ("sp-ai", "AI 徽记"), ("function strip", "角色条"),
+                             ("function handoff", "转交条"),
+                             ("const LINE", "通路表"),
                              ("function trio", "三位合影")]:
             ok = token in sj
             print(f"  {'✓' if ok else '✗'} {label}")

@@ -94,7 +94,7 @@ function ask() {
 
   if (!r.hits.length) {
     box.innerHTML = `
-      ${SPIRITS.strip('ling', SPIRITS.say('ling', 'none'), { tone: 'bad' })}
+      ${SPIRITS.handoff('ask', 'ask', 'none')}
       <div class="ans-none">
         <div class="ans-none-mark">◯</div>
         <h3>炉中无丹可应此问</h3>
@@ -109,7 +109,7 @@ function ask() {
 
   const lingSlot = r.mode === 'quote' ? 'quote' : r.mode === 'theme' ? 'theme' : 'bridge';
   box.innerHTML = `
-    ${SPIRITS.strip('ling', SPIRITS.say('ling', lingSlot), { tone: r.mode === 'theme' ? 'idle' : 'good' })}
+    ${SPIRITS.handoff('ask', 'ask', lingSlot)}
     <div class="ans-head">
       <div class="ans-path">
         <span class="ans-path-tag">${esc(pathName(r.mode))}</span>

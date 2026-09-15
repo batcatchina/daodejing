@@ -40,6 +40,7 @@ async function load() {
   renderHomeAsk();
   initTrio();
   initFold();
+  initPocket();
 
   // 带 ?ch=N 时自动投料
   const ch = new URLSearchParams(location.search).get('ch');
@@ -105,14 +106,15 @@ function showIntakeStatus(rec, srcLabel, extra, text) {
   if (srcLabel) bits.push(`<span class="is-from">来自：${esc(srcLabel)}</span>`);
   if (extra) bits.push(`<span class="is-extra">${esc(extra)}</span>`);
 
-  // 道童接线：以道童口吻说一句，让人知道是谁在接料
+  // 道童接线：道童是门，先接住，再明写"转交丹师"
   const slot = ({ srt: 'srt', av: 'av', rich: 'av', thin: 'thin',
                   rootless: 'thin', empty: 'empty' })[rec.kind]
                || (text.length > 600 ? 'rich' : 'ok');
   const line = extra && extra.includes('时间轴') ? SPIRITS.say('tong', 'srt')
              : SPIRITS.say('tong', slot, '料已收下。');
 
-  box.innerHTML = SPIRITS.strip('tong', line, { tone: rec.kind === 'rootless' ? 'bad' : 'idle' })
+  box.innerHTML = SPIRITS.handoff('forge', slot,
+                    rec.kind === 'rootless' || rec.kind === 'empty' ? null : 'ready')
                 + `<div class="is-meta">${bits.join('')}</div>`;
   box.hidden = false;
   box.className = 'intake-status s-' + rec.kind;
@@ -496,9 +498,149 @@ function initFold() {
   }
 }
 
+/* ============================================================
+   随取炉 —— 挥之即来，用之即去
+   ------------------------------------------------------------
+   右下角一枚炉钮，随处可唤。唤出即用，收起即去。
+   通路与正炉同：无论炼化问道，都先过道童这一关。
+   ============================================================ */
+function initPocket() {
+  const pocket = $('#pocket');
+  const btn = $('#pocketBtn');
+  const sheet = $('#pocketSheet');
+  const close = $('#pocketClose');
+  if (!pocket || !btn || !sheet) return;
+
+  const open = () => {
+    pocket.classList.add('on');
+    sheet.hidden = false;
+    // 开了炉，先让道童应一声
+    const tong = $('#pkTong');
+    if (tong && !tong.innerHTML.trim()) {
+      tong.innerHTML = SPIRITS.strip('tong', SPIRITS.ROLES.tong.intro);
+      tong.hidden = false;
+    }
+    const first = sheet.querySelector('#pkCharge');
+    if (first) setTimeout(() => first.focus(), 120);
+  };
+  const shut = () => {
+    pocket.classList.remove('on');
+    sheet.hidden = true;
+  };
+
+  btn.addEventListener('click', open);
+  if (close) close.addEventListener('click', shut);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !sheet.hidden) shut();
+  });
+
+  /* ---- 投料 ---- */
+  const pkForge = () => {
+    const ta = $('#pkCharge');
+    const text = (ta.value || '').trim();
+    const tong = $('#pkTong');
+    const out = $('#pkOut');
+
+    if (!text) {
+      tong.hidden = false;
+      tong.innerHTML = SPIRITS.strip('tong', SPIRITS.say('tong', 'empty'), { tone: 'bad' });
+      ta.focus();
+      return;
+    }
+
+    const r = FURNACE.assay(text);
+    const rec = INGEST.recognize(text, r);
+
+    // 道童：接住，并明写转交丹师
+    const slot = ({ srt: 'srt', av: 'av', rich: 'av', thin: 'thin',
+                    rootless: 'thin', empty: 'empty' })[rec.kind]
+                 || (text.length > 600 ? 'rich' : 'ok');
+    tong.hidden = false;
+    tong.innerHTML = SPIRITS.handoff('forge', slot,
+      (rec.kind === 'rootless' || rec.kind === 'empty') ? null : 'ready');
+
+    // 丹师：判丹
+    const shiSlot = r.ok
+      ? (r.score >= 75 ? 'ready' : r.score >= 55 ? 'pass' : 'weak')
+      : (r.chapters.length ? 'deny' : 'noroot');
+    const shiLine = SPIRITS.say('shi', shiSlot, r.verdict);
+
+    out.hidden = false;
+    out.innerHTML = SPIRITS.strip('shi', shiLine, { tone: r.ok ? 'good' : 'bad' }) + (r.ok
+      ? (() => {
+          const c = pickChapter(r.chapters);
+          if (!c) return '<p class="pk-bad">丹师点了头，可我一时取不出那一枚。</p>';
+          const d = state.data.detail && state.data.detail[String(c.id)];
+          return `<p class="pk-title">第 ${c.id} 章 · 丹字「${esc(c.danzi || '')}」</p>
+                  <p class="pk-orig">${esc(c.danjue || c.original || '')}</p>
+                  ${d ? `<p>此章金丹已成。</p>
+                         <a class="dan-link pk-more" href="./ask.html?q=${encodeURIComponent(text)}">看 它 全 貌 →</a>`
+                      : `<p>此章金丹未炼——我只有原文，不替它编造。</p>
+                         <a class="dan-link pk-more" href="./?ch=${c.id}">入 正 炉 炼 此 章 →</a>`}`;
+        })()
+      : `<p class="pk-bad">${esc(r.verdict)}</p>
+         <p>${r.missing.length ? esc(r.missing.join('　')) : ''}</p>`);
+  };
+
+  const pkClear = () => {
+    $('#pkCharge').value = '';
+    const tong = $('#pkTong'); tong.innerHTML = ''; tong.hidden = true;
+    const out = $('#pkOut'); out.innerHTML = ''; out.hidden = true;
+  };
+
+  /* ---- 问道 ---- */
+  const pkAsk = () => {
+    const inp = $('#pkQ');
+    const raw = (inp.value || '').trim();
+    const tong = $('#pkTong');
+    const out = $('#pkOut');
+
+    if (!raw) {
+      tong.hidden = false;
+      tong.innerHTML = SPIRITS.strip('tong', SPIRITS.say('tong', 'askEmpty'), { tone: 'bad' });
+      inp.focus();
+      return;
+    }
+
+    const r = ASK.query(raw, state.data, 3);
+
+    // 道童接问 → 转交炉灵
+    const lingSlot = !r.hits.length ? 'none'
+      : r.mode === 'quote' ? 'quote' : r.mode === 'theme' ? 'theme' : 'bridge';
+    tong.hidden = false;
+    tong.innerHTML = SPIRITS.handoff('ask', 'ask', lingSlot);
+
+    out.hidden = false;
+    if (!r.hits.length) {
+      out.innerHTML = `<p class="pk-bad">炉中无丹可应此问。不装作有。</p>`;
+      return;
+    }
+    out.innerHTML = `
+      <p class="pk-title">取丹 ${r.hits.length} 枚</p>
+      ${r.hits.map((h) => `
+        <p class="pk-orig"><b>第 ${h.id} 章</b>　${esc(h.danjue || h.original || '')}</p>`).join('')}
+      <a class="dan-link pk-more" href="./ask.html?q=${encodeURIComponent(raw)}">看 全 部 与 详 解 →</a>`;
+  };
+
+  const bind = (id, fn) => { const el = $(id); if (el) el.addEventListener('click', fn); };
+  bind('#pkForge', pkForge);
+  bind('#pkClear', pkClear);
+  bind('#pkAsk', pkAsk);
+  const q = $('#pkQ');
+  if (q) q.addEventListener('keydown', (e) => { if (e.key === 'Enter') pkAsk(); });
+}
+
 function homeAsk() {
   const raw = $('#homeQ').value.trim();
-  if (!raw) { $('#homeQ').focus(); return; }
+  if (!raw) {
+    // 道童接口：问空了他也要应一声，不能装作没听见
+    const box = $('#homeAnswer');
+    box.hidden = false;
+    box.className = 'ask-answer home-answer';
+    box.innerHTML = SPIRITS.strip('tong', SPIRITS.say('tong', 'askEmpty'), { tone: 'bad' });
+    $('#homeQ').focus();
+    return;
+  }
 
   const r = ASK.query(raw, state.data, 3);
   const box = $('#homeAnswer');
@@ -506,7 +648,7 @@ function homeAsk() {
 
   if (!r.hits.length) {
     box.innerHTML = `
-      ${SPIRITS.strip('ling', SPIRITS.say('ling', 'none'), { tone: 'bad' })}
+      ${SPIRITS.handoff('ask', 'ask', 'none')}
       <div class="ans-none">
         <div class="ans-none-mark">◯</div>
         <h3>炉中无丹可应此问</h3>
@@ -524,7 +666,7 @@ function homeAsk() {
 
   const lingSlot = r.mode === 'quote' ? 'quote' : r.mode === 'theme' ? 'theme' : 'bridge';
   box.innerHTML = `
-    ${SPIRITS.strip('ling', SPIRITS.say('ling', lingSlot), { tone: r.mode === 'theme' ? 'idle' : 'good' })}
+    ${SPIRITS.handoff('ask', 'ask', lingSlot)}
     <div class="ans-head">
       <div class="ans-path">
         <span class="ans-path-tag">${esc(ansPathName(r.mode))}</span>
