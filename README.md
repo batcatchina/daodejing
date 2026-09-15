@@ -49,14 +49,26 @@ bash scripts/fix_github_dns.sh
 
 > 沙箱休眠唤醒后 hosts 会重置，重跑一次即可。
 
-### 推送方式（token 不落盘）
+### 推送方式
+
+**首选：SSH + deploy key**（稳，绕开一切 TLS 问题）
+
+```bash
+ssh-keygen -t ed25519 -C "daodejing-deploy" -f ~/.ssh/id_ed25519_daodejing -N ""
+# 把公钥加到仓库 Settings → Deploy keys，勾 Allow write access
+git remote set-url origin git@github.com:batcatchina/daodejing.git
+export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519_daodejing -o IdentitiesOnly=yes"
+git push origin main
+```
+
+**备选：HTTPS + askpass**（token 不落盘）
 
 ```bash
 export GIT_ASKPASS=/tmp/ghask.sh GIT_TERMINAL_PROMPT=0
 git push origin main
 ```
 
-`ghask.sh` 内容（只 echo，不存明文）：
+`ghask.sh` 只做 echo，不存明文：
 
 ```sh
 #!/bin/sh
@@ -66,7 +78,11 @@ case "$1" in
 esac
 ```
 
-> 注：`git -c http.extraheader=...` 在 git 2.43 下对 push 不生效，会退回交互式要密码，用 askpass 更稳。
+> **坑**：本环境 `curl` 用 OpenSSL、`git` 用 GnuTLS。HTTPS 推送会报
+> `gnutls_handshake() failed: The TLS connection was non-properly terminated`，
+> 且 `git -c http.sslBackend=openssl` 不可用（该 git 只编译了 gnutls）。
+> 表现为 `curl` 通、`git` 不通——**遇到这个直接换 SSH**。
+> 另：`git -c http.extraheader=...` 在 git 2.43 下对 push 不生效，会退回交互式要密码。
 
 ### GitHub topics 不接受中文
 
