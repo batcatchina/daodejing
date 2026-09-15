@@ -86,6 +86,27 @@ def main():
             if not ok:
                 failed.append(f"问道/{label}")
 
+        # 顶栏 · 三模块固化
+        print("  ── 顶栏（三模块固化）──")
+        for token, label in [('id="topbar"', "顶栏"),
+                             ('data-go="homeAsk"', "签：问道"),
+                             ('data-go="furnace"', "签：炼丹"),
+                             ('data-go="vault"', "签：藏丹阁"),
+                             ('class="tb-tab on"', "当前签高亮"),
+                             ('id="vault"', "藏丹阁分节（第三模块）")]:
+            ok = token in html
+            print(f"    {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"顶栏/{label}")
+        # 三模块应各自成节，不再只靠折叠遮掩
+        for sid, label in [('id="homeAsk"', "第一节·问道"),
+                           ('id="furnace"', "第二节·炼丹"),
+                           ('id="vault"', "第三节·藏丹阁")]:
+            ok = sid in html
+            print(f"    {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"分节/{label}")
+
         # AI 智能炉 · 三位一体
         print("  ── AI 智能炉 · 三位一体 ──")
         for token, label in [('class="ai-badge"', "AI 徽标"),

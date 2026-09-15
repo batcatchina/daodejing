@@ -41,6 +41,7 @@ async function load() {
   initTrio();
   initFold();
   initPocket();
+  initTopbar();
 
   // 带 ?ch=N 时自动投料
   const ch = new URLSearchParams(location.search).get('ch');
@@ -504,6 +505,79 @@ function initFold() {
    右下角一枚炉钮，随处可唤。唤出即用，收起即去。
    通路与正炉同：无论炼化问道，都先过道童这一关。
    ============================================================ */
+/* ============================================================
+   顶栏 · 三模块固化
+   ------------------------------------------------------------
+   问道 / 炼丹 / 藏丹阁 常驻顶上，一点就跳。
+   页子长了也不怕找不着炉子在哪。
+   ============================================================ */
+function initTopbar() {
+  const bar = $('#topbar');
+  if (!bar) return;
+  const tabs = Array.from(bar.querySelectorAll('.tb-tab[data-go]'));
+
+  /* 点签即跳：跳到模块，并把该展开的先展开 */
+  tabs.forEach((t) => {
+    t.addEventListener('click', () => {
+      const id = t.dataset.go;
+      const sect = document.getElementById(id);
+      if (!sect) return;
+
+      // 炼丹在窄屏是折叠的，跳过去先把炉子打开
+      if (id === 'furnace') {
+        const fold = $('#furnaceFold');
+        const fBtn = $('#furnaceToggle');
+        if (fold && fold.hidden) {
+          fold.hidden = false;
+          if (fBtn) fBtn.textContent = '收 起 ⌃';
+        }
+      }
+      // 问道：跳过去顺手聚焦提问框，省一次点击
+      if (id === 'homeAsk') {
+        setTimeout(() => { const q = $('#homeQ'); if (q) q.focus({ preventScroll: true }); }, 420);
+      }
+
+      const y = sect.getBoundingClientRect().top + window.scrollY - (bar.offsetHeight + 10);
+      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    });
+  });
+
+  /* 吸顶态：滚过抬头就点亮品牌与投影 */
+  const onScroll = () => {
+    bar.classList.toggle('stuck', window.scrollY > 120);
+    spy();
+  };
+
+  /* 滚到哪一节，顶栏就亮哪一个 —— 人在哪，一目了然 */
+  const sectOf = (id) => document.getElementById(id);
+  const marks = [
+    { id: 'homeAsk', tab: () => tabs.find((t) => t.dataset.go === 'homeAsk') },
+    { id: 'furnace', tab: () => tabs.find((t) => t.dataset.go === 'furnace') },
+    { id: 'vault',   tab: () => tabs.find((t) => t.dataset.go === 'vault') },
+  ];
+  function spy() {
+    const line = window.scrollY + bar.offsetHeight + 96;
+    let cur = 'homeAsk';
+    for (const m of marks) {
+      const el = sectOf(m.id);
+      if (el && el.offsetTop <= line) cur = m.id;
+    }
+    marks.forEach((m) => {
+      const t = m.tab();
+      if (t) t.classList.toggle('on', m.id === cur);
+    });
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { onScroll(); ticking = false; });
+  }, { passive: true });
+  window.addEventListener('resize', spy);
+  onScroll();
+}
+
 function initPocket() {
   const pocket = $('#pocket');
   const btn = $('#pocketBtn');

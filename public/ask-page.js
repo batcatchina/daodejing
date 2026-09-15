@@ -344,3 +344,17 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSheet
 
 initTabs();
 load();
+
+/* 顶栏吸顶：滚过抬头就给点投影，让人知道栏还钉着 */
+(function topbarStuck(){
+  const bar = document.getElementById('topbar');
+  if (!bar) return;
+  let ticking = false;
+  const upd = () => bar.classList.toggle('stuck', window.scrollY > 90);
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { upd(); ticking = false; });
+  }, { passive: true });
+  upd();
+})();

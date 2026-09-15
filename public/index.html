@@ -23,6 +23,24 @@
     <p class="ai-badge"><span class="ai-dot"></span>AI 智 能 炉 · 炉 中 三 位 皆 是 AI</p>
   </header>
 
+  <!-- ============ 顶栏 · 三模块固化 ============ -->
+  <nav class="topbar" id="topbar">
+    <div class="tb-inner">
+      <span class="tb-brand"><span class="tb-seal">道</span>炼 化 炉</span>
+      <div class="tb-tabs">
+        <button class="tb-tab on" data-go="homeAsk">
+          <span class="tb-k">一</span>问 道
+        </button>
+        <button class="tb-tab" data-go="furnace">
+          <span class="tb-k">二</span>炼 丹
+        </button>
+        <button class="tb-tab" data-go="vault">
+          <span class="tb-k">三</span>藏 丹 阁
+        </button>
+      </div>
+    </div>
+  </nav>
+
   <!-- ============ 问道（正门） ============ -->
   <section class="ask-box home-ask" id="homeAsk">
     <div class="sect-head">
@@ -358,43 +376,54 @@
     </div><!-- /furnaceFold -->
   </section>
 
-  <!-- ============ 更多（折叠） ============ -->
+  <!-- ============ 藏丹阁（第三模块） ============ -->
+  <section class="vault-sect" id="vault">
+    <div class="sect-head">
+      <span class="sect-k">三</span>
+      <div class="sect-t">
+        <b>藏 丹 阁</b>
+        <span>八十一章金丹在此。已炼化的取丹，未炼化的存原文。</span>
+      </div>
+    </div>
+
+    <div class="gateways">
+      <a class="gateway done-gate" href="./vault.html?status=refined">
+        <div class="gw-top">
+          <span class="gw-label">已 炼 化</span>
+          <span class="gw-count"><b id="cntDone">5</b> 章</span>
+        </div>
+        <div class="gw-words" id="gwWords">玄 · 水 · 无 · 法 · 慎</div>
+        <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+      </a>
+
+      <a class="gateway raw-gate" href="./vault.html?status=pending">
+        <div class="gw-top">
+          <span class="gw-label">未 炼 化</span>
+          <span class="gw-count"><b id="cntTodo">76</b> 章</span>
+        </div>
+        <div class="gw-words gw-words-plain">原文已就位，待炼</div>
+        <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+      </a>
+
+      <a class="gateway all-gate" href="./vault.html">
+        <div class="gw-top">
+          <span class="gw-label">全 部</span>
+          <span class="gw-count"><b>81</b> 章</span>
+        </div>
+        <div class="gw-words gw-words-plain">检索 · 筛选 · 总览</div>
+        <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ 更多（折叠：炉中三位 + 通路） ============ -->
   <section class="more">
     <button class="more-toggle" id="moreToggle">
-      <span class="mt-text">藏 丹 阁 · 炉 中 三 位</span>
+      <span class="mt-text">炉 中 三 位 · 一 条 通 路</span>
       <span class="mt-arrow">⌄</span>
     </button>
 
     <div class="more-body" id="moreBody" hidden>
-
-      <div class="gateways">
-        <a class="gateway done-gate" href="./vault.html?status=refined">
-          <div class="gw-top">
-            <span class="gw-label">已 炼 化</span>
-            <span class="gw-count"><b id="cntDone">5</b> 章</span>
-          </div>
-          <div class="gw-words" id="gwWords">玄 · 水 · 无 · 法 · 慎</div>
-          <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-        </a>
-
-        <a class="gateway raw-gate" href="./vault.html?status=pending">
-          <div class="gw-top">
-            <span class="gw-label">未 炼 化</span>
-            <span class="gw-count"><b id="cntTodo">76</b> 章</span>
-          </div>
-          <div class="gw-words gw-words-plain">原文已就位，待炼</div>
-          <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-        </a>
-
-        <a class="gateway all-gate" href="./vault.html">
-          <div class="gw-top">
-            <span class="gw-label">全 部</span>
-            <span class="gw-count"><b>81</b> 章</span>
-          </div>
-          <div class="gw-words gw-words-plain">检索 · 筛选 · 总览</div>
-          <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-        </a>
-      </div>
 
       <div class="trio-wrap">
         <h3 class="trio-title">炉 中 三 位 <em>A I</em></h3>
@@ -425,6 +454,8 @@
 
     </div>
   </section>
+
+  <div class="scroll-tail" aria-hidden="true"></div>
 
   <footer class="foot">
     <p>问 · 投 · 炼 · 藏</p>
