@@ -24,8 +24,19 @@ jobs:
           curl -sSL -m 25 "https://daodejing.zheng-he.top" -o /tmp/p.html
           echo "  title: $(grep -o '<title>[^<]*</title>' /tmp/p.html || echo none)"
           echo "  bytes: $(wc -c < /tmp/p.html)"
+          for asset in furnace.js app.js style.css; do
+            code=$(curl -sSL -m 25 -o /dev/null -w "%{http_code}" "https://daodejing.zheng-he.top/$asset")
+            echo "  $asset: $code"
+          done
           curl -sSL -m 25 "https://daodejing.zheng-he.top/data/index.json" -o /tmp/d.json
-          python3 -c "import json; d=json.load(open('/tmp/d.json')); print('  chapters:', d['total'], 'refined:', d['refined'])"
+          python3 -c "
+import json
+d = json.load(open('/tmp/d.json'))
+print('  chapters:', d['total'], 'refined:', d['refined'])
+print('  dims:', [x['name'] for x in d.get('dimensions', [])])
+c = [x for x in d['chapters'] if x['id'] == 8][0]
+print('  ch8 danzi:', c['danzi'], '| danjue:', c['danjue'])
+"
 
       - name: DNS from runner
         run: nslookup daodejing.zheng-he.top 2>&1 | head -8 || true
