@@ -107,6 +107,7 @@ h1{font-size:2rem;font-weight:500;letter-spacing:.22em;margin-bottom:.35rem}
 
 /* ---------- 详情 ---------- */
 .modal{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto}
+.modal[hidden]{display:none}
 .modal-bg{position:fixed;inset:0;background:rgba(30,25,18,.55);backdrop-filter:blur(2px)}
 
 .sheet{
