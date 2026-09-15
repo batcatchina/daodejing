@@ -1,0 +1,31 @@
+name: Site Health Check
+
+on:
+  push:
+    paths: ['.github/workflows/site-check.yml']
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: HTTP probe
+        run: |
+          for u in \
+            "https://daodejing.zheng-he.top" \
+            "https://daodejing-lianhua.vercel.app" \
+            "https://www.zheng-he.top" \
+            "https://zheng-he.top"; do
+            printf "### %s\n" "$u"
+            curl -sSL -m 25 -o /dev/null \
+              -w "  code=%{http_code} time=%{time_total}s ip=%{remote_ip}\n" \
+              "$u" 2>&1 || echo "  FAILED"
+          done
+      - name: Response headers
+        run: |
+          echo "### headers (daodejing.zheng-he.top)"
+          curl -sSI -L -m 25 "https://daodejing.zheng-he.top" 2>&1 | head -15 || echo "  FAILED"
+      - name: DNS from runner
+        run: |
+          echo "### nslookup"
+          nslookup daodejing.zheng-he.top 2>&1 | head -10 || true
