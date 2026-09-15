@@ -2,7 +2,13 @@
 
 > 把《道德经》课程（文字 + 视频）炼化成结构化知识，再固化为可复用的技能。
 
-在线：**https://daodejing-lianhua.vercel.app**
+| | |
+|---|---|
+| **仓库** | https://github.com/batcatchina/daodejing |
+| **线上** | https://daodejing.zheng-he.top （备用 https://daodejing-lianhua.vercel.app） |
+
+主题：宇宙论 · 处世 · 修身 · 治国 · 辩证 · 无为
+产物：本意 / 引申义 / 启迪（三段式）
 
 ---
 
@@ -23,6 +29,58 @@
 | 本意 | `benyi` | 字词训诂、原文直解、先秦语境——老子原本在说什么 |
 | 引申义 | `yinshen` | 由此及彼、前后章互证——这一章在 81 章体系里站在哪 |
 | 启迪 | `qidi` | 分「人生 / 自然 / 宇宙」三层——对我有什么用、怎么用 |
+
+---
+
+## 一点五、环境坑位备忘
+
+### GitHub 连不上？是 DNS 污染，不是墙
+
+容器/沙箱里 `github.com` 常被解析到 `198.18.x.x`（RFC 2544 保留网段，黑洞地址）。
+TCP 建连会成功，但 **TLS 握手必断**，表现为 `SSL_ERROR_SYSCALL` 或 `HTTP:000`。
+
+```bash
+# 一键修复（支持重复执行）
+bash scripts/fix_github_dns.sh
+```
+
+脚本用阿里公共 DNS 的 DoH 接口查真实 IP 写入 `/etc/hosts`，覆盖 5 个域名：
+`github.com` / `api.github.com` / `codeload.github.com` / `objects.githubusercontent.com` / `raw.githubusercontent.com`。
+
+> 沙箱休眠唤醒后 hosts 会重置，重跑一次即可。
+
+### 推送方式（token 不落盘）
+
+```bash
+export GIT_ASKPASS=/tmp/ghask.sh GIT_TERMINAL_PROMPT=0
+git push origin main
+```
+
+`ghask.sh` 内容（只 echo，不存明文）：
+
+```sh
+#!/bin/sh
+case "$1" in
+  *Username*) echo "batcatChina" ;;
+  *Password*) echo "$PAT" ;;
+esac
+```
+
+> 注：`git -c http.extraheader=...` 在 git 2.43 下对 push 不生效，会退回交互式要密码，用 askpass 更稳。
+
+### GitHub topics 不接受中文
+
+`topics` 必须是小写字母或数字开头，中文主题写进 **description**，同样能在仓库首页一眼看到。
+
+### 自定义域名
+
+`zheng-he.top` 的 DNS 在**阿里云万网**（NS: `dns15.hichina.com`），不由 Vercel 托管，故子域名需手动加解析：
+
+| 类型 | 主机记录 | 记录值 |
+|---|---|---|
+| CNAME | `daodejing` | `cname.vercel-dns.com` |
+
+Vercel 侧已绑定并 `verified=true`，DNS 生效后即自动签发 HTTPS 证书。
 
 ---
 
