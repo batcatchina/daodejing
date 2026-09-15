@@ -9,8 +9,11 @@
 
 火候判定（宽进严出）：
     什么都能投进炉子，但炼不出真东西就不结丹。
-    判三件事——是否扣原文（根）、是否有实质（料）、是否合义理（向）。
+    四条判据，对应《道德经》三原则 + 多维度——
+      道法自然（根）· 道可道非恒道（余地）· 六度周全（多面）· 多维度（三维）。
 """
+
+import re
 
 # --------------------------------------------------------------------------
 # 一字金丹：81 章
@@ -236,6 +239,32 @@ EMPTY_PATTERNS = [
     (r"^[^。！？]{0,12}[！？]{1,}$", "纯情绪短句"),
 ]
 
+# ---- 四条判据的辅助词表（与 public/furnace.js 同步）----
+
+# 绝对化词：违「道可道，非恒道」
+ABSOLUTE_PAT = re.compile(r"一定|必然|绝对|百分百|百分之百|必须|永远|唯一|完全|彻底|所有|任何|绝不|毫无|无可")
+
+# 余地词：合「非恒道」
+HEDGE_PAT = re.compile(r"或许|也许|大概|似乎|可能|未必|不一定|或|似|若|如|譬|犹|象|仿佛|近乎|几于|往往|常常|大抵|大体|多半|或多或少")
+
+# 维度探针：多维度
+DIM_PROBE = {
+    "人生": re.compile(r"人生|为人|处世|修身|自省|知己|做主|自主|选择|取舍|进退|得失|成败|荣辱|命运|志向|心性"),
+    "健康": re.compile(r"健康|养生|身体|身心|息|气|呼吸|静坐|睡眠|饮食|调和|病|养|康|安|寿|长久"),
+    "自然": re.compile(r"自然|天地|万物|四时|阴阳|宇宙|规律|循环|周期|水流|山川|草木|风雨|生长|消长|周行"),
+}
+
+# 义理簇：判断覆盖是否多面（六度周全）
+YILI_CLUSTERS = [
+    re.compile(r"无|虚|空|静|朴|素|淡|简|寡"),                    # 虚无淡泊
+    re.compile(r"柔|弱|水|谷|下|谦|卑|退|让|不争"),                # 柔弱处下
+    re.compile(r"反|复|归|循环|周行|往返|转化|转|还|重"),           # 往复循环
+    re.compile(r"自然|天地|万物|宇宙|道|法则|规律"),                # 天道自然
+    re.compile(r"生|化|养|长|蓄|育|成|损|益|盈|虚"),                # 生化损益
+    re.compile(r"心|性|命|身|神|形|精|气|欲|情|念|己"),             # 身心性命
+    re.compile(r"治|政|民|国|天下|兵|战|争|与|取|守"),              # 治世用兵
+]
+
 
 PUNCT = "，。；：、！？（）「」『』《》〈〉·…—　 \n\t"
 
@@ -262,8 +291,7 @@ def _match_chapters(text):
             if found:
                 break
     # 显式章号
-    import re as _re
-    for m in _re.finditer(r"第\s*([0-9一二三四五六七八九十]+)\s*章", text):
+    for m in re.finditer(r"第\s*([0-9一二三四五六七八九十]+)\s*章", text):
         raw = m.group(1)
         cn = {"一":1,"二":2,"三":3,"四":4,"五":5,"六":6,"七":7,"八":8,"九":9}
         cid = int(raw) if raw.isdigit() else (cn.get(raw, 0) if raw in cn else 0)
@@ -275,33 +303,66 @@ def _match_chapters(text):
 def judge_ferocity(text):
     """
     火候判定：宽进严出。
-    返回 dict(score, level, verdict, reasons, missing, chapters)
+    四条判据，对应《道德经》三原则 + 多维度：
+      道法自然（根）· 道可道非恒道（余地）· 六度周全（多面）· 多维度（三维）
+    返回 dict(score, level, verdict, reasons, missing, chapters, principles, dims)
+    与浏览器端 public/furnace.js 同源同逻辑，改动须两侧同步。
     """
     text = (text or "").strip()
     reasons, missing = [], []
     score = 0
 
-    # 一、是否扣原文（根）—— 权重最高
+    # 一、道法自然：料是否"本来如此"（原文之根最上）
     hits = _match_chapters(text)
     chaps = sorted({h[0] for h in hits})
+    root_tier = 0          # 3=直引 2=近引 1=关联 0=无根
     if chaps:
         best = max(h[1] for h in hits)
         if best >= 12:
-            score += 45
+            score += 45; root_tier = 3
             reasons.append(f"直引原文，扣第 {'、'.join(map(str, chaps[:5]))} 章（{best} 字连续命中）")
         elif best >= 9:
-            score += 35
+            score += 35; root_tier = 2
             reasons.append(f"近引原文章句，扣第 {'、'.join(map(str, chaps[:5]))} 章")
         elif best >= 6:
-            score += 25
-            reasons.append(f"文中含原文片段，关联第 {'、'.join(map(str, chaps[:5]))} 章")
+            score += 25; root_tier = 1
+            reasons.append(f"含原文片段，关联第 {'、'.join(map(str, chaps[:5]))} 章")
         else:
-            score += 15
+            score += 15; root_tier = 1
             reasons.append(f"显式提及第 {'、'.join(map(str, chaps[:5]))} 章")
     else:
         missing.append("未扣住任何原文章句——无根之木，炼不出丹")
 
-    # 二、是否有实质（料）
+    # 二、道可道，非恒道：是否留有余地（非断言）
+    is_abs = bool(ABSOLUTE_PAT.search(text))
+    hedges = len(HEDGE_PAT.findall(text))
+    heng_tier = 1          # 2=有余地 1=中性 0=绝对化
+    if is_abs and hedges == 0:
+        score -= 14; heng_tier = 0
+        missing.append("语多断然（一定／必然／绝对），失「非恒道」之圆转")
+    elif hedges >= 2 or (not is_abs and hedges >= 1):
+        score += 12; heng_tier = 2
+        reasons.append("语留余地，合「道可道，非恒道」之圆转")
+
+    # 三、六度周全（第二章）：是否多面切入
+    clusters = sum(1 for rex in YILI_CLUSTERS if rex.search(text))
+    zhou_tier = 1          # 2=周全 1=单面 0=未涉
+    if clusters >= 2 or len(chaps) >= 2:
+        score += 10; zhou_tier = 2
+        reasons.append(
+            f"义理跨 {clusters} 面（多章相证或数义并举），见周全之度"
+            if clusters >= 2 else f"扣 {len(chaps)} 章，可相参证"
+        )
+    elif not clusters and not chaps:
+        zhou_tier = 0
+
+    # 四、多维度：是否触及人生／健康／自然
+    dims = [k for k, rex in DIM_PROBE.items() if rex.search(text)]
+    if len(dims) >= 2:
+        score += 6
+        reasons.append(f"兼涉 {'、'.join(dims)} 数维，可作三层启迪")
+
+    # 五、实质（料）
     L = len(text)
     if L < 8:
         missing.append("篇幅过短，不足成丹")
@@ -313,9 +374,9 @@ def judge_ferocity(text):
         reasons.append(f"篇幅适中（{L} 字），可炼")
     else:
         score += 18
-        reasons.append(f"material 充足（{L} 字），需先剔芜存菁")
+        reasons.append(f"料足（{L} 字），需先剔芜存菁")
 
-    # 三、是否合义理（向）
+    # 六、是否合义理（向）
     yili = [w for w in YILI_WORDS if w in text]
     if len(yili) >= 5:
         score += 25
@@ -329,10 +390,9 @@ def judge_ferocity(text):
     else:
         missing.append("未涉道之语汇，恐非《道德经》所能答")
 
-    # 四、扣分项：空话与绝对化
-    import re as _re
+    # 七、扣分项：空话
     for pat, label in EMPTY_PATTERNS:
-        if _re.search(pat, text, _re.M):
+        if re.search(pat, text, re.M):
             score -= 22
             missing.append(f"见「{label}」之弊，非道之实")
             break
@@ -362,10 +422,37 @@ def judge_ferocity(text):
         level = "火候未到"
         verdict = "无原文之根，不成金丹。请扣定章节与章句再来。"
 
+    # 三问：显性为表，让用户看见炉子在怎么想
+    principles = [
+        {
+            "key": "自然", "name": "道法自然", "tier": root_tier,
+            "say": ("直引原文，不假雕琢" if root_tier == 3 else
+                    "近引章句，其来有自" if root_tier == 2 else
+                    "仅沾原文之迹，根尚浅" if root_tier == 1 else
+                    "无原文之根——道法自然，非强作可成"),
+        },
+        {
+            "key": "恒道", "name": "非恒道", "tier": heng_tier,
+            "say": ("留有回旋，非断言" if heng_tier == 2 else
+                    "语尚平实，可更圆转" if heng_tier == 1 else
+                    "语多断然，失圆转之妙"),
+        },
+        {
+            "key": "周全", "name": "六度周全", "tier": zhou_tier,
+            "say": (f"义理跨 {clusters} 面，见周全之度" if clusters >= 2 else
+                    f"扣 {len(chaps)} 章，可相参证" if zhou_tier == 2 else
+                    "仅扣一章一面——可再引他章相证" if zhou_tier == 1 else
+                    "未涉义理，无从周全"),
+        },
+    ]
+    if dims:
+        principles.append({"key": "三维", "name": "多维度", "tier": 2, "say": f"兼涉 {'、'.join(dims)}"})
+
     return {
         "score": score, "level": level, "verdict": verdict,
         "reasons": reasons, "missing": missing,
         "chapters": chaps, "ok": ok,
+        "principles": principles, "dims": dims,
     }
 
 

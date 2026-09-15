@@ -228,10 +228,70 @@
         <p class="furnace-sub">引原文章句，或就此章之义理申说。无根者不结丹。</p>
       </div>
 
-      <div class="furnace-mouth">
-        <textarea id="charge" rows="3" placeholder="例：上善若水，水善利万物而不争，处众人之所恶，故几于道。&#10;或：第11章 有之以为利，无之以为用，对我做产品很有启发"></textarea>
+      <!-- ── 入口签：四种投料方式 ── -->
+      <div class="intake-tabs" id="intakeTabs">
+        <button class="itab on" data-mode="paste">
+          <span class="it-ico">文</span>粘贴文本
+        </button>
+        <button class="itab" data-mode="file">
+          <span class="it-ico">档</span>拖入文件
+        </button>
+        <button class="itab" data-mode="url">
+          <span class="it-ico">链</span>贴网址
+        </button>
+        <button class="itab" data-mode="av">
+          <span class="it-ico">音</span>音视频
+        </button>
+      </div>
+
+      <!-- ── 主炉口：粘贴文本 ── -->
+      <div class="furnace-mouth" id="panePaste">
+        <textarea id="charge" rows="4" placeholder="例：上善若水，水善利万物而不争，处众人之所恶，故几于道。&#10;或：第11章 有之以为利，无之以为用，对我做产品很有启发&#10;&#10;也可直接粘贴视频转写稿（含时间轴会自动清理）"></textarea>
         <div class="mouth-line"></div>
       </div>
+
+      <!-- ── 炉口：拖入文件 ── -->
+      <div class="furnace-mouth pane" id="paneFile" hidden>
+        <div class="drop" id="drop">
+          <div class="drop-mark">⌄</div>
+          <p class="drop-main">拖文件到此处，或 <span class="drop-pick">点击选取</span></p>
+          <p class="drop-sub" id="dropHint">可读 纯文本 · Markdown · 字幕稿（.txt .md .srt .vtt）</p>
+          <input type="file" id="fileInput" accept=".txt,.md,.markdown,.srt,.vtt,.text,.log,.csv" hidden>
+        </div>
+        <p class="pane-note">字幕稿会先剥去时间轴再入炉；Word/PDF 请复制正文粘贴。</p>
+      </div>
+
+      <!-- ── 炉口：贴网址 ── -->
+      <div class="furnace-mouth pane" id="paneUrl" hidden>
+        <div class="url-row">
+          <input type="text" id="urlInput" placeholder="粘贴网页链接，如 mp.weixin.qq.com/s/xxx" autocomplete="off">
+          <button class="btn-fetch" id="fetchBtn">取 文</button>
+        </div>
+        <p class="pane-note">仅能取公开、允许跨域的网页正文。取不到时请手动复制粘贴——一样能炼。</p>
+      </div>
+
+      <!-- ── 炉口：音视频引导 ── -->
+      <div class="furnace-mouth pane" id="paneAv" hidden>
+        <div class="av-guide">
+          <div class="av-top">
+            <span class="av-mark">音</span>
+            <p class="av-title">音视频不在浏览器里炼</p>
+          </div>
+          <p class="av-body">
+            转写需要语音识别模型，网页跑不动——这点如实相告。
+            把音频/视频<b>直接发给 WorkBuddy</b>，在沙箱端转写并归档入库，
+            回来这里就炼得动了。
+          </p>
+          <ol class="av-steps">
+            <li>在对话里把音视频文件发给我</li>
+            <li>我调用 <code>refine.py ingest-video</code> 转写、切章、归位</li>
+            <li>你回到炉前，直接炼化该章</li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- ── 料识 + 入炉回执 ── -->
+      <div class="intake-status" id="intakeStatus" hidden></div>
 
       <div class="furnace-actions">
         <button class="btn-forge" id="forgeBtn">
@@ -240,12 +300,13 @@
         <button class="btn-clear" id="clearBtn">清 炉</button>
       </div>
 
+      <!-- ── 火候回执 ── -->
       <div class="assay" id="assay" hidden></div>
 
       <div class="samples">
         <span class="samples-label">可试：</span>
         <button class="sample" data-t="上善若水，水善利万物而不争，处众人之所恶，故几于道。">上善若水</button>
-        <button class="sample" data-t="反者道之动，弱者道之用。这是循环的智慧">反者道之动</button>
+        <button class="sample" data-t="反者道之动，弱者道之用。或曰：天下莫柔弱于水，而攻坚强者莫之能胜，其无以易之。">反者道之动</button>
         <button class="sample" data-t="知人者智，自知者明。胜人者有力，自胜者强。">自知者明</button>
         <button class="sample" data-t="加油，相信自己，你一定能成功！">（反例）</button>
       </div>
@@ -308,6 +369,7 @@
 </div>
 
 <script src="./furnace.js"></script>
+<script src="./ingest.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>

@@ -146,8 +146,31 @@ h1{font-size:2.05rem;font-weight:500;letter-spacing:.24em;margin-bottom:.5rem}
 .furnace-body::before{top:9px;left:9px;border-right:0;border-bottom:0}
 .furnace-body::after{bottom:9px;right:9px;border-left:0;border-top:0}
 
-.furnace-head{text-align:center;margin-bottom:1.3rem}
-.furnace-head h2{
+/* ---------- 入口签：四种投料方式 ---------- */
+.intake-tabs{
+  display:flex;gap:.4rem;justify-content:center;margin-bottom:1rem;flex-wrap:wrap;
+}
+.itab{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.42rem .95rem;
+  border:1px solid var(--line);border-radius:99px;
+  background:transparent;color:var(--ink-3);
+  font-family:inherit;font-size:.82rem;letter-spacing:.1em;
+  cursor:pointer;transition:all .18s;
+}
+.itab:hover{border-color:var(--gold);color:var(--gold)}
+.itab.on{
+  border-color:var(--cinnabar);color:var(--cinnabar);
+  background:rgba(156,43,43,.05);
+}
+.it-ico{
+  display:inline-block;width:17px;height:17px;line-height:17px;text-align:center;
+  font-size:.68rem;border-radius:3px;
+  background:var(--ink-3);color:var(--paper);
+}
+.itab.on .it-ico{background:var(--cinnabar)}
+
+.furnace-head{text-align:center;margin-bottom:1.3rem}.furnace-head h2{
   font-size:1.14rem;font-weight:500;letter-spacing:.34em;
   text-indent:.34em;color:var(--ink);
 }
@@ -179,6 +202,135 @@ h1{font-size:2.05rem;font-weight:500;letter-spacing:.24em;margin-bottom:.5rem}
   background:linear-gradient(90deg,transparent,var(--cinnabar) 22%,var(--gold-2) 50%,var(--cinnabar) 78%,transparent);
   opacity:.55;border-radius:2px;
 }
+
+/* ---------- 各形态炉口 ---------- */
+.pane{animation:fadeUp .3s ease}
+.pane-note{
+  font-size:.72rem;color:var(--ink-3);line-height:1.85;
+  margin-top:.6rem;letter-spacing:.02em;
+}
+
+/* 拖拽区 */
+.drop{
+  border:1.5px dashed var(--line);border-radius:6px;
+  background:var(--paper-2);
+  padding:1.9rem 1.2rem;text-align:center;cursor:pointer;
+  transition:all .22s ease;
+}
+.drop:hover{border-color:var(--gold);background:rgba(168,132,60,.04)}
+.drop.over{
+  border-color:var(--cinnabar);border-style:solid;
+  background:rgba(156,43,43,.06);
+  box-shadow:inset 0 0 30px rgba(156,43,43,.08);
+  transform:scale(1.008);
+}
+.drop-mark{
+  font-size:1.5rem;color:var(--gold);line-height:1;margin-bottom:.5rem;
+  transition:transform .22s ease;
+}
+.drop.over .drop-mark{transform:translateY(3px) scale(1.14);color:var(--cinnabar)}
+.drop-main{font-size:.92rem;color:var(--ink-2);letter-spacing:.06em}
+.drop-pick{color:var(--cinnabar);border-bottom:1px solid rgba(156,43,43,.4)}
+.drop-sub{font-size:.72rem;color:var(--ink-3);margin-top:.5rem;letter-spacing:.04em}
+
+/* 网址栏 */
+.url-row{display:flex;gap:.5rem}
+#urlInput{
+  flex:1;padding:.82rem 1rem;
+  border:1px solid var(--line);border-radius:5px;
+  background:var(--paper-2);color:var(--ink);
+  font-family:inherit;font-size:.9rem;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+#urlInput:focus{border-color:var(--cinnabar);box-shadow:0 0 0 3px rgba(156,43,43,.07)}
+#urlInput::placeholder{color:#b3aa9b;font-size:.86rem}
+.btn-fetch{
+  padding:.82rem 1.35rem;flex:0 0 auto;
+  border:1px solid var(--cinnabar);border-radius:5px;
+  background:transparent;color:var(--cinnabar);
+  font-family:inherit;font-size:.88rem;letter-spacing:.16em;
+  cursor:pointer;transition:all .18s;
+}
+.btn-fetch:hover{background:rgba(156,43,43,.07)}
+.btn-fetch:disabled{opacity:.55;cursor:wait}
+
+/* 音视频引导 */
+.av-guide{
+  border:1px solid var(--line);border-left:2px solid var(--gold);
+  border-radius:5px;background:var(--paper-2);
+  padding:1.1rem 1.2rem;
+}
+.av-top{display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem}
+.av-mark{
+  display:inline-block;width:24px;height:24px;line-height:24px;text-align:center;
+  font-size:.78rem;border-radius:4px;
+  background:var(--gold);color:var(--paper);
+}
+.av-title{font-size:.92rem;letter-spacing:.1em;color:var(--ink)}
+.av-body{font-size:.82rem;line-height:1.95;color:var(--ink-2);text-align:justify}
+.av-body b{color:var(--cinnabar);font-weight:600}
+.av-steps{
+  margin:.85rem 0 0 1.25rem;
+  font-size:.79rem;line-height:2;color:var(--ink-3);
+}
+.av-steps code{
+  font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:.74rem;color:var(--gold);
+  background:rgba(168,132,60,.08);
+  padding:.05rem .35rem;border-radius:3px;
+}
+
+/* ---------- 料识与入炉回执 ---------- */
+.intake-status{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem .8rem;
+  padding:.62rem .9rem;margin-bottom:.75rem;
+  border-left:2px solid var(--gold);
+  background:rgba(168,132,60,.06);border-radius:0 4px 4px 0;
+  font-size:.78rem;animation:fadeUp .3s ease;
+}
+.is-src{
+  font-size:.74rem;letter-spacing:.16em;color:var(--paper);
+  background:var(--gold);padding:.04rem .5rem;border-radius:3px;
+}
+.is-note{color:var(--ink-2)}
+.is-num{color:var(--ink-3);letter-spacing:.06em}
+.is-from,.is-extra{color:var(--ink-3);font-size:.72rem}
+.is-extra{color:var(--jade)}
+.intake-status.s-rootless,.intake-status.s-thin{border-left-color:var(--cinnabar);background:rgba(156,43,43,.05)}
+.intake-status.s-rootless .is-src,.intake-status.s-thin .is-src{background:var(--cinnabar)}
+.intake-status.s-err{
+  border-left-color:var(--cinnabar);background:rgba(156,43,43,.07);
+  display:block;padding:.8rem 1rem;
+}
+.is-errline{font-size:.84rem;color:var(--cinnabar);margin-bottom:.3rem}
+.is-errhint{font-size:.76rem;line-height:1.85;color:var(--ink-2)}
+
+/* ---------- 三问面板（显性为表） ---------- */
+.principles{
+  margin:.95rem 0 .2rem;
+  border:1px solid var(--line);border-radius:5px;
+  background:rgba(255,255,255,.5);
+  padding:.75rem .95rem .7rem;
+}
+.pr-title{
+  font-size:.7rem;letter-spacing:.36em;text-indent:.36em;
+  color:var(--gold);text-align:center;margin-bottom:.6rem;
+}
+.pr-rows{display:flex;flex-direction:column;gap:.32rem}
+.pr-row{
+  display:flex;align-items:baseline;gap:.6rem;
+  font-size:.79rem;line-height:1.75;padding-left:.1rem;
+}
+.pr-mark{flex:0 0 auto;font-size:.82rem;width:1em;text-align:center}
+.pr-t3 .pr-mark,.pr-t2 .pr-mark{color:var(--jade)}
+.pr-t1 .pr-mark{color:var(--gold)}
+.pr-t0 .pr-mark{color:var(--cinnabar)}
+.pr-name{
+  flex:0 0 5.2em;color:var(--ink);letter-spacing:.1em;
+}
+.pr-t0 .pr-name{color:var(--cinnabar)}
+.pr-say{flex:1;color:var(--ink-3);font-size:.76rem}
+.pr-t0 .pr-say{color:var(--cinnabar);opacity:.85}
 
 .furnace-actions{display:flex;gap:.7rem;align-items:center;margin-bottom:.6rem}
 
@@ -650,4 +802,15 @@ h1{font-size:2.05rem;font-weight:500;letter-spacing:.24em;margin-bottom:.5rem}
   .sheet{padding:2rem 1.2rem 2.4rem}
   .grid{grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:.58rem}
   .samples{gap:.32rem}
+  /* 投料口 */
+  .intake-tabs{gap:.3rem}
+  .itab{padding:.36rem .7rem;font-size:.76rem;letter-spacing:.04em}
+  .it-ico{width:15px;height:15px;line-height:15px;font-size:.62rem}
+  .drop{padding:1.5rem .9rem}
+  .drop-main{font-size:.86rem}
+  .url-row{flex-direction:column}
+  .btn-fetch{padding:.72rem;letter-spacing:.2em}
+  .pr-name{flex:0 0 4.6em;font-size:.76rem}
+  .pr-say{font-size:.73rem}
+  .av-guide{padding:.9rem 1rem}
 }

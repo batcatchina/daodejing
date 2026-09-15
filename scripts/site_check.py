@@ -9,7 +9,7 @@ import sys
 import urllib.request
 
 BASE = "https://daodejing.zheng-he.top"
-ASSETS = ["furnace.js", "app.js", "vault.js", "style.css", "data/index.json"]
+ASSETS = ["furnace.js", "ingest.js", "app.js", "vault.js", "style.css", "data/index.json"]
 
 
 def get(path, raw=False, timeout=25):
@@ -49,6 +49,22 @@ def main():
             print(f"  {'✓' if ok else '✗'} {label}")
             if not ok:
                 failed.append(label)
+
+        # 智能投料口四形态
+        print("  ── 投料口 ──")
+        for token, label in [('class="intake-tabs"', "入口签"),
+                             ('data-mode="paste"', "粘贴文本"),
+                             ('data-mode="file"', "拖入文件"),
+                             ('data-mode="url"', "贴网址"),
+                             ('data-mode="av"', "音视频引导"),
+                             ('id="drop"', "拖拽区"),
+                             ('id="urlInput"', "网址栏"),
+                             ('class="av-guide"', "转写引导"),
+                             ("ingest.js", "投料模块")]:
+            ok = token in html
+            print(f"    {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"投料口/{label}")
 
         # 首页应只留入口，不再内嵌藏丹阁网格
         if 'id="grid"' in html:
@@ -97,8 +113,36 @@ def main():
         print(f"  ✗ 藏丹阁失败：{e}")
         failed.append("藏丹阁")
 
-    # 3. 数据
-    print("\n── 数据 ──")
+    # 2c. 投料模块与四条判据
+    print("\n── 投料模块 ──")
+    try:
+        ing = get("ingest.js")
+        print(f"  ingest.js 体积：{len(ing)} bytes")
+        for token, label in [("stripSrt", "时间轴剥离"), ("readFile", "文件读取"),
+                             ("fetchUrl", "网址抓取"), ("recognize", "料识"),
+                             ("tidyPasted", "粘贴稿清理")]:
+            ok = token in ing
+            print(f"  {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"ingest/{label}")
+    except Exception as e:  # noqa: BLE001
+        print(f"  ✗ ingest.js 失败：{e}")
+        failed.append("ingest.js")
+
+    try:
+        fj = get("furnace.js")
+        for token, label in [("道法自然", "道法自然"), ("非恒道", "非恒道"),
+                             ("六度周全", "六度周全"), ("多维度", "多维度"),
+                             ("principles", "三问输出")]:
+            ok = token in fj
+            print(f"  {'✓' if ok else '✗'} {label}")
+            if not ok:
+                failed.append(f"判据/{label}")
+    except Exception as e:  # noqa: BLE001
+        print(f"  ✗ furnace.js 失败：{e}")
+        failed.append("furnace.js")
+
+
     try:
         d = json.loads(get("data/index.json"))
         print(f"  章节：{d['total']}　已结丹：{d['refined']}")
