@@ -105,8 +105,40 @@ CNAME: daodejing.zheng-he.top -> cname.vercel-dns.com
 A记录: 76.76.21.61 / 66.33.60.130   （Vercel CDN）
 ```
 
-> 注：沙箱到 Vercel CDN 的 IP 段整体不可达，只能从 Vercel 侧确认（`verified=true` + 绑定最新 deployment）。
-> 实际访问请在本地浏览器打开验证。
+#### 坑：绑定域名后必须再部署一次
+
+通过 API 添加自定义域名，Vercel 会立刻返回 `verified=true`——**但此时访问仍是 TLS 握手失败**（`code=000`）。
+因为域名只是"登记"了，还没有对应的 deployment 路由与证书。
+
+**必须再跑一次部署，域名才会真正生效。**
+
+```bash
+python3 scripts/deploy.py --alias daodejing-lianhua --domain daodejing.zheng-he.top
+# 首次返回 409 domain_already_in_use 是正常的（表示已登记），
+# 关键是这次部署会触发路由与证书签发
+```
+
+实测对照（同一时刻，海外机器）：
+
+| URL | 绑定后未重部署 | 重部署后 |
+|---|---|---|
+| `daodejing.zheng-he.top` | ❌ code=000 | ✅ 200 |
+| `daodejing-lianhua.vercel.app` | ✅ 200 | ✅ 200 |
+| `www.zheng-he.top` | ✅ 200 | ✅ 200 |
+
+#### 无法本地验证时怎么办
+
+沙箱到 Vercel CDN 的 IP 段整体不可达，本地 curl 一律 `code=000`。
+可在仓库里放一个 GitHub Actions workflow，用海外 runner 代跑探测：
+
+```bash
+# 手动触发
+curl -X POST -H "Authorization: Bearer $PAT" \
+  https://api.github.com/repos/batcatchina/daodejing/actions/workflows/site-check.yml/dispatches \
+  -d '{"ref":"main"}'
+```
+
+> 取日志需先把 `results-receiver.actions.githubusercontent.com` 也加进 hosts，否则日志下载 404。
 
 ---
 
