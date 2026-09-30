@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>模型 · 道德经炼化炉</title>
+<meta name="description" content="MRS-EV 太极·点圆统一模型在本炼化炉上的落点：点为内核，圆为外延，真值不入体系。">
+<meta property="og:title" content="模型 · 道德经 AI 智能炼化炉">
+<meta property="og:description" content="点为内核不可重建，圆为外延可以重造，真值永在体系之外——一张太极图说清这炉何以自持。">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="./style.css">
+<style>
+  /* 本页专用：不与他页共用，故不写进 style.css */
+  .m-wrap{max-width:760px;margin:0 auto}
+  .tj-box{display:flex;gap:26px;align-items:center;flex-wrap:wrap;
+    background:linear-gradient(165deg,var(--paper-2),var(--paper-3));
+    border:1px solid var(--line);border-radius:6px;padding:1.6rem 1.5rem;margin-bottom:.6rem}
+  .tj{width:240px;flex:0 0 240px;height:auto}
+  .tj-note{flex:1;min-width:230px;font-size:.82rem;line-height:2.1;color:var(--ink-2)}
+  .tj-note div{margin-bottom:.4rem}
+  .tj-note b{color:var(--ink)}
+  .tj-note .k{display:inline-block;min-width:2.4em;color:var(--cinnabar);font-weight:600}
+  .m-sec{margin-top:2.6rem}
+  .m-h{font-size:1.02rem;letter-spacing:.16em;color:var(--ink);margin-bottom:.3rem}
+  .m-sub{font-size:.78rem;color:var(--ink-3);letter-spacing:.06em;margin-bottom:1rem}
+  table.m-table{width:100%;border-collapse:collapse;font-size:.8rem}
+  .m-table th{text-align:left;padding:.62rem .7rem;color:var(--cinnabar);
+    font-size:.72rem;letter-spacing:.1em;border-bottom:1px solid var(--line);font-weight:600}
+  .m-table td{padding:.62rem .7rem;border-bottom:1px solid var(--line-2);
+    color:var(--ink-2);line-height:1.85;vertical-align:top}
+  .m-table td b{color:var(--ink);font-weight:600}
+  .m-table code{font-size:.74rem;background:rgba(0,0,0,.04);padding:.08rem .3rem;border-radius:3px}
+  .m-table tr:hover td{background:rgba(168,132,60,.045)}
+  .pill{display:inline-block;font-size:.66rem;padding:.05rem .42rem;border-radius:99px;
+    border:1px solid var(--line);color:var(--ink-3);white-space:nowrap}
+  .pill.no{border-color:rgba(156,43,43,.4);color:var(--cinnabar);background:rgba(156,43,43,.06)}
+  .pill.yes{border-color:rgba(74,124,111,.45);color:var(--jade);background:rgba(74,124,111,.07)}
+  .pill.half{border-color:rgba(168,132,60,.5);color:var(--gold);background:rgba(168,132,60,.08)}
+  .cycle{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;
+    padding:1.1rem .8rem;border:1px dashed var(--line);border-radius:6px;
+    background:var(--paper-2);font-size:.84rem;color:var(--ink-2);letter-spacing:.08em}
+  .cy-node{padding:.32rem .8rem;border:1px solid var(--line);border-radius:4px;background:var(--paper)}
+  .cy-node.on{border-color:var(--cinnabar);color:var(--cinnabar);font-weight:600}
+  .cy-arrow{color:var(--ink-3)}
+  .cy-cap{font-size:.72rem;color:var(--ink-3);letter-spacing:.1em}
+  .pathflow{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:wrap;
+    font-size:.8rem;color:var(--ink-2);letter-spacing:.06em}
+  .pf-node{padding:.3rem .7rem;border:1px solid var(--gold);border-radius:4px;
+    background:linear-gradient(165deg,#fffdf7,#faf4e6);color:var(--ink)}
+  .pf-node em{font-style:normal;font-size:.66rem;color:var(--gold);margin-left:.2rem}
+  .pf-arrow{color:var(--gold)}
+  .legend{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.9rem}
+  .lg{font-size:.74rem;padding:.24rem .7rem;border-radius:4px;
+    border:1px solid var(--line);color:var(--ink-2);background:var(--paper-2)}
+  .lg b{color:var(--ink)}
+  pre.m-cmd{background:rgba(0,0,0,.035);border:1px solid var(--line-2);border-radius:5px;
+    padding:.75rem .9rem;font-size:.76rem;color:var(--ink-2);overflow-x:auto;line-height:1.9}
+  @media(max-width:640px){
+    .tj{width:180px;flex-basis:180px;margin:0 auto}
+    .m-table{display:block;overflow-x:auto;white-space:nowrap}
+  }
+</style>
+</head>
+<body>
+
+<div class="paper m-wrap">
+
+  <!-- ============ 抬头 ============ -->
+  <header class="masthead masthead-row">
+    <span class="seal seal-row">模</span>
+    <div class="mh-text">
+      <h1>模 型</h1>
+      <p class="sub">点 为 内 核　·　圆 为 外 延　·　真 值 不 入 此 中</p>
+    </div>
+  </header>
+
+  <!-- ============ 顶栏 ============ -->
+  <nav class="topbar" id="topbar">
+    <div class="tb-inner">
+      <div class="tb-tabs">
+        <a class="tb-tab" href="./"><span class="tb-k">一</span><span class="tb-t">问 道</span></a>
+        <a class="tb-tab" href="./#furnace"><span class="tb-k">二</span><span class="tb-t">炼 丹</span></a>
+        <a class="tb-tab" href="./vault.html"><span class="tb-k">三</span><span class="tb-t">藏 丹 阁</span></a>
+        <a class="tb-tab on" href="./model.html"><span class="tb-k">四</span><span class="tb-t">模 型</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ 引 ============ -->
+  <p style="font-size:.84rem;line-height:2.1;color:var(--ink-2);margin:.4rem 0 1.4rem;text-align:justify">
+    这座炉子也是一件<b>上下文资产</b>：换一个 Agent、换一台机器来接手，它该<b>照样能重建出来</b>，
+    而不是被重新理解一遍、然后再误一次。<br>
+    所以按 <b>MRS-EV 太极·点圆统一模型</b> v1.1 给自己立了规矩——
+    <b>丢得掉的写在圆上，丢不掉的收在点里，见不得人的交给 Vault。</b>
+    下面这张图，说的是同一件事。
+  </p>
+
+  <!-- ============ 一张图 ============ -->
+  <section class="m-sec">
+    <div class="m-h">一 张 图</div>
+    <div class="m-sub">阴鱼为内核，阳鱼为外延，圆外那框才是真值</div>
+
+    <div class="tj-box">
+      <svg viewBox="0 0 330 300" class="tj" xmlns="http://www.w3.org/2000/svg" aria-label="太极点圆模型">
+        <defs>
+          <linearGradient id="inkg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#3a342e"/><stop offset="1" stop-color="#1f1c19"/>
+          </linearGradient>
+          <linearGradient id="papg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#fbf8f1"/><stop offset="1" stop-color="#efe8d8"/>
+          </linearGradient>
+        </defs>
+
+        <!-- 大圆：体系边界 -->
+        <circle cx="140" cy="150" r="110" fill="url(#papg)"/>
+
+        <!-- 阴鱼（墨）：内核 -->
+        <path d="M140,40 A110,110 0 0,0 140,260 A55,55 0 0,1 140,150 A55,55 0 0,0 140,40 Z" fill="url(#inkg)"/>
+
+        <!-- R：S 曲线本身，就是读取与写入的协议 -->
+        <path d="M140,260 A55,55 0 0,1 140,150 A55,55 0 0,0 140,40" fill="none"
+              stroke="#9c2b2b" stroke-width="3.2"/>
+
+        <!-- M：阴鱼主体（身份与目标） -->
+        <text x="74" y="104" text-anchor="middle" font-size="19" font-weight="700" fill="#efe8d8">M</text>
+        <text x="74" y="122" text-anchor="middle" font-size="9.5" fill="#bdb6a8">Memory</text>
+
+        <!-- S：阴中之阳点（也是 R 曲线上的眼） -->
+        <circle cx="140" cy="95" r="21" fill="url(#papg)" stroke="#1f1c19" stroke-width="1.4"/>
+        <text x="140" y="100" text-anchor="middle" font-size="14" font-weight="800" fill="#9c2b2b">S</text>
+
+        <!-- J：半内核，只追加不参与日常决策（虚线圈） -->
+        <circle cx="101" cy="196" r="20" fill="rgba(212,168,83,.14)" stroke="#a8843c"
+                stroke-width="1.4" stroke-dasharray="4 3"/>
+        <text x="101" y="201" text-anchor="middle" font-size="14" font-weight="800" fill="#a8843c">J</text>
+
+        <!-- E1 / E2：阳鱼主体 -->
+        <text x="176" y="118" text-anchor="middle" font-size="17" font-weight="700" fill="#4a443c">E1</text>
+        <text x="176" y="133" text-anchor="middle" font-size="8.5" fill="#8a8175">工具·命令</text>
+        <text x="205" y="176" text-anchor="middle" font-size="14" font-weight="700" fill="#4a443c">E2</text>
+        <text x="205" y="189" text-anchor="middle" font-size="8.5" fill="#8a8175">配置键名</text>
+
+        <!-- E3：阳中之阴点 -->
+        <circle cx="140" cy="205" r="21" fill="url(#inkg)"/>
+        <text x="140" y="210" text-anchor="middle" font-size="13" font-weight="800" fill="#efe8d8">E3</text>
+
+        <!-- Vault：体系之外，只有引线 -->
+        <line x1="161" y1="205" x2="252" y2="205" stroke="#4a7c6f" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <rect x="252" y="184" width="72" height="42" rx="6"
+              fill="rgba(74,124,111,.09)" stroke="#4a7c6f" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <text x="288" y="202" text-anchor="middle" font-size="12.5" font-weight="700" fill="#4a7c6f">Vault</text>
+        <text x="288" y="217" text-anchor="middle" font-size="8.5" fill="#4a7c6f">真值在此</text>
+
+        <!-- 外圆一线：边 -->
+        <circle cx="140" cy="150" r="110" fill="none" stroke="#ddd4c2" stroke-width="1.4"/>
+      </svg>
+
+      <div class="tj-note">
+        <div><span class="k">阴鱼</span>　<b>内核</b>——鱼身 M ＋ S 曲线 R ＋ 鱼眼 S</div>
+        <div><span class="k">阳鱼</span>　<b>外延</b>——鱼身 E1、E2 ＋ 鱼眼 E3</div>
+        <div><span class="k">J</span>　半内核——虚线圈，只在蒸馏时才翻出来</div>
+        <div><span class="k">Vault</span>　隐在圆外，<b>真值不画，只留引线</b></div>
+        <div style="margin-top:.7rem;color:var(--gold)">
+          阴中阳点 S（内核里唯一的"动"）· 阳中阴点 E3（外延里唯一的"实"）
+        </div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span class="lg"><b>点</b> 不可重建，丢了就真丢了</span>
+      <span class="lg"><b>圆</b> 换了 Agent 也能再造</span>
+      <span class="lg"><b>Vault</b> 从不在体系里出现</span>
+    </div>
+  </section>
+
+  <!-- ============ 点圆约定表 ============ -->
+  <section class="m-sec">
+    <div class="m-h">点 圆 约 定 表</div>
+    <div class="m-sub">每个符号在本炉里到底是谁、落在哪个文件</div>
+
+    <table class="m-table">
+      <tr><th>符</th><th>本炉为何物</th><th>落在哪</th><th>能重建吗</th><th>谁可改</th></tr>
+      <tr>
+        <td><b>M</b></td>
+        <td>身份、目标、原则、边界；<b>炼化的规矩</b>（四判据阈值、"无根不结丹"底线）</td>
+        <td><code>Memory.md</code></td>
+        <td><span class="pill no">不可</span></td>
+        <td>人拍板</td>
+      </tr>
+      <tr>
+        <td><b>R</b></td>
+        <td>读取／写入协议、凭证引用表、<b>唯一取数通道</b></td>
+        <td><code>Readme.md</code> · <code>core.js</code></td>
+        <td><span class="pill no">不可</span></td>
+        <td>立约者</td>
+      </tr>
+      <tr>
+        <td><b>S</b></td>
+        <td>炼到第几章、卡在哪、下一步</td>
+        <td><code>State.md</code></td>
+        <td><span class="pill no">不可</span></td>
+        <td>每次炼化必改</td>
+      </tr>
+      <tr>
+        <td><b>J</b></td>
+        <td>炼化流水：为什么否丹，为什么重炼</td>
+        <td><code>Journal.md</code></td>
+        <td><span class="pill no">不可</span></td>
+        <td>只追加，不删改</td>
+      </tr>
+      <tr>
+        <td><b>E1</b></td>
+        <td>四个页面、四个脚本、媒体槽位目录</td>
+        <td><code>*.js</code> · <code>*.html</code> · <code>assets/media/</code> · <code>TOOLS.md</code> · <code>repos.md</code></td>
+        <td><span class="pill yes">可</span></td>
+        <td>随便重写</td>
+      </tr>
+      <tr>
+        <td><b>E2</b></td>
+        <td>非密配置<b>键名</b>（不写值）</td>
+        <td><code>.env.example</code></td>
+        <td><span class="pill yes">可</span></td>
+        <td>按需增删键</td>
+      </tr>
+      <tr>
+        <td><b>E3</b></td>
+        <td>凭证的<b>引用名</b>与取用流程</td>
+        <td><code>secrets/README.md</code></td>
+        <td><span class="pill yes">可</span></td>
+        <td>只改名字</td>
+      </tr>
+      <tr>
+        <td><b>Vault</b></td>
+        <td>课程视频本体、存储桶凭证、转写服务密钥</td>
+        <td><b>体系之外</b></td>
+        <td>—</td>
+        <td>永不交接</td>
+      </tr>
+    </table>
+
+    <div class="legend" style="margin-top:1rem">
+      <span class="lg"><b>两头都不含糊</b>：规矩是点，规矩算出来的分数是圆</span>
+    </div>
+  </section>
+
+  <!-- ============ 数据怎么切这一刀 ============ -->
+  <section class="m-sec">
+    <div class="m-h">数 据 也 分 点 圆</div>
+    <div class="m-sub">八十一章数据看上去是一个文件，其实两种命</div>
+
+    <table class="m-table">
+      <tr><th>段</th><th>为何</th><th>切在哪一层</th></tr>
+      <tr>
+        <td><code>chapters[].original / title / themes / keywords</code></td>
+        <td>原典事实，没有第二处为真</td>
+        <td><span class="pill no">内核</span></td>
+      </tr>
+      <tr>
+        <td><code>detail.*.benyi / yinshen / wei / sources</code></td>
+        <td>训诂与判词，里面有人的取舍</td>
+        <td><span class="pill no">内核</span></td>
+      </tr>
+      <tr>
+        <td><code>chapters[].danzi / danjue</code></td>
+        <td>由金丹派生，却与 <code>detail</code> 双写</td>
+        <td><span class="pill half">半内核</span>　脚本只提差异，不自动回写</td>
+      </tr>
+      <tr>
+        <td><code>ferocity</code>（81 章全有）</td>
+        <td>判据的<b>输出快照</b>，改判据即可重算，零人工判断</td>
+        <td><span class="pill yes">外延</span></td>
+      </tr>
+      <tr>
+        <td><code>total / refined / updated / has_media</code></td>
+        <td>统计与开关</td>
+        <td><span class="pill yes">外延</span>　<code>sync_media.py</code> 可重算</td>
+      </tr>
+    </table>
+
+    <p style="font-size:.8rem;color:var(--ink-2);line-height:2;margin-top:.9rem;text-align:justify">
+      一句话记住这一刀：<b>怎么判是内核，判出来几分是外延。</b><br>
+      所以改火候算法要动内核（须人拍板），重跑一遍分数只是刷新快照（机器说了算）。
+    </p>
+  </section>
+
+  <!-- ============ 生长循环 ============ -->
+  <section class="m-sec">
+    <div class="m-h">炉 子 怎 么 长 大</div>
+    <div class="m-sub">M 指导 S，S 产生 J，J 蒸馏回 M</div>
+
+    <div class="cycle">
+      <span class="cy-node on">M 内核</span><span class="cy-arrow">→</span>
+      <span class="cy-node">S 状态</span><span class="cy-arrow">→</span>
+      <span class="cy-node">J 流水</span><span class="cy-arrow">⇢</span>
+      <span class="cy-node">候选 <b>[ ]</b></span><span class="cy-arrow">⇢</span>
+      <span class="cy-node on">M 内核</span>
+    </div>
+    <p class="cy-cap" style="text-align:center;margin-top:.7rem">
+      前两步是<b>呼吸</b>（日常），第三步是<b>生长</b>（攒一批才做）。补上它，太极才转得起来。
+    </p>
+
+    <pre class="m-cmd" style="margin-top:1rem">python3 scripts/distill.py            # 扫 Journal.md → CANDIDATES.md（只提候选）
+# 人在 CANDIDATES.md 里勾选，改成 [x] 后：
+python3 scripts/distill.py --apply    # 才落入 Memory.md「熏修所得」</pre>
+
+    <p style="font-size:.8rem;color:var(--ink-2);line-height:2;margin-top:.8rem;text-align:justify">
+      <b>相可以自动，君不可以。</b>脚本绝不自动改内核——它只会把候选端到人面前。
+      判据是：<b>换一个全新的项目，这条还成立吗？</b>成立才进 M。一次是意外，两次是模式，三次是原则。
+    </p>
+  </section>
+
+  <!-- ============ 炉子的一条通路 ============ -->
+  <section class="m-sec">
+    <div class="m-h">一 条 通 路</div>
+    <div class="m-sub">炉中三位皆是 AI，门只有一个</div>
+
+    <div class="pathflow">
+      <span class="pf-node">有 人 来</span><span class="pf-arrow">→</span>
+      <span class="pf-node">道 童<em>唯一入口</em></span><span class="pf-arrow">→</span>
+      <span class="pf-node">丹 师<em>炼化</em></span>
+      <span style="color:var(--ink-3);font-size:.72rem">／</span>
+      <span class="pf-node">炉 灵<em>问道</em></span><span class="pf-arrow">→</span>
+      <span class="pf-node">金 丹 · 解 惑</span>
+    </div>
+
+    <p style="font-size:.8rem;color:var(--ink-2);line-height:2;margin-top:1rem;text-align:justify">
+      炼化也好、问道也好，先过道童这一关。道童不判、不取，只负责<b>接住</b>与<b>转交</b>——
+      判断在 <code>furnace.js</code>（试火），取丹在 <code>ask.js</code>（检索）。
+      这条通路唯一繁琐的地方，正是它唯一值钱的地方：<b>有一个门，才知道谁进了炉。</b>
+    </p>
+  </section>
+
+  <!-- ============ 八原则落点 ============ -->
+  <section class="m-sec">
+    <div class="m-h">八 原 则 · 落 点</div>
+    <div class="m-sub">不是贴在墙上的，是在代码里找得到的</div>
+
+    <table class="m-table">
+      <tr><th>原则</th><th>在本炉哪一处兑现</th></tr>
+      <tr><td><b>内核不轻动</b></td><td>经文一字不改；成丹之文只追加不改；疑则人到</td></tr>
+      <tr><td><b>协议先行</b></td><td>接手先读 <code>Readme.md</code>；Four questions 答不上不许动手</td></tr>
+      <tr><td><b>状态必更新</b></td><td>每炼一章回写 <code>refined</code> 与 <code>State.md</code>；藏丹阁计数实时算，不写死 5 和 76</td></tr>
+      <tr><td><b>外延可插拔</b></td><td>四页各自的 JS 可整片重写；换 UI 不动数据</td></tr>
+      <tr><td><b>虚实分离</b></td><td>索引与排序是虚（可重算）；金丹是实（人在守）</td></tr>
+      <tr><td><b>真值入 Vault</b></td><td>课程视频本体不入仓，目录里只留 <code>E3_*</code> 引用名</td></tr>
+      <tr><td><b>最小权限</b></td><td>零后端、零 CDN、零第三方派发；抓网页只用 <code>credentials:'omit'</code></td></tr>
+      <tr><td><b>泄露即轮换</b></td><td>靠换凭证止血，不靠删 git 历史</td></tr>
+    </table>
+  </section>
+
+  <!-- ============ 交接 ============ -->
+  <section class="m-sec">
+    <div class="m-h">交 给 下 一 个 接 手 者</div>
+    <div class="m-sub">交接不是传文件，是传「最小可重建集」</div>
+
+    <pre class="m-cmd">python3 scripts/handoff.py .</pre>
+
+    <p style="font-size:.8rem;color:var(--ink-2);line-height:2;margin-top:.9rem;text-align:justify">
+      生成的 <code>HANDOFF.md</code> 里，内核<b>原样搬运</b>，外延<b>只给索引</b>，真值<b>只给名字</b>。<br>
+      <b>必须自带验收</b>——接手方能回答四问：是什么／卡在哪／下一步／不能碰什么。
+      答不上就回问，<b>不许猜</b>。<br>
+      交接包<b>必须是生成的</b>：手写的必然过期，而过期的交接包比没有更危险——它让接手方<b>以为自己懂了</b>。
+    </p>
+  </section>
+
+  <footer class="foot">
+    <p>点 不 动　圆 可 扩</p>
+    <p class="foot-minor">点实圆虚 · 虚实结合 · 方可迁移</p>
+  </footer>
+
+</div><!-- /paper -->
+
+</body>
+</html>

@@ -1,3 +1,25 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# ---- MRS-EV 外延锁（本轮接手补入）----
+.env
+*.env.local
+secrets/*
+!secrets/README.md
+*.key
+*.pem
+
+# 课程音视频本体：真值侧资产（Vault），不入仓
+assets/media/**/*.mp4
+assets/media/**/*.mp3
+assets/media/**/*.m4a
+assets/media/**/*.mov
+assets/media/**/*.mkv
+assets/media/**/*.webm
+assets/media/draft/
+
+# 产物流水：可再生成
+CANDIDATES.md
+*.bak
+data/*.bak

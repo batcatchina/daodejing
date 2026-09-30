@@ -1,0 +1,25 @@
+{
+  "_comment": [
+    "○ E1 外延清单 —— 哪一章有什么授课稿。此文件是 has_media 的唯一来源。",
+    "单向流：manifest.json → data/index.json。（反向写必漂移）",
+    "文件名必须可在这里找到，否则 sync_media.py 会报「清单上有、磁盘上没有」。",
+    "原始音视频本体不在此处登记内容，只在 ref 字段留引用名。"
+  ],
+  "vault_ref": "E3_MEDIA_BUCKET",
+  "schema": {
+    "id": "章号，1-81，与 data/index.json 的 chapters[].id 对齐",
+    "source": "稿从哪来：如『2026 秋季班录像』——写给人看，机器不读",
+    "license": "许可性质：自有 / 授权 / 待确认。不确定就写『待确认』，不许留空",
+    "updated": "YYYY-MM-DD",
+    "files": [
+      {
+        "name": "相对本目录的路径，如 01/01.transcript.txt",
+        "kind": "course | transcript | timed",
+        "bytes": "整数，文件大小",
+        "duration": "视频时长（mm:ss），仅当有视频时写",
+        "ref": "真值引用名，如 E3_MEDIA_BUCKET；无则写 null"
+      }
+    ]
+  },
+  "chapters": []
+}
