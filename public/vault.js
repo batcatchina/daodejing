@@ -45,8 +45,17 @@ async function load() {
 
 function renderProgress() {
   const { refined, total } = state.data;
-  $('#pbar').style.width = (total ? (refined / total) * 100 : 0) + '%';
-  $('#ptext').textContent = `已结丹 ${refined} / ${total} 章`;
+  /* 把本地炼的丹也算进进度：已结丹 + 你炼的（去重） */
+  const mine = (typeof PROGRESS !== 'undefined') ? PROGRESS.all() : [];
+  const extra = mine.filter((d) => {
+    const c = state.data.chapters.find((x) => x.id === d.id);
+    return c && c.status !== 'refined';
+  });
+  const shown = refined + extra.length;
+  $('#pbar').style.width = (total ? (shown / total) * 100 : 0) + '%';
+  $('#ptext').textContent = extra.length
+    ? `已结丹 ${shown} / ${total} 章　（含你炼 ${extra.length} 枚）`
+    : `已结丹 ${refined} / ${total} 章`;
 
   const todo = total - refined;
   $('#tabDone').textContent = refined;
@@ -107,18 +116,61 @@ function render() {
   const done = list.filter((c) => c.status === 'refined');
   const todo = list.filter((c) => c.status !== 'refined');
   let html = '';
+
+  /* ── 第一组：你炼的丹（本地丹库），最醒目 ── */
+  const mine = (typeof PROGRESS !== 'undefined') ? PROGRESS.all() : [];
+  if (mine.length) {
+    html += `<div class="group-head group-mine"><span>你 炼 的 丹</span><em>${mine.length} 枚　·　存于此机</em></div>`;
+    html += `<div class="grid grid-mine">${mine.map(mineCard).join('')}</div>`;
+  }
+
+  /* ── 第二组：已结丹的五章，默认折叠 ── */
   if (done.length) {
-    html += `<div class="group-head"><span>金 丹 已 成</span><em>${done.length} 章</em></div>`;
-    html += `<div class="grid">${done.map(card).join('')}</div>`;
+    html += `<details class="vault-fold" ${mine.length ? '' : 'open'}>
+      <summary><span>金 丹 已 成</span><em>${done.length} 章</em></summary>
+      <div class="grid">${done.map(card).join('')}</div>
+    </details>`;
   }
+
+  /* ── 第三组：待炼，默认折叠，免得一眼望不到头 ── */
   if (todo.length) {
-    html += `<div class="group-head group-raw"><span>原 文 待 炼</span><em>${todo.length} 章</em></div>`;
-    html += `<div class="grid">${todo.map(card).join('')}</div>`;
+    html += `<details class="vault-fold">
+      <summary><span>原 文 待 炼</span><em>${todo.length} 章</em></summary>
+      <div class="grid">${todo.map(card).join('')}</div>
+    </details>`;
   }
+
   $('#grid').innerHTML = html;
   $('#grid').querySelectorAll('.card').forEach((el) =>
     el.addEventListener('click', () => open(Number(el.dataset.id)))
   );
+}
+
+/* 你亲手炼的丹：带品质、火候、时间 */
+function mineCard(d) {
+  const g = (typeof PROGRESS !== 'undefined')
+    ? PROGRESS.grade(d.score)
+    : { key: '', cls: 'g-mid', mark: '◈' };
+  const when = d.at ? new Date(d.at).toLocaleString('zh-CN', {
+    month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
+  }) : '';
+  return `<div class="card mine" data-id="${d.id}">
+    <div class="badge ${g.cls}">
+      <span class="db-mark">${g.mark}</span><span class="db-key">${esc(g.key)}</span>
+    </div>
+    <div class="num">
+      <span>第 ${d.id} 章</span>
+      <span class="dz">${esc(d.danzi)}</span>
+      <span class="dot"></span>
+    </div>
+    <div class="title">${esc(d.title || '')}</div>
+    <div class="jue">${esc(d.danjue || '')}</div>
+    <div class="mine-foot">
+      <span class="mf-score">火候 ${d.score}</span>
+      ${d.deep ? '<span class="mf-deep">金丹</span>' : '<span class="mf-raw">初丹</span>'}
+      ${when ? `<span class="mf-at">${esc(when)}</span>` : ''}
+    </div>
+  </div>`;
 }
 
 function card(c) {

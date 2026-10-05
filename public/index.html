@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>道德经 · 炼化炉</title>
-<meta name="description" content="《道德经》AI 智能炼化炉：道童是门，接料接问；炼化转丹师试火，问道转炉灵取丹。挥之即来，用之即去。">
-<meta property="og:title" content="道德经 · AI 智能炼化炉">
-<meta property="og:description" content="道童接料接问，转交丹师炼丹、炉灵取丹。投料炼金丹，问道解困惑。">
+<title>问道 · 道德经炼化炉</title>
+<meta name="description" content="问道：说出你的困惑，道童接住转交炉灵，从八十一章金丹里指出哪几章在回答你。">
+<meta property="og:title" content="问道 · 道德经 AI 智能炼化炉">
+<meta property="og:description" content="道童接问，转交炉灵取丹。从八十一章里指出哪几章在回答你。">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="./style.css">
 </head>
@@ -15,43 +15,30 @@
 
 <div class="paper">
 
-  <!-- ============ 抬头 ============ -->
-  <header class="masthead">
-    <div class="seal">道</div>
-    <h1>道德经 · 炼化炉</h1>
-    <p class="sub">一字一重天</p>
-    <p class="ai-badge"><span class="ai-dot"></span>AI 智 能 炉 · 炉 中 三 位 皆 是 AI</p>
+  <!-- ============ 抬头（一行） ============ -->
+  <header class="masthead masthead-row">
+    <span class="seal seal-row">问</span>
+    <div class="mh-text">
+      <h1>问 道</h1>
+      <p class="sub">有 困 惑 就 问　·　道童接住，转炉灵替你取丹</p>
+    </div>
   </header>
 
   <!-- ============ 顶栏 · 三模块固化 ============ -->
   <nav class="topbar" id="topbar">
     <div class="tb-inner">
-      <span class="tb-brand"><span class="tb-seal">道</span>炼 化 炉</span>
       <div class="tb-tabs">
-        <button class="tb-tab on" data-go="homeAsk">
-          <span class="tb-k">一</span>问 道
-        </button>
-        <button class="tb-tab" data-go="furnace">
-          <span class="tb-k">二</span>炼 丹
-        </button>
-        <button class="tb-tab" data-go="vault">
-          <span class="tb-k">三</span>藏 丹 阁
-        </button>
+        <a class="tb-tab on" href="./"><span class="tb-k">一</span><span class="tb-t">问 道</span></a>
+        <a class="tb-tab" href="./refine.html"><span class="tb-k">二</span><span class="tb-t">炼 丹</span></a>
+        <a class="tb-tab" href="./vault.html"><span class="tb-k">三</span><span class="tb-t">藏 丹 阁</span></a>
       </div>
     </div>
   </nav>
 
   <!-- ============ 问道（正门） ============ -->
   <section class="ask-box home-ask" id="homeAsk">
-    <div class="sect-head">
-      <span class="sect-k">一</span>
-      <div class="sect-t">
-        <b>问 道</b>
-        <span>有困惑，直接问。道童接住，转炉灵替你取丹。</span>
-      </div>
-    </div>
     <div class="ask-field">
-      <textarea id="homeQ" rows="2" placeholder="你有什么困惑？例：我最近很焦虑，静不下来"></textarea>
+      <textarea id="homeQ" rows="3" placeholder="你有什么困惑？例：我最近很焦虑，静不下来 / 干得多，功劳却被别人抢了 / 不知道该不该辞职"></textarea>
       <div class="ask-line"></div>
     </div>
     <div class="ask-actions">
@@ -62,372 +49,15 @@
     <div id="lingStrip"></div>
   </section>
 
-  <!-- ============ 首页答面 ============ -->
+  <!-- ============ 答面 ============ -->
   <section class="ask-answer home-answer" id="homeAnswer" hidden></section>
 
-  <!-- ============ 炼化（次行） ============ -->
-  <section class="furnace" id="furnace">
-
-    <div class="sect-head sect-head-in">
-      <span class="sect-k">二</span>
-      <div class="sect-t">
-        <b>投 料 入 炉</b>
-        <span>道童接料，转交丹师试火判丹。</span>
-      </div>
-      <span class="sect-toggle" id="furnaceToggle" hidden>投 料 入 炉 ⌄</span>
-    </div>
-
-    <div class="furnace-fold" id="furnaceFold">
-
-    <!-- ── 炉火（自炉口袅袅而起） ── -->
-    <div class="fire" id="fire" aria-hidden="true">
-      <span class="fl f1"></span><span class="fl f2"></span><span class="fl f3"></span>
-      <span class="fl f4"></span><span class="fl f5"></span>
-    </div>
-
-    <!-- ── 丹炉本体（SVG） ── -->
-    <div class="cauldron" id="cauldron">
-      <svg class="cauldron-svg" viewBox="0 0 320 316" role="img" aria-label="太极八卦炼丹炉">
-        <defs>
-          <!-- 青铜：左上冷高光 → 右下暖沉 -->
-          <linearGradient id="bronze" x1="16%" y1="4%" x2="88%" y2="100%">
-            <stop offset="0%"   stop-color="#9d8459"/>
-            <stop offset="20%"  stop-color="#c3ac7c"/>
-            <stop offset="46%"  stop-color="#a8905f"/>
-            <stop offset="72%"  stop-color="#7c663c"/>
-            <stop offset="100%" stop-color="#554325"/>
-          </linearGradient>
-          <!-- 赤金：耳、足、纽 -->
-          <linearGradient id="gilt" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%"   stop-color="#e2c078"/>
-            <stop offset="45%"  stop-color="#b18d46"/>
-            <stop offset="100%" stop-color="#71531f"/>
-          </linearGradient>
-          <!-- 炉腹体积 -->
-          <radialGradient id="belly" cx="36%" cy="24%" r="86%">
-            <stop offset="0%"   stop-color="#d3c093"/>
-            <stop offset="34%"  stop-color="#ab9263"/>
-            <stop offset="74%"  stop-color="#6f5b37"/>
-            <stop offset="100%" stop-color="#42331c"/>
-          </radialGradient>
-          <!-- 炉口深渊 -->
-          <radialGradient id="abyss" cx="50%" cy="48%" r="62%">
-            <stop offset="0%"   stop-color="#241a0d"/>
-            <stop offset="60%"  stop-color="#120c06"/>
-            <stop offset="100%" stop-color="#080503"/>
-          </radialGradient>
-          <!-- 炉膛余烬 -->
-          <radialGradient id="ember" cx="50%" cy="50%" r="50%">
-            <stop offset="0%"   stop-color="#ffe6a6" stop-opacity="1"/>
-            <stop offset="38%"  stop-color="#f0a13c" stop-opacity=".72"/>
-            <stop offset="100%" stop-color="#b0431a" stop-opacity="0"/>
-          </radialGradient>
-          <!-- 丹纹金线 -->
-          <linearGradient id="danline2" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%"   stop-color="#f0dfae"/>
-            <stop offset="55%"  stop-color="#c9a75f"/>
-            <stop offset="100%" stop-color="#8a6a2c"/>
-          </linearGradient>
-          <!-- 口沿金属环 -->
-          <linearGradient id="rimG" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%"   stop-color="#6f5a30"/>
-            <stop offset="18%"  stop-color="#e3cd93"/>
-            <stop offset="46%"  stop-color="#a98f57"/>
-            <stop offset="74%"  stop-color="#dcc287"/>
-            <stop offset="100%" stop-color="#63502a"/>
-          </linearGradient>
-          <filter id="soft" x="-35%" y="-35%" width="170%" height="170%">
-            <feGaussianBlur stdDeviation="3.4"/>
-          </filter>
-          <filter id="soft2" x="-60%" y="-60%" width="220%" height="220%">
-            <feGaussianBlur stdDeviation="1.5"/>
-          </filter>
-        </defs>
-
-        <!-- 地面投影（炉足之下） -->
-        <ellipse class="ground" cx="160" cy="290" rx="78" ry="9"/>
-
-        <!-- ══════ 三足（粗壮矮足，鼎式） ══════ -->
-        <g class="legs">
-          <!-- 左足 -->
-          <path d="M100 226 C94 242 89 258 87 271 C85 282 92 288 103 288 L117 288
-                   C126 288 129 282 126 271 C122 256 122 242 126 226 Z" fill="url(#gilt)"/>
-          <path d="M90 279 h32 l-5 9 h-24 z" fill="#5d4320" opacity=".4"/>
-          <!-- 右足 -->
-          <path d="M220 226 C226 242 231 258 233 271 C235 282 228 288 217 288 L203 288
-                   C194 288 191 282 194 271 C198 256 198 242 194 226 Z" fill="url(#gilt)"/>
-          <path d="M198 279 h32 l-5 9 h-24 z" fill="#5d4320" opacity=".4"/>
-          <!-- 中足（略短，营造进深） -->
-          <path d="M152 240 C150 253 149 266 149 276 C149 283 153 287 160 287
-                   C167 287 171 283 171 276 C171 266 170 253 168 240 Z" fill="url(#gilt)"/>
-          <path d="M147 278 h26 l-4 8 h-18 z" fill="#4a3a22" opacity=".4"/>
-        </g>
-
-        <!-- ══════ 炉腹（圆鼎：腹深而不扁） ══════ -->
-        <path class="belly-shape"
-              d="M62 150 C62 112 96 86 160 86 C224 86 258 112 258 150
-                 C258 196 220 242 160 242 C100 242 62 196 62 150 Z"
-              fill="url(#belly)"/>
-        <!-- 下缘压暗 -->
-        <path d="M62 150 C62 196 100 242 160 242 C220 242 258 196 258 150
-                 C248 204 208 232 160 232 C112 232 72 204 62 150 Z"
-              fill="#332615" opacity=".42" filter="url(#soft)"/>
-        <!-- 左上高光 -->
-        <ellipse cx="110" cy="124" rx="28" ry="19" fill="#f0e3bd" opacity=".28"
-                 filter="url(#soft)" transform="rotate(-22 110 124)"/>
-        <!-- 右缘反光（青铜器特征） -->
-        <path d="M252 138 C252 174 236 206 210 224" stroke="#e3cd93" stroke-width="2.4"
-              fill="none" opacity=".22" filter="url(#soft2)"/>
-
-        <!-- 腹部弦纹（一道，古鼎标志） -->
-        <g fill="none" stroke="#5d4a2c" stroke-width="1.1" opacity=".28">
-          <path d="M70 186 C104 200 216 200 250 186"/>
-        </g>
-
-        <!-- 云雷丹纹：腹侧一对，居中留白给太极盘 -->
-        <g class="danwen" fill="none" stroke="url(#danline2)" stroke-width="1.6"
-           stroke-linecap="round" opacity=".78">
-          <path d="M80 150 c9-10 19-10 24 0 c-7-3-12-1-12 6 c0 6 7 8 11 3"/>
-          <path d="M240 150 c-9-10-19-10-24 0 c7-3 12-1 12 6 c0 6-7 8-11 3"/>
-          <path d="M100 196 c6-7 13-7 17 0 c-5-2-9 0-9 4 c0 4 5 5 8 2"/>
-          <path d="M220 196 c-6-7-13-7-17 0 c5-2 9 0 9 4 c0 4-5 5-8 2"/>
-        </g>
-        <!-- 竖棱 -->
-        <g stroke="#5d4a2c" stroke-width="1" opacity=".2" fill="none">
-          <path d="M94 112 C85 144 85 190 97 220"/>
-          <path d="M226 112 C235 144 235 190 223 220"/>
-        </g>
-
-        <!-- 腹心太极八卦盘 -->
-        <g class="bagua" transform="translate(160,162)" opacity=".92">
-          <circle r="31" fill="#3f3018" opacity=".26"/>
-          <circle r="31" fill="none" stroke="url(#danline2)" stroke-width=".9" opacity=".5"/>
-          <g stroke="url(#danline2)" stroke-width="1.5" fill="none" opacity=".85">
-            <!-- 乾三连（上） -->
-            <path d="M-10 -35.5 h20 M-10 -40 h20 M-10 -44.5 h20"/>
-            <!-- 坤六断（下） -->
-            <path d="M-10 35.5 h20 M-10 40 h20 M-10 44.5 h20" stroke-dasharray="8 4"/>
-            <!-- 离中虚（左） -->
-            <path d="M-41.5 -10 v20 M-46 -10 v20 M-50.5 -10 v20" stroke-dasharray="8 4"/>
-            <!-- 坎中满（右） -->
-            <path d="M41.5 -10 v20 M46 -10 v20 M50.5 -10 v20"/>
-          </g>
-          <g class="taiji">
-            <circle r="19.5" fill="#241a0d" opacity=".5"/>
-            <path d="M0 -19.5 A19.5 19.5 0 0 1 0 19.5 A9.75 9.75 0 0 1 0 0 A9.75 9.75 0 0 0 0 -19.5 Z"
-                  fill="url(#danline2)"/>
-            <circle cx="0" cy="-9.75" r="3.3" fill="#241a0d" opacity=".82"/>
-            <circle cx="0" cy="9.75" r="3.3" fill="url(#danline2)"/>
-          </g>
-        </g>
-
-        <!-- ══════ 炉颈 ══════ -->
-        <path class="neck" d="M112 92 C112 82 116 76 126 76 L194 76 C204 76 208 82 208 92 Z"
-              fill="url(#bronze)"/>
-        <!-- 颈上弦纹 -->
-        <path d="M114 86 C132 82 188 82 206 86" fill="none" stroke="#5d4a2c"
-              stroke-width="1" opacity=".32"/>
-
-        <!-- ══════ 炉口 ══════ -->
-        <ellipse class="rim-outer" cx="160" cy="76" rx="50" ry="13.5" fill="url(#rimG)"/>
-        <ellipse class="rim-inner" cx="160" cy="75" rx="42" ry="10.5" fill="url(#abyss)"/>
-        <ellipse class="ember" id="ember" cx="160" cy="75.5" rx="35" ry="8"
-                 fill="url(#ember)" opacity=".5"/>
-
-        <!-- ══════ 双耳（立于口沿） ══════ -->
-        <g class="ears" fill="none" stroke="url(#gilt)" stroke-width="6" stroke-linecap="round">
-          <path d="M118 80 C102 72 88 78 87 92 C86 105 94 112 106 110"/>
-          <path d="M202 80 C218 72 232 78 233 92 C234 105 226 112 214 110"/>
-        </g>
-        <g class="ears-hl" fill="none" stroke="#f0e3bd" stroke-width="1.5"
-           stroke-linecap="round" opacity=".5">
-          <path d="M119 77 C104 69 91 75 90 89"/>
-          <path d="M201 77 C216 69 229 75 230 89"/>
-        </g>
-
-        <!-- ══════ 炉盖（扣在口沿之内） ══════ -->
-        <g class="lid">
-          <!-- 盖身：坐于 76 口沿，收成覆碗 -->
-          <path d="M120 74 C124 50 140 38 160 38 C180 38 196 50 200 74 Z"
-                fill="url(#bronze)"/>
-          <!-- 盖身高光 -->
-          <path d="M120 74 C124 50 140 38 160 38 C180 38 196 50 200 74
-                   C192 58 178 49 160 49 C142 49 128 58 120 74 Z"
-                fill="#f0e3bd" opacity=".2"/>
-          <!-- 盖面放射棱 -->
-          <g stroke="#5d4a2c" stroke-width=".9" opacity=".28" fill="none">
-            <path d="M160 40 V71"/>
-            <path d="M142 44 L150 72"/>
-            <path d="M178 44 L170 72"/>
-            <path d="M129 54 L144 73"/>
-            <path d="M191 54 L176 73"/>
-          </g>
-          <!-- 盖顶宝珠（真金丹） -->
-          <path d="M152 38 C152 31 155 27 160 27 C165 27 168 31 168 38 Z" fill="url(#gilt)"/>
-          <circle cx="160" cy="23" r="6.6" fill="url(#gilt)"/>
-          <circle cx="157.6" cy="21.2" r="2.2" fill="#f7efd4" opacity=".8"/>
-        </g>
-
-        <!-- ══════ 炉肩云气 ══════ -->
-        <g class="clouds" fill="none" stroke="url(#danline2)" stroke-width="1.3" opacity=".45">
-          <path d="M124 100 c4-5 10-5 13 0 c3-5 9-5 12 0"/>
-          <path d="M171 100 c4-5 10-5 13 0 c3-5 9-5 12 0"/>
-        </g>
-      </svg>
-
-      <!-- 炉火外溢暖光 -->
-      <div class="glow" aria-hidden="true"></div>
-    </div>
-
-    <div class="furnace-body">
-
-      <div class="furnace-head">
-        <h3 class="fh-sm">投 料 入 炉</h3>
-        <p class="furnace-sub">引原文章句，或就此章之义理申说。无根者不结丹。</p>
-      </div>
-
-      <!-- ── 入口签：四种投料方式 ── -->
-      <div class="intake-tabs" id="intakeTabs">
-        <button class="itab on" data-mode="paste">
-          <span class="it-ico">文</span>粘贴文本
-        </button>
-        <button class="itab" data-mode="file">
-          <span class="it-ico">档</span>拖入文件
-        </button>
-        <button class="itab" data-mode="url">
-          <span class="it-ico">链</span>贴网址
-        </button>
-        <button class="itab" data-mode="av">
-          <span class="it-ico">音</span>音视频
-        </button>
-      </div>
-
-      <!-- ── 主炉口：粘贴文本 ── -->
-      <div class="furnace-mouth" id="panePaste">
-        <textarea id="charge" rows="4" placeholder="例：上善若水，水善利万物而不争，处众人之所恶，故几于道。&#10;或：第11章 有之以为利，无之以为用，对我做产品很有启发&#10;&#10;也可直接粘贴视频转写稿（含时间轴会自动清理）"></textarea>
-        <div class="mouth-line"></div>
-      </div>
-
-      <!-- ── 炉口：拖入文件 ── -->
-      <div class="furnace-mouth pane" id="paneFile" hidden>
-        <div class="drop" id="drop">
-          <div class="drop-mark">⌄</div>
-          <p class="drop-main">拖文件到此处，或 <span class="drop-pick">点击选取</span></p>
-          <p class="drop-sub" id="dropHint">可读 纯文本 · Markdown · 字幕稿（.txt .md .srt .vtt）</p>
-          <input type="file" id="fileInput" accept=".txt,.md,.markdown,.srt,.vtt,.text,.log,.csv" hidden>
-        </div>
-        <p class="pane-note">字幕稿会先剥去时间轴再入炉；Word/PDF 请复制正文粘贴。</p>
-      </div>
-
-      <!-- ── 炉口：贴网址 ── -->
-      <div class="furnace-mouth pane" id="paneUrl" hidden>
-        <div class="url-row">
-          <input type="text" id="urlInput" placeholder="粘贴网页链接，如 mp.weixin.qq.com/s/xxx" autocomplete="off">
-          <button class="btn-fetch" id="fetchBtn">取 文</button>
-        </div>
-        <p class="pane-note">仅能取公开、允许跨域的网页正文。取不到时请手动复制粘贴——一样能炼。</p>
-      </div>
-
-      <!-- ── 炉口：音视频引导 ── -->
-      <div class="furnace-mouth pane" id="paneAv" hidden>
-        <div class="av-guide">
-          <div class="av-top">
-            <span class="av-mark">音</span>
-            <p class="av-title">音视频不在浏览器里炼</p>
-          </div>
-          <p class="av-body">
-            转写需要语音识别模型，网页跑不动——这点如实相告。
-            把音频/视频<b>直接发给 WorkBuddy</b>，在沙箱端转写并归档入库，
-            回来这里就炼得动了。
-          </p>
-          <ol class="av-steps">
-            <li>在对话里把音视频文件发给我</li>
-            <li>我调用 <code>refine.py ingest-video</code> 转写、切章、归位</li>
-            <li>你回到炉前，直接炼化该章</li>
-          </ol>
-        </div>
-      </div>
-
-      <!-- ── 料识 + 入炉回执 ── -->
-      <div class="intake-status" id="intakeStatus" hidden></div>
-
-      <div class="furnace-actions">
-        <button class="btn-forge" id="forgeBtn">
-          <span class="btn-flame"></span>开 炉 炼 化
-        </button>
-        <button class="btn-clear" id="clearBtn">清 炉</button>
-      </div>
-
-      <!-- ── 火候回执 ── -->
-      <div class="assay" id="assay" hidden></div>
-
-      <!-- ── 出丹 ── -->
-      <div class="dan-result" id="danResult" hidden></div>
-
-      <div class="samples">
-        <span class="samples-label">可试：</span>
-        <button class="sample" data-t="上善若水，水善利万物而不争，处众人之所恶，故几于道。">上善若水</button>
-        <button class="sample" data-t="反者道之动，弱者道之用。或曰：天下莫柔弱于水，而攻坚强者莫之能胜，其无以易之。">反者道之动</button>
-        <button class="sample" data-t="知人者智，自知者明。胜人者有力，自胜者强。">自知者明</button>
-        <button class="sample" data-t="加油，相信自己，你一定能成功！">（反例）</button>
-      </div>
-
-    </div>
-    </div><!-- /furnaceFold -->
-  </section>
-
-  <!-- ============ 藏丹阁（第三模块） ============ -->
-  <section class="vault-sect" id="vault">
-    <div class="sect-head">
-      <span class="sect-k">三</span>
-      <div class="sect-t">
-        <b>藏 丹 阁</b>
-        <span>八十一章金丹在此。已炼化的取丹，未炼化的存原文。</span>
-      </div>
-    </div>
-
-    <div class="gateways">
-      <a class="gateway done-gate" href="./vault.html?status=refined">
-        <div class="gw-top">
-          <span class="gw-label">已 炼 化</span>
-          <span class="gw-count"><b id="cntDone">5</b> 章</span>
-        </div>
-        <div class="gw-words" id="gwWords">玄 · 水 · 无 · 法 · 慎</div>
-        <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-      </a>
-
-      <a class="gateway raw-gate" href="./vault.html?status=pending">
-        <div class="gw-top">
-          <span class="gw-label">未 炼 化</span>
-          <span class="gw-count"><b id="cntTodo">76</b> 章</span>
-        </div>
-        <div class="gw-words gw-words-plain">原文已就位，待炼</div>
-        <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-      </a>
-
-      <a class="gateway all-gate" href="./vault.html">
-        <div class="gw-top">
-          <span class="gw-label">全 部</span>
-          <span class="gw-count"><b>81</b> 章</span>
-        </div>
-        <div class="gw-words gw-words-plain">检索 · 筛选 · 总览</div>
-        <div class="gw-go">入 藏 丹 阁 <span>→</span></div>
-      </a>
-    </div>
-  </section>
-
-  <!-- ============ 更多（折叠：炉中三位 + 通路） ============ -->
-  <section class="more">
-    <button class="more-toggle" id="moreToggle">
-      <span class="mt-text">炉 中 三 位 · 一 条 通 路</span>
-      <span class="mt-arrow">⌄</span>
-    </button>
-
-    <div class="more-body" id="moreBody" hidden>
+  <!-- ============ 炉中三位 · 一条通路 ============ -->
+  <section class="more-sect" id="moreBody">
 
       <div class="trio-wrap">
         <h3 class="trio-title">炉 中 三 位 <em>A I</em></h3>
-        <p class="trio-sub">此炉无真人。接料、试火、守丹，尽是 AI。</p>
+        <p class="trio-sub">炉中三位皆是 AI。接料、试火、守丹，尽是 AI。</p>
 
         <div class="pathway">
           <div class="pw-title">一 条 通 路</div>
@@ -452,17 +82,14 @@
         <div id="trioBox"></div>
       </div>
 
-    </div>
   </section>
-
-  <div class="scroll-tail" aria-hidden="true"></div>
 
   <footer class="foot">
     <p>问 · 投 · 炼 · 藏</p>
     <p class="foot-minor">AI 智能炉 · 道童接料 · 丹师试火 · 炉灵取丹</p>
   </footer>
 
-</div>
+</div><!-- /paper -->
 
 <!-- ============ 章节详情 ============ -->
 <div class="modal" id="modal" hidden>
@@ -509,11 +136,12 @@
         </div>
       </div>
       <div id="pkTong" class="pk-tong" hidden></div>
+      <div class="prog-box pk-prog" id="pkProg" hidden></div>
       <div id="pkOut" class="pk-out" hidden></div>
       <div class="pk-foot">
-        <a class="dan-link" href="./index.html">入 正 炉 →</a>
+        <a class="dan-link" href="./refine.html">入 炼 丹 炉 →</a>
         <span>·</span>
-        <a class="dan-link" href="./ask.html">问 道 页 →</a>
+        <a class="dan-link" href="./vault.html">藏 丹 阁 →</a>
       </div>
     </div>
   </div>
@@ -521,6 +149,7 @@
 
 <script src="./spirits.js"></script>
 <script src="./furnace.js"></script>
+<script src="./progress.js"></script>
 <script src="./ask.js"></script>
 <script src="./ingest.js"></script>
 <script src="./app.js"></script>

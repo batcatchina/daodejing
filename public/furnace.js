@@ -51,11 +51,29 @@ const FURNACE = (() => {
   let CHAP_INDEX = null;   // [{id, flat, orig}]
 
   function buildIndex(chapters) {
-    CHAP_INDEX = chapters.map((c) => ({
-      id: c.id,
-      orig: c.original,
-      flat: depunct(c.original),
-    }));
+    CHAP_INDEX = chapters.map((c) => {
+      const orig = c.original || '';
+      /* flat（去标点）与 orig 的下标并不对齐——早年拿 flat 的下标去切
+         orig，显示的引文片段会整体错位（第56章曾显示成「闭其门…」）。
+         故建一张 flat→orig 的下标表，取片段时按表回查。 */
+      const map = [];
+      let flat = '';
+      for (let i = 0; i < orig.length; i += 1) {
+        const ch = orig[i];
+        if (depunct(ch) === '') continue;
+        flat += ch;
+        map.push(i);
+      }
+      return { id: c.id, orig: orig, flat: flat, map: map };
+    });
+  }
+
+  // 取 flat 中 [i, i+n) 对应的原文片段（含原标点）
+  function fragOf(c, i, n) {
+    if (!c.map || !c.map.length) return c.flat.slice(i, i + n);
+    const a = c.map[i];
+    const b = (c.map[i + n - 1] == null ? c.map[c.map.length - 1] : c.map[i + n - 1]) + 1;
+    return c.orig.slice(a, b);
   }
 
   function matchChapters(text) {
@@ -63,15 +81,15 @@ const FURNACE = (() => {
     const flat = depunct(text);
     const hits = [];
 
-    // ── 短引优先：用户常只引半句（「上善若水」「知足不辱」），
-    //    4~5 字连续命中即足以定章，先收，免得被别的信号抢走。
+    // ── 先长后短：整段引原文者必须按最长连续命中记档（12/9/6）。
+    //    早年"短引优先"先命中 4~5 字就 return，把直引原文的火候
+    //    焊死在"片段档"，极品永远出不来——此为评分之弊，已正。
     for (const c of CHAP_INDEX) {
-      for (const n of [5, 4]) {
-        if (c.flat.length < n) continue;
+      for (const n of [12, 9, 6]) {
         let found = false;
         for (let i = 0; i <= c.flat.length - n; i++) {
           if (flat.includes(c.flat.slice(i, i + n))) {
-            hits.push({ id: c.id, n: n + 1, frag: c.orig.slice(i, i + n) }); // 记 5/6，高于「显式提及」
+            hits.push({ id: c.id, n, frag: fragOf(c, i, n) });
             found = true;
             break;
           }
@@ -79,19 +97,23 @@ const FURNACE = (() => {
         if (found) break;
       }
     }
-    if (hits.length) return hits;   // 短引已定章，不再走长匹配
-
-    for (const c of CHAP_INDEX) {
-      for (const n of [12, 9, 6]) {
-        let found = false;
-        for (let i = 0; i <= c.flat.length - n; i++) {
-          if (flat.includes(c.flat.slice(i, i + n))) {
-            hits.push({ id: c.id, n, frag: c.orig.slice(i, i + n) });
-            found = true;
-            break;
+    if (hits.length) { /* 长匹配已定章，落到下方显式章号 */ }
+    else {
+      // ── 短引兜底：只引半句（「上善若水」「知足不辱」），
+      //    4~5 字连续命中足以定章。
+      for (const c of CHAP_INDEX) {
+        for (const n of [5, 4]) {
+          if (c.flat.length < n) continue;
+          let found = false;
+          for (let i = 0; i <= c.flat.length - n; i++) {
+            if (flat.includes(c.flat.slice(i, i + n))) {
+              hits.push({ id: c.id, n: n + 1, frag: fragOf(c, i, n) }); // 记 5/6，高于「显式提及」
+              found = true;
+              break;
+            }
           }
+          if (found) break;
         }
-        if (found) break;
       }
     }
     // 显式章号
@@ -110,6 +132,39 @@ const FURNACE = (() => {
     return hits;
   }
 
+  /* ---------- 归属权重：这一炉料，究竟讲的是哪一章？ ----------
+     三种证据，强度不同：
+       ① 直引原文章句 —— 最长连续命中字数 × 出现次数，最硬
+       ② 反复指明章号 —— 一次算 8，可累加
+       ③ 区分度折扣   —— 若同一句见于数章（如「挫其锐，解其纷，和其光，
+          同其尘」第 4 章与第 56 章共有），则按章数分摊，避免误判
+     早年只按章号升序取第一，讲第四章的长稿会被第一章抢走——此为取章之弊，已正。 */
+  function rankChapters(hits, flat) {
+    const acc = new Map();
+    const bump = (id, w, why) => {
+      const cur = acc.get(id) || { id: id, w: 0, why: [] };
+      cur.w += w;
+      if (why && cur.why.indexOf(why) < 0) cur.why.push(why);
+      acc.set(id, cur);
+    };
+
+    for (const h of hits) {
+      if (h.n === 99) { bump(h.id, 8, '指明章号'); continue; }
+      const fragFlat = depunct(h.frag || '');
+      let times = 1;
+      if (fragFlat.length >= 4) {
+        let i = 0, cnt = 0;
+        while ((i = flat.indexOf(fragFlat, i)) >= 0) { cnt += 1; i += fragFlat.length; }
+        times = Math.max(1, cnt);
+      }
+      const spread = CHAP_INDEX.filter((c) => fragFlat && c.flat.includes(fragFlat)).length;
+      const uniq = spread > 1 ? 1 / spread : 1;   // 数章共有的句子，证据打折
+      bump(h.id, h.n * times * uniq,
+        `引「${h.frag}」${times > 1 ? ' × ' + times : ''}${spread > 1 ? '（数章共有）' : ''}`);
+    }
+    return [...acc.values()].sort((a, b) => b.w - a.w || a.id - b.id);
+  }
+
   // ---------- 火候判定（宽进严出）----------
   // 四条判据，对应《道德经》三原则 + 多维度：
   //   道法自然（根）· 道可道非恒道（余地）· 六度周全（多面）· 多维度（三维）
@@ -120,14 +175,39 @@ const FURNACE = (() => {
 
     /* ── 一、道法自然：料是否"本来如此"（原文之根最上） ── */
     const hits = matchChapters(text);
-    const chaps = [...new Set(hits.map((h) => h.id))].sort((a, b) => a - b);
+    const flatText = depunct(text);
+    const ranked = rankChapters(hits, flatText);
+    const chaps = ranked.map((x) => x.id);
+
+    /* 根只认"真的引了原文"，指明章号不算根——否则提一句"第四章"
+       就能把火候抬到直引档次，评分虚高，取章也乱。 */
+    const quoted = hits.filter((h) => h.n !== 99);
+    const named = hits.filter((h) => h.n === 99);
+    const best = quoted.length ? Math.max(...quoted.map((h) => h.n)) : 0;
     let rootTier = 0;   // 3=直引 2=近引 1=关联 0=无根
+
     if (chaps.length) {
-      const best = Math.max(...hits.map((h) => h.n));
-      if (best >= 12)      { score += 45; rootTier = 3; reasons.push(`直引原文，扣第 ${chaps.slice(0,5).join('、')} 章（${best} 字连续命中）`); }
-      else if (best >= 9)  { score += 35; rootTier = 2; reasons.push(`近引原文章句，扣第 ${chaps.slice(0,5).join('、')} 章`); }
-      else if (best >= 6)  { score += 25; rootTier = 1; reasons.push(`含原文片段，关联第 ${chaps.slice(0,5).join('、')} 章`); }
-      else                 { score += 15; rootTier = 1; reasons.push(`显式提及第 ${chaps.slice(0,5).join('、')} 章`); }
+      const who = chaps.slice(0, 5).join('、');
+      if (best >= 12)      { score += 45; rootTier = 3; reasons.push(`直引原文，扣第 ${who} 章（${best} 字连续命中）`); }
+      else if (best >= 9)  { score += 35; rootTier = 2; reasons.push(`近引原文章句，扣第 ${who} 章（${best} 字连续命中）`); }
+      else if (best >= 6)  { score += 25; rootTier = 1; reasons.push(`含原文片段，关联第 ${who} 章`); }
+      else                 { score += 12; rootTier = 1; reasons.push(`指明第 ${who} 章，然未引其章句`); }
+
+      // 反复点名某一章，是本炉料归属的旁证，另计几分
+      if (named.length >= 2) {
+        const top = ranked[0];
+        const namedTop = named.filter((h) => h.id === top.id).length;
+        if (namedTop >= 2) {
+          score += Math.min(8, namedTop * 2);
+          reasons.push(`通篇指明第 ${top.id} 章 ${namedTop} 次，归属可定`);
+        }
+      }
+      // 若有别章同引此句（如第 4 章与第 56 章共有「挫其锐…同其尘」），
+      // 说清楚主章是怎么定的，免得用户以为扣错了
+      const alt = ranked.slice(1, 4).filter((x) => x.w >= ranked[0].w * 0.25);
+      if (alt.length) {
+        reasons.push(`另有第 ${alt.map((a) => a.id).join('、')} 章同引章句，已按全篇证据定主章为第 ${ranked[0].id} 章`);
+      }
     } else {
       missing.push('未扣住任何原文章句——无根之木，炼不出丹');
     }
@@ -169,8 +249,11 @@ const FURNACE = (() => {
     }
 
     /* ── 五、实质（料） ── */
+    /* 直引原文者，贵在扣得准，不以字数论短长——
+       「道可道，非常道」六字胜过千言，不能因简而贬。 */
     const L = text.length;
     if (L < 8)       missing.push('篇幅过短，不足成丹');
+    else if (rootTier >= 2) { score += 20; reasons.push(`直引原文（${L} 字），贵精不贵多`); }
     else if (L < 30) { score += 8;  reasons.push('有实义，然尚简'); }
     else if (L < 300){ score += 20; reasons.push(`篇幅适中（${L} 字），可炼`); }
     else             { score += 18; reasons.push(`料足（${L} 字），需先剔芜存菁`); }
@@ -194,15 +277,18 @@ const FURNACE = (() => {
     score = Math.max(0, Math.min(100, score));
 
     let level, verdict, ok;
-    if (score >= 75)      { level = '上品·可炼'; verdict = '火候已足，可结金丹。'; ok = true; }
-    else if (score >= 55) { level = '中品·可炼'; verdict = '火候尚可，可结丹，然需精炼。'; ok = true; }
-    else if (score >= 35) { level = '下品·勉炼'; verdict = '料薄根浅，可试炼，恐难成大丹。'; ok = true; }
-    else                  { level = '火候未到'; verdict = '此物入炉，炼不出丹。'; ok = false; }
+    /* 五级品质，与 PROGRESS.grade 一致：极品95+ / 上品85+ / 中品70+ / 下品55+ / 未成<55
+       55 分是"能不能成丹"的硬门槛——未成之料，不入丹库。 */
+    if (score >= 95)      { level = '极品'; verdict = '火候纯青，一字一重天。'; ok = true; }
+    else if (score >= 85) { level = '上品'; verdict = '火候已足，可结金丹。'; ok = true; }
+    else if (score >= 70) { level = '中品'; verdict = '丹已成，尚需精炼。'; ok = true; }
+    else if (score >= 55) { level = '下品'; verdict = '丹形粗具，其光未圆。'; ok = true; }
+    else                  { level = '未成'; verdict = '火候未到，此物入炉炼不出丹。'; ok = false; }
 
     // 无根者一律不结丹（宽进严出的底线）
     if (!chaps.length) {
       ok = false;
-      level = '火候未到';
+      level = '未成';
       verdict = '无原文之根，不成金丹。';
     }
 
@@ -236,8 +322,13 @@ const FURNACE = (() => {
     ];
     if (dims.length) Q.push({ key: '三维', name: '多维度', tier: 2, say: `兼涉 ${dims.join('、')}` });
 
-    return { score, level, verdict, reasons, missing, chapters: chaps, ok, principles: Q, dims };
+    return {
+      score, level, verdict, reasons, missing, ok,
+      chapters: chaps,        // 按归属权重降序：首项即主章
+      ranked,                 // [{id, w, why}] 供界面说明为何扣此章
+      principles: Q, dims,
+    };
   }
 
-  return { buildIndex, assay, matchChapters, depunct };
+  return { buildIndex, assay, matchChapters, rankChapters, depunct };
 })();

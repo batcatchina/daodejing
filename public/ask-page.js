@@ -176,7 +176,7 @@ function danCard(h, i) {
         炉子不替它编造，所以此处只有老子自己的话。<br>
         可先诵读；或引此章句入炉炼化，它便有了自己的丹。
         <div class="ans-shallow-acts">
-          <a class="dan-link" href="./?ch=${h.id}">入 炉 炼 此 章 →</a>
+          <a class="dan-link" href="./refine.html?ch=${h.id}">入 炉 炼 此 章 →</a>
           <span class="dan-link" data-open="${h.id}">观 其 原 文 →</span>
         </div>
       </div>
@@ -311,7 +311,7 @@ function openSheet(id) {
     </div>
     ${content}
     <div class="d-foot">
-      ${d ? '' : `<a class="dan-link" href="./?ch=${c.id}">投入炼化炉试火 →</a>　·　`}
+      ${d ? '' : `<a class="dan-link" href="./refine.html?ch=${c.id}">投入炼化炉试火 →</a>　·　`}
       道德经 · 炼化炉
     </div>`;
 

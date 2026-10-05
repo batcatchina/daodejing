@@ -42,33 +42,42 @@ async function load() {
   initFold();
   initPocket();
   initTopbar();
-
-  // 带 ?ch=N 时自动投料
-  const ch = new URLSearchParams(location.search).get('ch');
-  if (ch) {
-    const c = state.data.chapters.find((x) => x.id === Number(ch));
-    if (c) {
-      intake.lastSrc = `第 ${c.id} 章原文`;
-      setMode('paste');
-      $('#charge').value = c.original;
-      setTimeout(forge, 300);
-    }
-  }
+  // 本页若带 ?ch=N（从问道/藏丹阁跳来），自动投料并炼化
+  autoCharge();
 }
 
-/* ---------- 入口卡片 ---------- */
+/* 从别处跳来「炼此章」：把原文填进炉口，稍等即炼 */
+function autoCharge() {
+  const ch = new URLSearchParams(location.search).get('ch');
+  if (!ch) return;
+  const ta = $('#charge');
+  if (!ta || !state.data) return;
+  const c = state.data.chapters.find((x) => x.id === Number(ch));
+  if (!c) return;
+  intake.lastSrc = `第 ${c.id} 章原文`;
+  setMode('paste');
+  ta.value = c.original;
+  setTimeout(forge, 320);
+}
+
+/* ---------- 入口卡片 ----------
+   藏丹阁三入口现在在 vault 页；若本页没有这些节点（如纯问道首页），
+   直接跳过——不因缺元素而崩。 */
 function renderGateways() {
+  const cntDone = $('#cntDone'), cntTodo = $('#cntTodo'), gwWords = $('#gwWords');
+  if (!cntDone && !cntTodo && !gwWords) return;
+
   const chs = state.data.chapters;
   const done = chs.filter((c) => c.status === 'refined');
   const todo = chs.filter((c) => c.status !== 'refined');
 
-  $('#cntDone').textContent = done.length;
-  $('#cntTodo').textContent = todo.length;
+  if (cntDone) cntDone.textContent = done.length;
+  if (cntTodo) cntTodo.textContent = todo.length;
 
-  const words = done.map((c) => c.danzi).filter(Boolean);
-  $('#gwWords').textContent = words.length
-    ? words.join(' · ')
-    : '尚无金丹，可入炉试炼';
+  if (gwWords) {
+    const words = done.map((c) => c.danzi).filter(Boolean);
+    gwWords.textContent = words.length ? words.join(' · ') : '尚无金丹，可入炉试炼';
+  }
 }
 
 /* ============================================================
@@ -254,13 +263,76 @@ function forge() {
   furnace.classList.add('forging');
   $('#danResult').hidden = true;
 
-  setTimeout(() => {
+  /* ---------- 炼化过程：六阶段逐格点亮，看得见走到哪一步 ---------- */
+  const bar = $('#progBox');
+  if (bar) {
+    bar.hidden = false;
+    bar.innerHTML = PROGRESS.barHtml(0, 0);
+  }
+
+  const chap = pickChapter(r.chapters);
+  const g = PROGRESS.grade(r.score);
+
+  PROGRESS.run((i, st) => {
+    if (bar) bar.innerHTML = PROGRESS.barHtml(i, i);
+    /* 到"试火"这一步时，把实时火候写进按钮，让人看到分数在长 */
+    if (st.key === 'fire' && btn) {
+      btn.innerHTML = `<span class="btn-flame"></span>试 火 ${r.score}`;
+    }
+    if (st.key === 'judge' && btn) {
+      btn.innerHTML = `<span class="btn-flame"></span>判 丹 ${g.key}`;
+    }
+  }, 380).then(() => {
+    if (bar) bar.innerHTML = PROGRESS.barHtml(PROGRESS.STAGES.length, -1);
     furnace.classList.remove('forging');
     btn.disabled = false;
     btn.innerHTML = '<span class="btn-flame"></span>开 炉 炼 化';
-    showDan(pickChapter(r.chapters), r);
+
+    showDan(chap, r);
+    /* 炼成即入阁：存进本地丹库，藏丹阁才看得见 */
+    if (chap) saveToVault(chap, r);
+
     $('#danResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 1100);
+  });
+}
+
+/* 把这一炉的丹存进本地丹库。
+   有预置金丹的五章存其丹字丹诀；没预置的章存"初丹"——
+   基于原文与火候提炼，标注待课程精炼，绝不伪造讲义。 */
+function saveToVault(chap, r) {
+  if (!chap) return;
+  const d = state.data.detail[String(chap.id)];
+  const g = PROGRESS.grade(r.score);
+  PROGRESS.save({
+    id: chap.id,
+    title: chap.title,
+    danzi: d ? d.danzi : pickDanZi(chap),
+    danjue: d ? d.danjue : firstSentence(chap.original),
+    score: r.score,
+    grade: g.key,
+    deep: !!d,                       /* 是否有完整金丹（否则只是初丹） */
+    themes: chap.themes || [],
+    original: chap.original,
+    src: intake.lastSrc || '',
+  });
+}
+
+function firstSentence(s) {
+  const t = String(s || '').trim();
+  const m = t.match(/[^。！？；!?;]{6,40}[。！？]/);
+  return (m ? m[0] : t.slice(0, 24)).trim();
+}
+
+/* 丹字取章眼，不能拿 keywords[0] 顶事——
+   keywords 是按出现频次排的，第16章会取到「乃」（容乃公），荒唐。
+   正解：先看标题里哪个字真在原文出现过，那多半就是章眼。 */
+function pickDanZi(chap) {
+  const title = String(chap.title || '');
+  const orig = String(chap.original || '');
+  for (const ch of title) {
+    if (orig.indexOf(ch) >= 0) return ch;
+  }
+  return (chap.keywords && chap.keywords[0]) || '—';
 }
 
 /* 三问面板：显性为表 */
@@ -282,9 +354,11 @@ function principlesHtml(r) {
 
 function pickChapter(chaps) {
   if (!chaps || !chaps.length) return null;
-  const refined = chaps.filter((id) => state.data.detail[String(id)]);
-  const pool = refined.length ? refined : chaps;
-  return state.data.chapters.find((c) => c.id === pool[0]) || null;
+  /* 主章 = 归属权重最高的那一章，即这炉料真正在讲的章。
+     早年此处优先挑"已有金丹"的章，结果讲第四章的长稿被判给了第一章
+     ——料与丹对不上号，此为取章之弊，已正。
+     主章若尚未结丹，就结初丹，不挪去别章冒领。 */
+  return state.data.chapters.find((c) => c.id === chaps[0]) || null;
 }
 
 function dimsOf() {
@@ -303,17 +377,40 @@ function showDan(chap, r) {
 
   const d = state.data.detail[String(chap.id)];
 
+  const g = PROGRESS.grade(r.score);
+
+  /* 无预置金丹的章：不再丢一句"尚未结丹"了事，
+     而是就火候与原文结一枚"初丹"——丹字、丹诀、品质、原文都给出来，
+     并如实标注：精义待课程炼化。 */
   if (!d) {
+    const zi = pickDanZi(chap);
     box.innerHTML = `
-      <div class="dan-deny">
-        <div class="deny-mark">◯</div>
-        <h3>火候已至，此章尚未结丹</h3>
-        <p>第 ${chap.id} 章「${esc(chap.title)}」的原文已扣定，然其金丹未炼。</p>
-        <div style="margin-top:1.2rem;font-size:.92rem;line-height:2.05;color:var(--ink-2);text-align:justify">
-          ${esc(chap.original)}
+      <div class="dan-card dan-raw">
+        <div class="dan-badge ${g.cls}">
+          <span class="db-mark">${g.mark}</span>
+          <span class="db-key">${g.key}</span>
+          <span class="db-score">${r.score}</span>
         </div>
+        <div class="dan-orb"><span>${esc(zi)}</span></div>
+        <div class="dan-jue">${esc(firstSentence(chap.original))}</div>
+        <div class="dan-meta">第 ${chap.id} 章 · ${esc(chap.title)}　｜　初 丹</div>
+
+        <p class="dan-note">此章原文已扣定、火候已判，然其精义尚待课程炼化。
+          当前所结为<b>初丹</b>——丹字取章眼，丹诀取首句，非讲义。</p>
+
+        <section class="dan-sec">
+          <h3>原文 <em>YUANWEN</em></h3>
+          <div class="body" style="line-height:2.1">${esc(chap.original)}</div>
+        </section>
+
+        ${(chap.themes && chap.themes.length) ? `
+        <section class="dan-sec">
+          <h3>所属 <em>SUOSHU</em></h3>
+          <div class="body">${chap.themes.map((t) => `<span class="dan-tag">${esc(t)}</span>`).join('')}</div>
+        </section>` : ''}
+
         <p style="margin-top:1.3rem">
-          <a class="dan-link" href="./vault.html?status=pending">入 藏 丹 阁 观 其 章 目 →</a>
+          <a class="dan-link" href="./vault.html">此丹已入 藏 丹 阁 →</a>
         </p>
       </div>`;
     return;
@@ -323,6 +420,11 @@ function showDan(chap, r) {
 
   box.innerHTML = `
     <div class="dan-card">
+      <div class="dan-badge ${g.cls}">
+        <span class="db-mark">${g.mark}</span>
+        <span class="db-key">${g.key}</span>
+        <span class="db-score">${r.score}</span>
+      </div>
       <div class="dan-orb"><span>${esc(d.danzi)}</span></div>
       <div class="dan-jue">${esc(d.danjue)}</div>
       <div class="dan-meta">第 ${chap.id} 章 · ${esc(chap.title)}　｜　一字一重天</div>
@@ -352,7 +454,7 @@ function showDan(chap, r) {
       </section>
 
       <div class="dan-foot">
-        <span>火候：${esc((d.ferocity && d.ferocity.level) || '—')}</span>
+        <span>品质：${esc(g.key)} ${g.mark}　·　火候 ${r.score}</span>
         <a class="dan-link" href="./vault.html?status=refined">入 藏 丹 阁 览 其 全 章 →</a>
       </div>
     </div>`;
@@ -385,9 +487,14 @@ function showDeny(r) {
   if (f) f.addEventListener('click', () => { setMode('file'); $('#furnace').scrollIntoView({behavior:'smooth', block:'start'}); });
 }
 
-/* ---------- 事件 ---------- */
-$('#forgeBtn').addEventListener('click', forge);
-$('#clearBtn').addEventListener('click', () => {
+/* ---------- 事件 ----------
+   三模块已各自成页：本页没有炉子节点时（如纯问道首页），
+   这些绑定一律跳过，不因缺元素而崩。 */
+const fbtn = $('#forgeBtn');
+if (fbtn) fbtn.addEventListener('click', forge);
+
+const cbtn = $('#clearBtn');
+if (cbtn) cbtn.addEventListener('click', () => {
   $('#charge').value = '';
   $('#assay').hidden = true;
   $('#danResult').hidden = true;
@@ -410,7 +517,8 @@ document.addEventListener('keydown', (e) => {
 });
 
 /* 粘贴转写稿时自动清理时间轴 */
-$('#charge').addEventListener('paste', () => {
+const chargeEl = $('#charge');
+if (chargeEl) chargeEl.addEventListener('paste', () => {
   setTimeout(() => {
     const v = $('#charge').value;
     if (!INGEST.looksLikeTranscript(v)) return;
@@ -514,68 +622,17 @@ function initFold() {
 function initTopbar() {
   const bar = $('#topbar');
   if (!bar) return;
-  const tabs = Array.from(bar.querySelectorAll('.tb-tab[data-go]'));
 
-  /* 点签即跳：跳到模块，并把该展开的先展开 */
-  tabs.forEach((t) => {
-    t.addEventListener('click', () => {
-      const id = t.dataset.go;
-      const sect = document.getElementById(id);
-      if (!sect) return;
-
-      // 炼丹在窄屏是折叠的，跳过去先把炉子打开
-      if (id === 'furnace') {
-        const fold = $('#furnaceFold');
-        const fBtn = $('#furnaceToggle');
-        if (fold && fold.hidden) {
-          fold.hidden = false;
-          if (fBtn) fBtn.textContent = '收 起 ⌃';
-        }
-      }
-      // 问道：跳过去顺手聚焦提问框，省一次点击
-      if (id === 'homeAsk') {
-        setTimeout(() => { const q = $('#homeQ'); if (q) q.focus({ preventScroll: true }); }, 420);
-      }
-
-      const y = sect.getBoundingClientRect().top + window.scrollY - (bar.offsetHeight + 10);
-      window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
-    });
-  });
-
-  /* 吸顶态：滚过抬头就点亮品牌与投影 */
-  const onScroll = () => {
-    bar.classList.toggle('stuck', window.scrollY > 120);
-    spy();
-  };
-
-  /* 滚到哪一节，顶栏就亮哪一个 —— 人在哪，一目了然 */
-  const sectOf = (id) => document.getElementById(id);
-  const marks = [
-    { id: 'homeAsk', tab: () => tabs.find((t) => t.dataset.go === 'homeAsk') },
-    { id: 'furnace', tab: () => tabs.find((t) => t.dataset.go === 'furnace') },
-    { id: 'vault',   tab: () => tabs.find((t) => t.dataset.go === 'vault') },
-  ];
-  function spy() {
-    const line = window.scrollY + bar.offsetHeight + 96;
-    let cur = 'homeAsk';
-    for (const m of marks) {
-      const el = sectOf(m.id);
-      if (el && el.offsetTop <= line) cur = m.id;
-    }
-    marks.forEach((m) => {
-      const t = m.tab();
-      if (t) t.classList.toggle('on', m.id === cur);
-    });
-  }
-
+  /* 三模块各自独立成页，签就是链接——高亮由各页 HTML 自己标 on。
+     这里只管吸顶投影，不再做滚动定位。 */
   let ticking = false;
+  const upd = () => bar.classList.toggle('stuck', window.scrollY > 60);
   window.addEventListener('scroll', () => {
     if (ticking) return;
     ticking = true;
-    requestAnimationFrame(() => { onScroll(); ticking = false; });
+    requestAnimationFrame(() => { upd(); ticking = false; });
   }, { passive: true });
-  window.addEventListener('resize', spy);
-  onScroll();
+  upd();
 }
 
 function initPocket() {
@@ -614,6 +671,8 @@ function initPocket() {
     const text = (ta.value || '').trim();
     const tong = $('#pkTong');
     const out = $('#pkOut');
+    const prog = $('#pkProg');
+    const forgeBtn = $('#pkForge');
 
     if (!text) {
       tong.hidden = false;
@@ -624,6 +683,7 @@ function initPocket() {
 
     const r = FURNACE.assay(text);
     const rec = INGEST.recognize(text, r);
+    const g = PROGRESS.grade(r.score);
 
     // 道童：接住，并明写转交丹师
     const slot = ({ srt: 'srt', av: 'av', rich: 'av', thin: 'thin',
@@ -639,27 +699,54 @@ function initPocket() {
       : (r.chapters.length ? 'deny' : 'noroot');
     const shiLine = SPIRITS.say('shi', shiSlot, r.verdict);
 
-    out.hidden = false;
-    out.innerHTML = SPIRITS.strip('shi', shiLine, { tone: r.ok ? 'good' : 'bad' }) + (r.ok
-      ? (() => {
-          const c = pickChapter(r.chapters);
-          if (!c) return '<p class="pk-bad">丹师点了头，可我一时取不出那一枚。</p>';
-          const d = state.data.detail && state.data.detail[String(c.id)];
-          return `<p class="pk-title">第 ${c.id} 章 · 丹字「${esc(c.danzi || '')}」</p>
-                  <p class="pk-orig">${esc(c.danjue || c.original || '')}</p>
-                  ${d ? `<p>此章金丹已成。</p>
-                         <a class="dan-link pk-more" href="./ask.html?q=${encodeURIComponent(text)}">看 它 全 貌 →</a>`
-                      : `<p>此章金丹未炼——我只有原文，不替它编造。</p>
-                         <a class="dan-link pk-more" href="./?ch=${c.id}">入 正 炉 炼 此 章 →</a>`}`;
-        })()
-      : `<p class="pk-bad">${esc(r.verdict)}</p>
-         <p>${r.missing.length ? esc(r.missing.join('　')) : ''}</p>`);
+    const paint = () => {
+      out.hidden = false;
+      out.innerHTML = SPIRITS.strip('shi', shiLine, { tone: r.ok ? 'good' : 'bad' }) + (r.ok
+        ? (() => {
+            const c = pickChapter(r.chapters);
+            if (!c) return '<p class="pk-bad">丹师点了头，可我一时取不出那一枚。</p>';
+            const d = state.data.detail && state.data.detail[String(c.id)];
+            const also = r.chapters.filter((x) => x !== c.id).slice(0, 2);
+            return `<p class="pk-title">第 ${c.id} 章 · 丹字「${esc(c.danzi || '')}」
+                      <span class="badge ${g.cls} pk-badge">${g.mark}${esc(g.key)} ${r.score}</span></p>
+                    <p class="pk-orig">${esc(c.danjue || c.original || '')}</p>
+                    ${also.length ? `<p class="pk-alt">另有第 ${also.join('、')} 章同引章句</p>` : ''}
+                    ${d ? `<p>此章金丹已成。</p>
+                           <a class="dan-link pk-more" href="./ask.html?q=${encodeURIComponent(text)}">看 它 全 貌 →</a>`
+                        : `<p>此章金丹未炼——我只有原文，不替它编造。</p>
+                           <a class="dan-link pk-more" href="./refine.html?ch=${c.id}">入 正 炉 炼 此 章 →</a>`}
+                    <p class="pk-alt">已 入 藏 丹 阁　<a class="dan-link" href="./vault.html">去 看 →</a></p>`;
+          })()
+        : `<p class="pk-bad">${esc(r.verdict)}</p>
+           <p>${r.missing.length ? esc(r.missing.join('　')) : ''}</p>`);
+    };
+
+    /* 随身炉也要看得见在炼：六阶段逐格点亮，与正炉同一套 */
+    if (prog) { prog.hidden = false; prog.innerHTML = PROGRESS.barHtml(0, 0); }
+    if (forgeBtn) { forgeBtn.disabled = true; forgeBtn.innerHTML = '<span class="btn-flame"></span>炼 化 中'; }
+    out.hidden = true;
+
+    PROGRESS.run((i, st) => {
+      if (prog) prog.innerHTML = PROGRESS.barHtml(i, i);
+      if (forgeBtn) {
+        if (st.key === 'fire') forgeBtn.innerHTML = `<span class="btn-flame"></span>试 火 ${r.score}`;
+        else if (st.key === 'judge') forgeBtn.innerHTML = `<span class="btn-flame"></span>判 丹 ${g.key}`;
+      }
+    }, 380).then(() => {
+      if (prog) prog.innerHTML = PROGRESS.barHtml(PROGRESS.STAGES.length, -1);
+      if (forgeBtn) { forgeBtn.disabled = false; forgeBtn.innerHTML = '<span class="btn-flame"></span>入 炉'; }
+      paint();
+      /* 炼成即入阁，与正炉一致 */
+      const c = pickChapter(r.chapters);
+      if (r.ok && c) saveToVault(c, r);
+    });
   };
 
   const pkClear = () => {
     $('#pkCharge').value = '';
     const tong = $('#pkTong'); tong.innerHTML = ''; tong.hidden = true;
     const out = $('#pkOut'); out.innerHTML = ''; out.hidden = true;
+    const prog = $('#pkProg'); if (prog) { prog.innerHTML = ''; prog.hidden = true; }
   };
 
   /* ---- 问道 ---- */
@@ -798,7 +885,7 @@ function ansCard(h, i) {
         此章<b>金丹未炼</b>——炉中只有它的原文。炉子不替它编造，故此处只有老子自己的话。<br>
         可先诵读；或引此章句入炉炼化。
         <div class="ans-shallow-acts">
-          <a class="dan-link" href="./?ch=${h.id}">入 炉 炼 此 章 →</a>
+          <a class="dan-link" href="./refine.html?ch=${h.id}">入 炉 炼 此 章 →</a>
           <a class="dan-link" href="./ask.html?q=${encodeURIComponent(h.danjue)}">往 问 道 页 细 看 →</a>
         </div>
       </div>
